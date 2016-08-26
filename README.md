@@ -3,14 +3,14 @@ Designer for NEST-Parrot, which build base on Electron.
 
 Owl is a sub module of NEST.
 
-### Status
+### ~~Status~~
 
-### Slack
+### ~~Slack~~
 
-# Development Guide
+# ~~Development Guide~~
 
-# Release Log
-See wiki for [Version History](https://github.com/bradwoo8621/owl/wiki/Version-History)
+# ~~Release Log~~
+~~See wiki for [Version History](https://github.com/bradwoo8621/owl/wiki/Version-History)~~
 
 # License
 MIT
