@@ -1,0 +1,31 @@
+{
+	"name": "Nest-Owl",
+	"productName": "Nest Owl",
+	"version": "0.0.1",
+	"description": "Designer for Nest Parrot",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bradwoo8621/owl.git"
+	},
+	"keywords": [
+		"Nest",
+		"Owl",
+		"Parrot",
+		"designer"
+	],
+	"author": "bradwoo8621",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/bradwoo8621/owl/issues"
+	},
+	"homepage": "https://github.com/bradwoo8621/owl#readme",
+	"devDependencies": {
+		"electron-prebuilt": "^1.2.6"
+	},
+	"dependencies": {
+	}
+}
