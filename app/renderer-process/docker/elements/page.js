@@ -68,9 +68,10 @@ const Page = React.createClass({
 });
 
 module.exports = {
-	label: 'Page', 
+	label: langs.title, 
 	icon: 'mdi mdi-television-guide', 
 	reactClass: Page,
 	className: 'docker-page-container',
-	containerId: 'bottom-docker'
+	containerId: 'bottom-docker',
+	pos: 'right'
 };

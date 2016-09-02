@@ -1,8 +1,9 @@
 module.exports = [
 	require('./components'),
-	require('./page'),
-	require('./property'),
-	require('./event'),
 	require('./style-sheet'),
-	require('./position')
+	require('./event'),
+	require('./position'),
+	require('./property'),
+	require('./page'),
+	require('./global')
 ];

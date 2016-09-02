@@ -3,18 +3,19 @@ const locale = require('../../locale');
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const $pt = require('../../parrot');
 
-const langs = locale.load('docker/stylesheet');
+const langs = locale.load('docker/global');
 
-const StyleSheet = React.createClass({
+const Global = React.createClass({
 	statics: {
 	},
 	getInitialState: function() {
 		return {};
 	},
 	renderHeader: function() {
-		return (<div className='docker-stylesheet-header bg-color-primary color-reverse'>
-			<div className='docker-stylesheet-header-label'>
+		return (<div className='docker-global-header bg-color-primary color-reverse'>
+			<div className='docker-global-header-label'>
 				<span>{langs.title}</span>
 			</div>
 		</div>);
@@ -26,27 +27,31 @@ const StyleSheet = React.createClass({
 				editLayout: this.getSettingLayout()
 			}
 		};
-		return (<div className='docker-stylesheet-body'>
+		return (<div className='docker-global-body'>
 			<NPanel model={$pt.createModel({})}
-					layout={$pt.createCellLayout('page', layout)}
+					layout={$pt.createCellLayout('global', layout)}
 					direction='horizontal' />
 		</div>);
 	},
 	render: function() {
-		return (<div className='docker-stylesheet'>
+		return (<div className='docker-global'>
 			{this.renderHeader()}
 			{this.renderBody()}
 		</div>);
 	},
 	getSettingLayout: function() {
 		return {
-			cell: {
-				label: langs.cell,
+			header: {
+				label: langs.header,
 				pos: {col: 100}
 			},
-			comp: {
-				label: langs.component,
+			footer: {
+				label: langs.footer,
 				pos: {col: 200}
+			},
+			className: {
+				label: langs.className,
+				pos: {col: 300}
 			}
 		};
 	}
@@ -54,9 +59,8 @@ const StyleSheet = React.createClass({
 
 module.exports = {
 	label: langs.title, 
-	icon: 'mdi mdi-broom',
-	reactClass: StyleSheet,
-	className: 'docker-stylesheet-container',
-	containerId: 'bottom-docker',
-	pos: 'right'
+	icon: 'mdi mdi-settings', 
+	reactClass: Global,
+	className: 'docker-global-container',
+	containerId: 'bottom-docker'
 };

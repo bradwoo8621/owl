@@ -486,6 +486,23 @@ body {
 .docker-stylesheet .docker-stylesheet-body {
   padding: 3px 10px 2px; }
 
+.docker-global .docker-global-header {
+  position: relative;
+  font-weight: bold;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-global .docker-global-header .docker-global-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-global .docker-global-body {
+  padding: 3px 10px 2px; }
+
 #bottom-docker {
   position: fixed;
   left: 0;
@@ -493,6 +510,8 @@ body {
   bottom: calc(1.846em + 2 * 3px + 3px);
   z-index: 100;
   background-color: #fff; }
+  #bottom-docker > div > div[class$='-body'] {
+    max-height: 270px; }
   #bottom-docker div.horizontal-label > div.row > div:first-child {
     padding-right: 5px; }
     #bottom-docker div.horizontal-label > div.row > div:first-child > span {
@@ -519,9 +538,15 @@ body {
       display: table; }
     .bottom-docker-bar-container .bottom-docker-bar .docker.left {
       float: left; }
+      .bottom-docker-bar-container .bottom-docker-bar .docker.left .docker-btn {
+        border-right: 1px solid #e0e0e0;
+        border-right-color: #347e77; }
+    .bottom-docker-bar-container .bottom-docker-bar .docker.right {
+      float: right; }
+      .bottom-docker-bar-container .bottom-docker-bar .docker.right .docker-btn {
+        border-left: 1px solid #e0e0e0;
+        border-left-color: #347e77; }
     .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn {
-      border-right: 1px solid #e0e0e0;
-      border-right-color: #347e77;
       font-family: "Itc Avant Garde Gothic", "Source Code Pro", "Microsoft YaHei", Arial;
       font-weight: bold;
       font-size: 1.1em;

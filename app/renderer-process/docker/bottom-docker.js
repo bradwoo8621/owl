@@ -2,6 +2,7 @@ const jsface = require('jsface');
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const classnames = require('classnames');
 
 const elements = require('./elements');
 
@@ -13,7 +14,8 @@ const BottomDocker = React.createClass({
 		};
 	},
 	renderDockerElement: function(dockerElement, dockerElementIndex) {
-		return (<div className='docker left'
+
+		return (<div className={classnames('docker', this.getDockerElementPosition(dockerElement))}
 					 data-container-id={dockerElement.containerId}
 					 key={dockerElementIndex}>
 			<div className='docker-btn'
@@ -32,6 +34,9 @@ const BottomDocker = React.createClass({
 	},
 	getDockerElements: function() {
 		return elements;
+	},
+	getDockerElementPosition: function(dockerElement) {
+		return dockerElement.pos ? dockerElement.pos : 'left';
 	},
 	getCurrentDockerElement: function(containerId) {
 		if (containerId) {

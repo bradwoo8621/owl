@@ -6,6 +6,9 @@
 	bottom: calc(#{$line-height}em + 2 * #{$margin-3} + #{$px-3});
 	z-index: $docker-zindex;
 	background-color: $container-bg-color;
+	> div > div[class$='-body'] {
+		max-height: 270px;
+	}
 	div.horizontal-label > div.row {
 		> div:first-child {
 			padding-right: $pad-5;
@@ -32,10 +35,19 @@
 		.docker {
 			&.left {
 				float: left;
+				.docker-btn {
+					border-right: $border;
+					border-right-color: darken($primary-color, 30%);
+				}
+			}
+			&.right {
+				float: right;
+				.docker-btn {
+					border-left: $border;
+					border-left-color: darken($primary-color, 30%);
+				}
 			}
 			.docker-btn {
-				border-right: $border;
-				border-right-color: darken($primary-color, 30%);
 				font-family: $font-avant;
 				font-weight: $font-bold;
 				font-size: $font-size-11;

@@ -36,5 +36,6 @@ module.exports = {
 	icon: 'mdi mdi-phone-hangup',
 	reactClass: Event,
 	className: 'docker-event-container',
-	containerId: 'bottom-docker'
+	containerId: 'bottom-docker',
+	pos: 'right'
 };

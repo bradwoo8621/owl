@@ -36,5 +36,6 @@ module.exports = {
 	icon: 'mdi mdi-cube-send',
 	reactClass: Property,
 	className: 'docker-property-container',
-	containerId: 'bottom-docker'
+	containerId: 'bottom-docker',
+	pos: 'right'
 };

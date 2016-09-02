@@ -65,5 +65,6 @@ module.exports = {
 	icon: 'mdi mdi-arrow-compress-all',
 	reactClass: Position,
 	className: 'docker-position-container',
-	containerId: 'bottom-docker'
+	containerId: 'bottom-docker',
+	pos: 'right'
 };
