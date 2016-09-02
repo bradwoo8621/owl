@@ -1,0 +1,434 @@
+@font-face {
+  font-family: 'Itc Avant Garde Gothic';
+  src: url("../fonts/texgyreadventor-regular.otf") format("opentype"); }
+
+@font-face {
+  font-family: 'Itc Avant Garde Gothic';
+  src: url("../fonts/texgyreadventor-bold.otf") format("opentype");
+  font-weight: bold; }
+
+@font-face {
+  font-family: 'Itc Avant Garde Gothic';
+  src: url("../fonts/texgyreadventor-italic.otf") format("opentype");
+  font-style: italic; }
+
+@font-face {
+  font-family: 'Itc Avant Garde Gothic';
+  src: url("../fonts/texgyreadventor-bolditalic.otf") format("opentype");
+  font-weight: bold;
+  font-style: italic; }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Microsoft YaHei", Arial;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.846; }
+
+.color-reverse {
+  color: #fff; }
+
+.color-primary {
+  color: #80CBC4; }
+
+.bg-color-primary {
+  background-color: #80CBC4; }
+
+.color-primary-lighten-10 {
+  color: #a4dad5; }
+
+.bg-color-primary-lighten-10 {
+  background-color: #a4dad5; }
+
+.color-primary-darken-10 {
+  color: #5cbcb3; }
+
+.bg-color-primary-darken-10 {
+  background-color: #5cbcb3; }
+
+.color-primary-lighten-20 {
+  color: #c8e9e6; }
+
+.bg-color-primary-lighten-20 {
+  background-color: #c8e9e6; }
+
+.color-primary-darken-20 {
+  color: #43a29a; }
+
+.bg-color-primary-darken-20 {
+  background-color: #43a29a; }
+
+.color-primary-lighten-30 {
+  color: #edf7f6; }
+
+.bg-color-primary-lighten-30 {
+  background-color: #edf7f6; }
+
+.color-primary-darken-30 {
+  color: #347e77; }
+
+.bg-color-primary-darken-30 {
+  background-color: #347e77; }
+
+.color-primary-lighten-40 {
+  color: white; }
+
+.bg-color-primary-lighten-40 {
+  background-color: white; }
+
+.color-primary-darken-40 {
+  color: #255a55; }
+
+.bg-color-primary-darken-40 {
+  background-color: #255a55; }
+
+.color-primary-lighten-50 {
+  color: white; }
+
+.bg-color-primary-lighten-50 {
+  background-color: white; }
+
+.color-primary-darken-50 {
+  color: #163633; }
+
+.bg-color-primary-darken-50 {
+  background-color: #163633; }
+
+.color-primary-lighten-60 {
+  color: white; }
+
+.bg-color-primary-lighten-60 {
+  background-color: white; }
+
+.color-primary-darken-60 {
+  color: #071211; }
+
+.bg-color-primary-darken-60 {
+  background-color: #071211; }
+
+.color-primary-lighten-70 {
+  color: white; }
+
+.bg-color-primary-lighten-70 {
+  background-color: white; }
+
+.color-primary-darken-70 {
+  color: black; }
+
+.bg-color-primary-darken-70 {
+  background-color: black; }
+
+.color-primary-lighten-80 {
+  color: white; }
+
+.bg-color-primary-lighten-80 {
+  background-color: white; }
+
+.color-primary-darken-80 {
+  color: black; }
+
+.bg-color-primary-darken-80 {
+  background-color: black; }
+
+.color-primary-lighten-90 {
+  color: white; }
+
+.bg-color-primary-lighten-90 {
+  background-color: white; }
+
+.color-primary-darken-90 {
+  color: black; }
+
+.bg-color-primary-darken-90 {
+  background-color: black; }
+
+.color-advice-lighten-10 {
+  color: #f6c6c6; }
+
+.bg-color-advice-lighten-10 {
+  background-color: #f6c6c6; }
+
+.color-advice-darken-10 {
+  color: #e86e6e; }
+
+.bg-color-advice-darken-10 {
+  background-color: #e86e6e; }
+
+.color-advice-lighten-20 {
+  color: #fdf2f2; }
+
+.bg-color-advice-lighten-20 {
+  background-color: #fdf2f2; }
+
+.color-advice-darken-20 {
+  color: #e14242; }
+
+.bg-color-advice-darken-20 {
+  background-color: #e14242; }
+
+.color-advice-lighten-30 {
+  color: white; }
+
+.bg-color-advice-lighten-30 {
+  background-color: white; }
+
+.color-advice-darken-30 {
+  color: #cf2121; }
+
+.bg-color-advice-darken-30 {
+  background-color: #cf2121; }
+
+.color-advice-lighten-40 {
+  color: white; }
+
+.bg-color-advice-lighten-40 {
+  background-color: white; }
+
+.color-advice-darken-40 {
+  color: #a31a1a; }
+
+.bg-color-advice-darken-40 {
+  background-color: #a31a1a; }
+
+.color-advice-lighten-50 {
+  color: white; }
+
+.bg-color-advice-lighten-50 {
+  background-color: white; }
+
+.color-advice-darken-50 {
+  color: #771313; }
+
+.bg-color-advice-darken-50 {
+  background-color: #771313; }
+
+.color-advice-lighten-60 {
+  color: white; }
+
+.bg-color-advice-lighten-60 {
+  background-color: white; }
+
+.color-advice-darken-60 {
+  color: #4b0c0c; }
+
+.bg-color-advice-darken-60 {
+  background-color: #4b0c0c; }
+
+.color-advice-lighten-70 {
+  color: white; }
+
+.bg-color-advice-lighten-70 {
+  background-color: white; }
+
+.color-advice-darken-70 {
+  color: #1f0505; }
+
+.bg-color-advice-darken-70 {
+  background-color: #1f0505; }
+
+.color-advice-lighten-80 {
+  color: white; }
+
+.bg-color-advice-lighten-80 {
+  background-color: white; }
+
+.color-advice-darken-80 {
+  color: black; }
+
+.bg-color-advice-darken-80 {
+  background-color: black; }
+
+.color-advice-lighten-90 {
+  color: white; }
+
+.bg-color-advice-lighten-90 {
+  background-color: white; }
+
+.color-advice-darken-90 {
+  color: black; }
+
+.bg-color-advice-darken-90 {
+  background-color: black; }
+
+.header-expand-btn-tail {
+  overflow-y: hidden; }
+  .header-expand-btn-tail:after {
+    position: absolute;
+    right: 10px;
+    content: '\f102';
+    font-style: normal;
+    -webkit-font-variant-ligatures: normal;
+            font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: inherit;
+    font-family: FontAwesome;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s; }
+  .header-expand-btn-tail.collapsed:after {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); }
+
+.header-expand-btn-lead {
+  overflow-y: hidden; }
+  .header-expand-btn-lead:before {
+    margin-right: 10px;
+    display: inline-block;
+    content: '\f102';
+    font-style: normal;
+    -webkit-font-variant-ligatures: normal;
+            font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: inherit;
+    font-family: FontAwesome;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s; }
+  .header-expand-btn-lead.collapsed:before {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); }
+
+.header-expand-btn-follow {
+  overflow-y: hidden; }
+  .header-expand-btn-follow:after {
+    display: inline-block;
+    margin-left: 10px;
+    content: '\f102';
+    font-style: normal;
+    -webkit-font-variant-ligatures: normal;
+            font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: inherit;
+    font-family: FontAwesome;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s; }
+  .header-expand-btn-follow.collapsed:after {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg); }
+
+.collapsed > .header-expand-btn-tail:after,
+.collapsed > .header-expand-btn-follow:after {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg); }
+
+.collapsed > .header-expand-btn-lead:before {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg); }
+
+.docker-body.docker-components-contianer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #fff;
+  width: 250px;
+  border-right: 1px solid #e0e0e0;
+  height: 100vh; }
+
+.docker-components .components-header {
+  position: relative;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 2em;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px; }
+  .docker-components .components-header .components-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-components .components-body:before {
+  content: '';
+  display: table; }
+
+.docker-components .components-body:after {
+  content: '';
+  clear: both;
+  display: table; }
+
+.docker-components .components-body .component-group {
+  width: 100%;
+  float: left; }
+  .docker-components .components-body .component-group:before {
+    content: '';
+    display: table; }
+  .docker-components .components-body .component-group:after {
+    content: '';
+    clear: both;
+    display: table; }
+  .docker-components .components-body .component-group .component-group-title {
+    cursor: pointer;
+    font-size: 1.6em;
+    font-weight: bold;
+    line-height: 1.6em;
+    overflow-x: hidden;
+    white-space: normal;
+    word-break: break-word;
+    padding: 0 10px; }
+  .docker-components .components-body .component-group .component-group-body {
+    padding: 3px; }
+    .docker-components .components-body .component-group .component-group-body:before {
+      content: '';
+      display: table; }
+    .docker-components .components-body .component-group .component-group-body:after {
+      content: '';
+      clear: both;
+      display: table; }
+    .docker-components .components-body .component-group .component-group-body .component {
+      float: left;
+      width: 50%;
+      white-space: nowrap;
+      overflow-x: hidden;
+      cursor: pointer;
+      -webkit-transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      font-family: "Itc Avant Garde Gothic", "Microsoft YaHei", Arial;
+      text-transform: capitalize; }
+      .docker-components .components-body .component-group .component-group-body .component:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.23); }
+      .docker-components .components-body .component-group .component-group-body .component .first-char {
+        font-size: 1.8em;
+        padding-left: 10px; }
+
+.bottom-docker .bottom-docker-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-top: 1px solid #e0e0e0;
+  background-color: #e0e0e0; }
+  .bottom-docker .bottom-docker-bar:before {
+    content: '';
+    display: table; }
+  .bottom-docker .bottom-docker-bar:after {
+    content: '';
+    clear: both;
+    display: table; }
+  .bottom-docker .bottom-docker-bar .docker.left {
+    float: left; }
+  .bottom-docker .bottom-docker-bar .docker .docker-btn {
+    border-right: 1px solid #e0e0e0;
+    border-right-color: #347e77;
+    font-family: "Itc Avant Garde Gothic", "Microsoft YaHei", Arial;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 0 10px;
+    cursor: pointer;
+    margin: 3px; }
+    .bottom-docker .bottom-docker-bar .docker .docker-btn.expanded, .bottom-docker .bottom-docker-bar .docker .docker-btn:hover {
+      color: #347e77;
+      text-decoration: underline; }
+    .bottom-docker .bottom-docker-bar .docker .docker-btn span {
+      margin-left: 3px; }

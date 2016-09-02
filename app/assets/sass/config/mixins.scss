@@ -1,0 +1,33 @@
+@import 'common-variables';
+
+@mixin container-title() {
+	font-size: $font-title-size;
+	font-weight: bold;
+	line-height: $container-title-line-height;
+    overflow-x: hidden;
+    white-space: normal;
+    word-break: break-word;
+    padding: $pad-0 $pad-10;
+}
+@mixin container-title-2nd() {
+	font-size: $font-title-2nd-size;
+	font-weight: bold;
+	line-height: $container-title-2nd-line-height;
+    overflow-x: hidden;
+    white-space: normal;
+    word-break: break-word;
+    padding: $pad-0 $pad-10;
+}
+
+@mixin container-row() {
+    &:before {
+        content: '';
+        display: table;
+    }
+    &:after {
+        content: '';
+        clear: both;
+        display: table;
+    }
+}
+

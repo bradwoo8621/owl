@@ -1,0 +1,39 @@
+@import '../config/common-variables';
+
+.bottom-docker {
+	.bottom-docker-bar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: $docker-zindex;
+		border-top: $border;
+		background-color: $border-color;
+		@include container-row();
+		.docker {
+			&.left {
+				float: left;
+			}
+			.docker-btn {
+				border-right: $border;
+				border-right-color: darken($primary-color, 30%);
+				font-family: $font-avant;
+				font-weight: $font-bold;
+				font-size: $font-size-11;
+				padding: $pad-0 $pad-10;
+				cursor: pointer;
+				margin: $margin-3;
+				&.expanded,
+				&:hover {
+					color: darken($primary-color, 30%);
+					text-decoration: underline;
+				}
+				span {
+					margin-left: $margin-3;
+				}
+			}
+		}
+	}
+	.docker-body {
+	}
+}

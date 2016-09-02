@@ -1,0 +1,64 @@
+@import 'config/common-variables';
+
+@font-face {
+	font-family: 'Itc Avant Garde Gothic';
+	src: url('../fonts/texgyreadventor-regular.otf') format('opentype');
+}
+@font-face {
+	font-family: 'Itc Avant Garde Gothic';
+	src: url('../fonts/texgyreadventor-bold.otf') format('opentype');
+	font-weight: bold;
+}
+@font-face {
+	font-family: 'Itc Avant Garde Gothic';
+	src: url('../fonts/texgyreadventor-italic.otf') format('opentype');
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Itc Avant Garde Gothic';
+	src: url('../fonts/texgyreadventor-bolditalic.otf') format('opentype');
+	font-weight: bold;
+	font-style: italic;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-family: $font-family;
+	font-size: $font-size;
+	color: $font-color;
+	line-height: $line-height;
+}
+.color-reverse {
+    color: $font-color-reverse;
+}
+.color-primary {
+	color: $primary-color;
+}
+.bg-color-primary {
+	background-color: $primary-color;
+}
+@mixin colors($name, $percent, $color) {
+    .color-#{$name}-lighten-#{$percent} {
+        color: lighten($color, percentage($percent / 100));
+    }
+    .bg-color-#{$name}-lighten-#{$percent} {
+        background-color: lighten($color, percentage($percent / 100));
+    }
+    .color-#{$name}-darken-#{$percent} {
+        color: darken($color, percentage($percent / 100));
+    }
+    .bg-color-#{$name}-darken-#{$percent} {
+        background-color: darken($color, percentage($percent / 100));
+    }
+}
+$color-list: $primary-color $advice-color;
+$color-name-list: primary advice;
+@for $color-index from 1 through 2 {
+	@for $percent-index from 1 through 9 {
+		@include colors(nth($color-name-list, $color-index), 
+						$percent-index * 10, 
+						nth($color-list, $color-index));
+	}
+}

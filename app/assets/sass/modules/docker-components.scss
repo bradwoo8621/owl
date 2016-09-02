@@ -1,0 +1,56 @@
+@import '../config/mixins';
+
+.docker-body.docker-components-contianer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: $docker-zindex;
+	background-color: $container-bg-color;
+	width: 250px;
+	border-right: $border;
+	height: 100vh;
+}
+.docker-components {
+	.components-header {
+		position: relative;
+		@include container-title();
+		.components-header-label {
+			white-space: nowrap;
+			float: left;
+			display: block;
+		}
+	}
+	.components-body {
+		@include container-row();
+		.component-group {
+			width: 100%;
+			float: left;
+			@include container-row();
+			.component-group-title {
+				cursor: pointer;
+			    @include container-title-2nd();
+			}
+			.component-group-body {
+				padding: $pad-3;
+				@include container-row();
+				.component {
+					float: left;
+					width: 50%;
+					white-space: nowrap;
+					overflow-x: hidden;
+					cursor: pointer;
+					transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+					font-family: $font-avant;
+					text-transform: capitalize;
+					&:hover {
+						box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.23);
+					}
+					.first-char {
+						font-size: 1.8em;
+						padding-left: $pad-10;
+					}
+				}
+			}
+		}
+	}
+}
