@@ -3,6 +3,7 @@ const locale = require('../../locale');
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const parrotComponents = require('../../parrot-components');
 
 const langs = locale.load('docker/components');
 
@@ -67,19 +68,7 @@ const Components = React.createClass({
 			{label: langs.containerTitle, key: Components.CONTAINER},
 			{label: langs.customTitle, key: Components.CUSTOMIZED}
 		];
-		let components = [
-			{label: 'Label', group: 'plain'}, {label: 'Toggle', group: 'plain'},
-			{label: 'Text', group: 'plain'}, {label: 'Text Area', group: 'plain'}, 
-			{label: 'Select', group: 'plain'}, {label: 'Date Picker', group: 'plain'},
-			{label: 'CheckBox', group: 'plain'}, {label: 'Array Check', group: 'plain'}, 
-			{label: 'Radio', group: 'plain'}, {label: 'Upload', group: 'plain'}, 
-			{label: 'Code Search', group: 'plain'}, {label: 'Select Tree', group: 'plain'},
-			{label: 'Button', group: 'plain'}, {label: 'Button Footer', group: 'container'},
-
-			{label: 'Panel', group: 'container'}, {label: 'Array Panel', group: 'container'},
-			{label: 'Tab', group: 'container'}, {label: 'Array Tab', group: 'container'},
-			{label: 'Table', group: 'container'}, {label: 'Tree', group: 'plain'}
-		].sort(function(a, b) {
+		let components = parrotComponents.sort(function(a, b) {
 			return a.label.localeCompare(b.label);
 		});
 		return (<div className='docker-components-body'>
@@ -112,7 +101,6 @@ const Components = React.createClass({
 module.exports = {
 	label: langs.title,
 	icon: 'mdi mdi-view-dashboard',
-	pos: 'left',
 	reactClass: Components,
 	className: 'docker-components-container',
 	containerId: 'left-docker',

@@ -1,16 +1,16 @@
 @import '../config/mixins';
 
-.docker-page {
-	.docker-page-header {
+.docker-property {
+	.docker-property-header {
 		position: relative;
 		@include container-title-2nd();
-		.docker-page-header-label {
+		.docker-property-header-label {
 			white-space: nowrap;
 			float: left;
 			display: block;
 		}
 	}
-	.docker-page-body {
+	.docker-property-body {
 		padding: $pad-3 $pad-10 $pad-2;
 	}
 }

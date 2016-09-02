@@ -31,7 +31,7 @@ const Page = React.createClass({
 			<NPanel model={$pt.createModel({})}
 					layout={$pt.createCellLayout('page', layout)}
 					direction='horizontal' />
-		</div>)
+		</div>);
 	},
 	render: function() {
 		return (<div className='docker-page'>
@@ -62,7 +62,7 @@ const Page = React.createClass({
 				label: langs.menuCheck,
 				comp: {type: $pt.ComponentConstants.Toggle},
 				pos: {col: 500}
-			},
+			}
 		};
 	}
 });
@@ -70,7 +70,7 @@ const Page = React.createClass({
 module.exports = {
 	label: 'Page', 
 	icon: 'mdi mdi-television-guide', 
-	pos: 'left',
 	reactClass: Page,
-	className: 'docker-page-container'
+	className: 'docker-page-container',
+	containerId: 'bottom-docker'
 };

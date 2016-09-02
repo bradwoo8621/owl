@@ -1,5 +1,3 @@
-const locale = require('../locale');
-
 const jsface = require('jsface');
 const $ = require('jquery');
 const React = require('react');
@@ -14,13 +12,9 @@ const BottomDocker = React.createClass({
 			outerContainers: {}
 		};
 	},
-	renderDockerBody: function() {
-		return 	(<div className='docker-body'
-					  ref='body'>
-		</div>);
-	},
 	renderDockerElement: function(dockerElement, dockerElementIndex) {
 		return (<div className='docker left'
+					 data-container-id={dockerElement.containerId}
 					 key={dockerElementIndex}>
 			<div className='docker-btn'
 				 onClick={this.onDockerClicked.bind(this, dockerElement)}>
@@ -30,8 +24,7 @@ const BottomDocker = React.createClass({
 		</div>);
 	},
 	render: function() {
-		return (<div className='bottom-docker'>
-			{this.renderDockerBody()}
+		return (<div className='bottom-docker-bar-container'>
 			<div className='bottom-docker-bar'>
 				{this.getDockerElements().map(this.renderDockerElement)}
 			</div>
@@ -87,6 +80,18 @@ const BottomDocker = React.createClass({
 			// no another, set state only
 			this.setCurrentDockerElement(null, dockerElement.containerId);
 			eventTarget.removeClass('expanded').addClass('collapsed');
+		}
+
+		// remove other button's expanded class
+		let buttonBar = eventTarget.closest('.bottom-docker-bar');
+		if (dockerElement.containerId) {
+			buttonBar.find('.docker[data-container-id=' + dockerElement.containerId + '] .docker-btn')
+				.not(eventTarget)
+				.removeClass('expanded');
+		} else {
+			buttonBar.find('.docker:not([data-container-id]) .docker-btn')
+				.not(eventTarget)
+				.removeClass('expanded');
 		}
 	}
 });

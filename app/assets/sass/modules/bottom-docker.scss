@@ -1,6 +1,25 @@
 @import '../config/common-variables';
-
-.bottom-docker {
+#bottom-docker {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: calc(#{$line-height}em + 2 * #{$margin-3} + #{$px-3});
+	z-index: $docker-zindex;
+	background-color: $container-bg-color;
+	div.horizontal-label > div.row {
+		> div:first-child {
+			padding-right: $pad-5;
+			> span {
+				font-weight: $font-bold;
+				text-transform: capitalize;
+			}
+		}
+		> div:last-child {
+			padding-left: $pad-5;
+		}
+	}
+}
+.bottom-docker-bar-container {
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -34,16 +53,10 @@
 			}
 		}
 	}
-	.docker-body {
-		div.horizontal-label > div.row > div:first-child > span {
-			font-weight: $font-bold;
-			text-transform: capitalize;
-		}
-	}
 }
 
 .left-docker-expanded {
-	.docker-body {
-		margin-left: 250px;
+	#bottom-docker {
+		left: 250px;
 	}
 }

@@ -9,7 +9,7 @@ require("babel-register")({
 const bottomDockerRenderer = require('../docker/bottom-docker');
 // const remote = require('electron').remote;
 
-let bottomDocker = bottomDockerRenderer.render('bottom-docker');
+let bottomDocker = bottomDockerRenderer.render('bottom-docker-bar');
 
 // handle render event
 // ipcRenderer.on('switch-language', function(event, message) {

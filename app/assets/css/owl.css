@@ -22,7 +22,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: "Microsoft YaHei", Arial;
+  font-family: "Source Code Pro", "Microsoft YaHei", Arial;
   font-size: 13px;
   color: #666;
   line-height: 1.846; }
@@ -393,7 +393,7 @@ body {
       cursor: pointer;
       -webkit-transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      font-family: "Itc Avant Garde Gothic", "Microsoft YaHei", Arial;
+      font-family: "Itc Avant Garde Gothic", "Source Code Pro", "Microsoft YaHei", Arial;
       text-transform: capitalize; }
       .docker-components .docker-components-body .component-group .component-group-body .component:hover {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.23); }
@@ -401,12 +401,22 @@ body {
         font-size: 1.8em;
         padding-left: 10px; }
 
-.docker-body.docker-docker-page-container {
-  z-index: 100;
-  background-color: #fff;
-  width: 100vw;
-  border-top: 1px solid #e0e0e0;
-  height: 200px; }
+.docker-event .docker-event-header {
+  position: relative;
+  font-weight: bold;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-event .docker-event-header .docker-event-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-event .docker-event-body {
+  padding: 3px 10px 2px; }
 
 .docker-page .docker-page-header {
   position: relative;
@@ -425,41 +435,104 @@ body {
 .docker-page .docker-page-body {
   padding: 3px 10px 2px; }
 
-.bottom-docker {
+.docker-position .docker-position-header {
+  position: relative;
+  font-weight: bold;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-position .docker-position-header .docker-position-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-position .docker-position-body {
+  padding: 3px 10px 2px; }
+
+.docker-property .docker-property-header {
+  position: relative;
+  font-weight: bold;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-property .docker-property-header .docker-property-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-property .docker-property-body {
+  padding: 3px 10px 2px; }
+
+.docker-stylesheet .docker-stylesheet-header {
+  position: relative;
+  font-weight: bold;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-stylesheet .docker-stylesheet-header .docker-stylesheet-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-stylesheet .docker-stylesheet-body {
+  padding: 3px 10px 2px; }
+
+#bottom-docker {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(1.846em + 2 * 3px + 3px);
+  z-index: 100;
+  background-color: #fff; }
+  #bottom-docker div.horizontal-label > div.row > div:first-child {
+    padding-right: 5px; }
+    #bottom-docker div.horizontal-label > div.row > div:first-child > span {
+      font-weight: bold;
+      text-transform: capitalize; }
+  #bottom-docker div.horizontal-label > div.row > div:last-child {
+    padding-left: 5px; }
+
+.bottom-docker-bar-container {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 100; }
-  .bottom-docker .bottom-docker-bar {
+  .bottom-docker-bar-container .bottom-docker-bar {
     border-top: 1px solid #e0e0e0;
     background-color: #e0e0e0; }
-    .bottom-docker .bottom-docker-bar:before {
+    .bottom-docker-bar-container .bottom-docker-bar:before {
       content: '';
       display: table; }
-    .bottom-docker .bottom-docker-bar:after {
+    .bottom-docker-bar-container .bottom-docker-bar:after {
       content: '';
       clear: both;
       display: table; }
-    .bottom-docker .bottom-docker-bar .docker.left {
+    .bottom-docker-bar-container .bottom-docker-bar .docker.left {
       float: left; }
-    .bottom-docker .bottom-docker-bar .docker .docker-btn {
+    .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn {
       border-right: 1px solid #e0e0e0;
       border-right-color: #347e77;
-      font-family: "Itc Avant Garde Gothic", "Microsoft YaHei", Arial;
+      font-family: "Itc Avant Garde Gothic", "Source Code Pro", "Microsoft YaHei", Arial;
       font-weight: bold;
       font-size: 1.1em;
       padding: 0 10px;
       cursor: pointer;
       margin: 3px; }
-      .bottom-docker .bottom-docker-bar .docker .docker-btn.expanded, .bottom-docker .bottom-docker-bar .docker .docker-btn:hover {
+      .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn.expanded, .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn:hover {
         color: #347e77;
         text-decoration: underline; }
-      .bottom-docker .bottom-docker-bar .docker .docker-btn span {
+      .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn span {
         margin-left: 3px; }
-  .bottom-docker .docker-body div.horizontal-label > div.row > div:first-child > span {
-    font-weight: bold;
-    text-transform: capitalize; }
 
-.left-docker-expanded .docker-body {
-  margin-left: 250px; }
+.left-docker-expanded #bottom-docker {
+  left: 250px; }
