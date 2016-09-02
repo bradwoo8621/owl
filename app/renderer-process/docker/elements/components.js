@@ -1,10 +1,8 @@
 const locale = require('../../locale');
 
-const jsface = require('jsface');
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const classNames = require('classnames');
 
 const langs = locale.load('docker/components');
 
@@ -18,8 +16,8 @@ const Components = React.createClass({
 		return {};
 	},
 	renderHeader: function() {
-		return (<div className='components-header bg-color-primary color-reverse'>
-			<div className='components-header-label'>
+		return (<div className='docker-components-header bg-color-primary color-reverse'>
+			<div className='docker-components-header-label'>
 				<span>{langs.title}</span>
 			</div>
 		</div>);
@@ -65,9 +63,9 @@ const Components = React.createClass({
 	},
 	renderBody: function() {
 		let groups = [
-			{label: 'Plain', key: 'plain'},
-			{label: 'Container', key: 'container'},
-			{label: 'Customized', key: 'custom'}
+			{label: langs.plainTitle, key: Components.PLAIN},
+			{label: langs.containerTitle, key: Components.CONTAINER},
+			{label: langs.customTitle, key: Components.CUSTOMIZED}
 		];
 		let components = [
 			{label: 'Label', group: 'plain'}, {label: 'Toggle', group: 'plain'},
@@ -84,7 +82,7 @@ const Components = React.createClass({
 		].sort(function(a, b) {
 			return a.label.localeCompare(b.label);
 		});
-		return (<div className='components-body'>
+		return (<div className='docker-components-body'>
 			{groups.map(function(group, groupIndex) {
 				return this.renderComponentGroup({
 					group: group,
@@ -116,5 +114,12 @@ module.exports = {
 	icon: 'mdi mdi-view-dashboard',
 	pos: 'left',
 	reactClass: Components,
-	className: 'docker-components-contianer'
+	className: 'docker-components-container',
+	containerId: 'left-docker',
+	onExpanded: function() {
+		$('body').addClass('left-docker-expanded');
+	},
+	onCollapsed: function() {
+		$('body').removeClass('left-docker-expanded');
+	}
 };

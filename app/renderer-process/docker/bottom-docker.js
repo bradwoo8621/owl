@@ -10,7 +10,8 @@ const elements = require('./elements');
 const BottomDocker = React.createClass({
 	getInitialState: function() {
 		return {
-			currentDockerElement: null
+			currentDockerElement: null,
+			outerContainers: {}
 		};
 	},
 	renderDockerBody: function() {
@@ -39,30 +40,52 @@ const BottomDocker = React.createClass({
 	getDockerElements: function() {
 		return elements;
 	},
-	getCurrentDockerElement: function() {
-		return this.state.currentDockerElement;
+	getCurrentDockerElement: function(containerId) {
+		if (containerId) {
+			return this.state.outerContainers[containerId];
+		} else {
+			return this.state.currentDockerElement;
+		}
+	},
+	setCurrentDockerElement: function(dockerElement, containerId) {
+		if (containerId) {
+			this.state.outerContainers[containerId] = dockerElement;
+		} else {
+			this.state.currentDockerElement = dockerElement;
+		}
 	},
 	onDockerClicked: function(dockerElement, evt) {
-		var eventTarget = $(evt.target).closest('.docker-btn');
+		let eventTarget = $(evt.target).closest('.docker-btn');
 
-		let currentDockerElement = this.getCurrentDockerElement();
-		let dockerBody = this.refs.body;
+		// get docker container
+		let dockerContainer = this.refs.body;
+		if (dockerElement.containerId) {
+			dockerContainer = document.getElementById(dockerElement.containerId);
+		}
+		// get current docker element from given container
+		let currentDockerElement = this.getCurrentDockerElement(dockerElement.containerId);
 		if (currentDockerElement) {
-			// close current
-			$(dockerBody).removeClass(currentDockerElement.className);
-			ReactDOM.unmountComponentAtNode(dockerBody);
+			// unmount current docker element
+			$(dockerContainer).removeClass(currentDockerElement.className);
+			ReactDOM.unmountComponentAtNode(dockerContainer);
+			if (dockerElement.onCollapsed) {
+				dockerElement.onCollapsed.call(this);
+			}
 		}
 		if (dockerElement != currentDockerElement) {
 			// switch to another
-			this.state.currentDockerElement = dockerElement;
+			this.setCurrentDockerElement(dockerElement, dockerElement.containerId);
 			let element = React.createElement(dockerElement.reactClass);
-			ReactDOM.render(element, dockerBody, function() {
-				$(dockerBody).addClass(dockerElement.className);
+			ReactDOM.render(element, dockerContainer, function() {
+				$(dockerContainer).addClass(dockerElement.className);
 				eventTarget.addClass('expanded').removeClass('collapsed');
+				if (dockerElement.onExpanded) {
+					dockerElement.onExpanded.call(this);
+				}
 			});
 		} else {
 			// no another, set state only
-			this.state.currentDockerElement = null;
+			this.setCurrentDockerElement(null, dockerElement.containerId);
 			eventTarget.removeClass('expanded').addClass('collapsed');
 		}
 	}

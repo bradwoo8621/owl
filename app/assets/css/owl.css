@@ -324,7 +324,7 @@ body {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg); }
 
-.docker-body.docker-components-contianer {
+.docker-components-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -334,58 +334,58 @@ body {
   border-right: 1px solid #e0e0e0;
   height: 100vh; }
 
-.docker-components .components-header {
+.docker-components .docker-components-header {
   position: relative;
-  font-size: 2em;
   font-weight: bold;
-  line-height: 2em;
   overflow-x: hidden;
   white-space: normal;
   word-break: break-word;
-  padding: 0 10px; }
-  .docker-components .components-header .components-header-label {
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-components .docker-components-header .docker-components-header-label {
     white-space: nowrap;
     float: left;
     display: block; }
 
-.docker-components .components-body:before {
+.docker-components .docker-components-body:before {
   content: '';
   display: table; }
 
-.docker-components .components-body:after {
+.docker-components .docker-components-body:after {
   content: '';
   clear: both;
   display: table; }
 
-.docker-components .components-body .component-group {
+.docker-components .docker-components-body .component-group {
   width: 100%;
   float: left; }
-  .docker-components .components-body .component-group:before {
+  .docker-components .docker-components-body .component-group:before {
     content: '';
     display: table; }
-  .docker-components .components-body .component-group:after {
+  .docker-components .docker-components-body .component-group:after {
     content: '';
     clear: both;
     display: table; }
-  .docker-components .components-body .component-group .component-group-title {
+  .docker-components .docker-components-body .component-group .component-group-title {
     cursor: pointer;
-    font-size: 1.6em;
     font-weight: bold;
-    line-height: 1.6em;
     overflow-x: hidden;
     white-space: normal;
     word-break: break-word;
-    padding: 0 10px; }
-  .docker-components .components-body .component-group .component-group-body {
+    padding: 0 10px;
+    font-size: 1.6em;
+    line-height: 1.6em; }
+  .docker-components .docker-components-body .component-group .component-group-body {
     padding: 3px; }
-    .docker-components .components-body .component-group .component-group-body:before {
+    .docker-components .docker-components-body .component-group .component-group-body:before {
       content: '';
       display: table; }
-    .docker-components .components-body .component-group .component-group-body:after {
+    .docker-components .docker-components-body .component-group .component-group-body:after {
       content: '';
       clear: both;
       display: table; }
-    .docker-components .components-body .component-group .component-group-body .component {
+    .docker-components .docker-components-body .component-group .component-group-body .component {
       float: left;
       width: 50%;
       white-space: nowrap;
@@ -395,40 +395,71 @@ body {
       transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       font-family: "Itc Avant Garde Gothic", "Microsoft YaHei", Arial;
       text-transform: capitalize; }
-      .docker-components .components-body .component-group .component-group-body .component:hover {
+      .docker-components .docker-components-body .component-group .component-group-body .component:hover {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.23); }
-      .docker-components .components-body .component-group .component-group-body .component .first-char {
+      .docker-components .docker-components-body .component-group .component-group-body .component .first-char {
         font-size: 1.8em;
         padding-left: 10px; }
 
-.bottom-docker .bottom-docker-bar {
+.docker-body.docker-docker-page-container {
+  z-index: 100;
+  background-color: #fff;
+  width: 100vw;
+  border-top: 1px solid #e0e0e0;
+  height: 200px; }
+
+.docker-page .docker-page-header {
+  position: relative;
+  font-weight: bold;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-page .docker-page-header .docker-page-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-page .docker-page-body {
+  padding: 3px 10px 2px; }
+
+.bottom-docker {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  border-top: 1px solid #e0e0e0;
-  background-color: #e0e0e0; }
-  .bottom-docker .bottom-docker-bar:before {
-    content: '';
-    display: table; }
-  .bottom-docker .bottom-docker-bar:after {
-    content: '';
-    clear: both;
-    display: table; }
-  .bottom-docker .bottom-docker-bar .docker.left {
-    float: left; }
-  .bottom-docker .bottom-docker-bar .docker .docker-btn {
-    border-right: 1px solid #e0e0e0;
-    border-right-color: #347e77;
-    font-family: "Itc Avant Garde Gothic", "Microsoft YaHei", Arial;
+  z-index: 100; }
+  .bottom-docker .bottom-docker-bar {
+    border-top: 1px solid #e0e0e0;
+    background-color: #e0e0e0; }
+    .bottom-docker .bottom-docker-bar:before {
+      content: '';
+      display: table; }
+    .bottom-docker .bottom-docker-bar:after {
+      content: '';
+      clear: both;
+      display: table; }
+    .bottom-docker .bottom-docker-bar .docker.left {
+      float: left; }
+    .bottom-docker .bottom-docker-bar .docker .docker-btn {
+      border-right: 1px solid #e0e0e0;
+      border-right-color: #347e77;
+      font-family: "Itc Avant Garde Gothic", "Microsoft YaHei", Arial;
+      font-weight: bold;
+      font-size: 1.1em;
+      padding: 0 10px;
+      cursor: pointer;
+      margin: 3px; }
+      .bottom-docker .bottom-docker-bar .docker .docker-btn.expanded, .bottom-docker .bottom-docker-bar .docker .docker-btn:hover {
+        color: #347e77;
+        text-decoration: underline; }
+      .bottom-docker .bottom-docker-bar .docker .docker-btn span {
+        margin-left: 3px; }
+  .bottom-docker .docker-body div.horizontal-label > div.row > div:first-child > span {
     font-weight: bold;
-    font-size: 1.1em;
-    padding: 0 10px;
-    cursor: pointer;
-    margin: 3px; }
-    .bottom-docker .bottom-docker-bar .docker .docker-btn.expanded, .bottom-docker .bottom-docker-bar .docker .docker-btn:hover {
-      color: #347e77;
-      text-decoration: underline; }
-    .bottom-docker .bottom-docker-bar .docker .docker-btn span {
-      margin-left: 3px; }
+    text-transform: capitalize; }
+
+.left-docker-expanded .docker-body {
+  margin-left: 250px; }

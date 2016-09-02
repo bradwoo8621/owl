@@ -1,0 +1,24 @@
+@import '../config/mixins';
+
+.docker-body.docker-docker-page-container {
+	z-index: $docker-zindex;
+	background-color: $container-bg-color;
+	width: 100vw;
+	border-top: $border;
+	height: 200px;
+}
+
+.docker-page {
+	.docker-page-header {
+		position: relative;
+		@include container-title-2nd();
+		.docker-page-header-label {
+			white-space: nowrap;
+			float: left;
+			display: block;
+		}
+	}
+	.docker-page-body {
+		padding: $pad-3 $pad-10 $pad-2;
+	}
+}

@@ -1,12 +1,12 @@
 @import '../config/common-variables';
 
 .bottom-docker {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: $docker-zindex;
 	.bottom-docker-bar {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		z-index: $docker-zindex;
 		border-top: $border;
 		background-color: $border-color;
 		@include container-row();
@@ -35,5 +35,15 @@
 		}
 	}
 	.docker-body {
+		div.horizontal-label > div.row > div:first-child > span {
+			font-weight: $font-bold;
+			text-transform: capitalize;
+		}
+	}
+}
+
+.left-docker-expanded {
+	.docker-body {
+		margin-left: 250px;
 	}
 }

@@ -1,6 +1,6 @@
 @import '../config/mixins';
 
-.docker-body.docker-components-contianer {
+.docker-components-container {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -11,16 +11,16 @@
 	height: 100vh;
 }
 .docker-components {
-	.components-header {
+	.docker-components-header {
 		position: relative;
-		@include container-title();
-		.components-header-label {
+		@include container-title-2nd();
+		.docker-components-header-label {
 			white-space: nowrap;
 			float: left;
 			display: block;
 		}
 	}
-	.components-body {
+	.docker-components-body {
 		@include container-row();
 		.component-group {
 			width: 100%;

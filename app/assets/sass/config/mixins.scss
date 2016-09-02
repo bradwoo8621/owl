@@ -1,22 +1,21 @@
 @import 'common-variables';
 
-@mixin container-title() {
-	font-size: $font-title-size;
-	font-weight: bold;
-	line-height: $container-title-line-height;
+@mixin container-title-std() {
+    font-weight: bold;
     overflow-x: hidden;
     white-space: normal;
     word-break: break-word;
     padding: $pad-0 $pad-10;
 }
+@mixin container-title() {
+    @include container-title-std();
+	font-size: $font-title-size;
+	line-height: $container-title-line-height;
+}
 @mixin container-title-2nd() {
+    @include container-title-std();
 	font-size: $font-title-2nd-size;
-	font-weight: bold;
 	line-height: $container-title-2nd-line-height;
-    overflow-x: hidden;
-    white-space: normal;
-    word-break: break-word;
-    padding: $pad-0 $pad-10;
 }
 
 @mixin container-row() {
