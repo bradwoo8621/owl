@@ -24,6 +24,7 @@ const is = function(key, value) {
 	}
 };
 const set = function(key, value) {
+	// console.log(key, value);
 	config.set(key, value);
 };
 const del = function(key) {
@@ -36,5 +37,8 @@ module.exports = {
 	set: set,
 	delete: del,
 
-	SYS_LOCALE: 'system.pref.locale'
+	SYS_LOCALE: 'system.pref.locale',
+
+	RECENT_PROJECTS: 'project.recents',
+	CURRENT_PROJECT: 'project.current'
 };

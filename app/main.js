@@ -30,7 +30,10 @@ function initialize () {
 			minHeight: 700,
 			// height: 840,
 			title: app.getName(),
-			show: false
+			show: false,
+			webPreferences: {
+				webSecurity: false
+			}
 		};
 
 		if (!config.has(config.SYS_LOCALE)) {
@@ -44,7 +47,7 @@ function initialize () {
 		}
 
 		mainWindow = new BrowserWindow(windowOptions);
-		mainWindow.loadURL(path.join('file://', __dirname, './working-file.html'));
+		mainWindow.loadURL(path.join('file://', __dirname, './index.html'));
 
 		// Launch fullscreen with DevTools open, usage: npm run debug
 		if (debug) {

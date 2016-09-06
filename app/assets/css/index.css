@@ -1,0 +1,104 @@
+html, body {
+    height: 100%;
+    margin: 0;
+	padding: 0;
+	font-family: 'Source Code Pro', 'Microsoft YaHei', Arial;
+	font-size: 13px;
+	color: #666;
+	line-height: 1.846;
+}
+.main {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.wrapper {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
+
+#main-content {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+
+.logo {
+	width: 50%;
+	text-align: center;
+}
+
+.work {
+	width: 50%;
+}
+
+@media (max-width: 1099px) {
+	.logo,
+	.work {
+		width: 100%;
+	}
+}
+
+#work-area {
+	display: flex;
+}
+
+.projects-section {
+	width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 0 15px;
+}
+
+.recent-projects-title {
+	font-size: 1.5em;
+	line-height: 1.5em;
+	font-weight: bold;
+	color: #795548;
+}
+
+.recent-projects {
+	width: 100%;
+}
+
+.recent-project {
+}
+
+.recent-project > span {
+	display: inline-block;
+	cursor: pointer;
+	line-height: 2em;
+}
+
+.recent-project > i {
+	display: inline-block;
+	line-height: 2em;
+	margin-right: 10px;
+}
+
+.recent-project:hover {
+	color: #42A5F5;
+	text-decoration: underline;
+}
+
+.new-project {
+	width: 100%;
+	border-top: 1px solid #e0e0e0;
+}
+
+.new-project > span {
+	display: block;
+	cursor: pointer;
+	line-height: 2em;
+	font-size: 1.3em;
+	font-weight: bold;
+	color: #795548;
+}
+
+.new-project > span:hover {
+	text-decoration: underline;
+	color: #42A5F5;
+}

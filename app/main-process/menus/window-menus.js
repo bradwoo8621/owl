@@ -26,10 +26,10 @@ const template = function() {
 	const menuTemplate = [{
 		label: '&File',
 		submenu: [{
-			label: 'Open Working Folder...',
-			accelerator: 'CmdOrCtrl+O',
+			label: 'Exit Working Folder...',
+			accelerator: 'CmdOrCtrl+X',
 			click (item, focusedWindow) {
-				workFolderAction();
+				workFolderAction.exit();
 			}
 		}, {
 			type: 'separator'

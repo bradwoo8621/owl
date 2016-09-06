@@ -1,11 +1,9 @@
-const {dialog} = require('electron');
+const route = require('../../route');
 
-const afterDirOpen = function() {
-	console.log(arguments);
-}
+const exit = function() {
+	route.relocate('/app/index.html');
+};
 
-module.exports = function() {
-	dialog.showOpenDialog({
-		properties: ['openDirectory', 'createDirectory']
-	}, afterDirOpen);
+module.exports = {
+	exit: exit
 };
