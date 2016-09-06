@@ -1,0 +1,26 @@
+@import '../config/mixins';
+
+.docker-outline-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: $docker-zindex;
+	background-color: $container-bg-color;
+	width: 250px;
+	border-right: $border;
+	height: 100vh;
+}
+.docker-outline {
+	.docker-outline-header {
+		position: relative;
+		@include container-title-2nd();
+		.docker-outline-header-label {
+			white-space: nowrap;
+			float: left;
+			display: block;
+		}
+	}
+	.docker-outline-body {
+		@include container-row();
+	}
+}

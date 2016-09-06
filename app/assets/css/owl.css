@@ -486,6 +486,39 @@ body {
 .docker-stylesheet .docker-stylesheet-body {
   padding: 3px 10px 2px; }
 
+.docker-outline-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #fff;
+  width: 250px;
+  border-right: 1px solid #e0e0e0;
+  height: 100vh; }
+
+.docker-outline .docker-outline-header {
+  position: relative;
+  font-weight: bold;
+  overflow-x: hidden;
+  white-space: normal;
+  word-break: break-word;
+  padding: 0 10px;
+  font-size: 1.6em;
+  line-height: 1.6em; }
+  .docker-outline .docker-outline-header .docker-outline-header-label {
+    white-space: nowrap;
+    float: left;
+    display: block; }
+
+.docker-outline .docker-outline-body:before {
+  content: '';
+  display: table; }
+
+.docker-outline .docker-outline-body:after {
+  content: '';
+  clear: both;
+  display: table; }
+
 .docker-global .docker-global-header {
   position: relative;
   font-weight: bold;

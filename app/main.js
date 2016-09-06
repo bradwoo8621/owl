@@ -2,7 +2,9 @@ const path = require('path');
 const glob = require('glob');
 const electron = require('electron');
 const {Menu} = electron;
-const menus = require('./renderer-process/menus/window-menus');
+const menus = require('./main-process/menus/window-menus');
+
+const config = require('./config');
 
 const BrowserWindow = electron.BrowserWindow;
 const app = electron.app;
@@ -31,9 +33,9 @@ function initialize () {
 			show: false
 		};
 
-		global.envs = {
-			locale: app.getLocale()
-		};
+		if (!config.has(config.SYS_LOCALE)) {
+			config.set(config.SYS_LOCALE, app.getLocale());
+		}
 
 		if (process.platform === 'linux') {
 			windowOptions.icon = path.join(__dirname, './assets/app-icon/png/256.png');

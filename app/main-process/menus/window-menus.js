@@ -1,15 +1,13 @@
 const electron = require('electron');
 const BrowserWindow = electron.BrowserWindow;
 
+const config = require('../../config');
+
+const langAction = require('./language-action');
+const workFolderAction = require('./work-folder-action');
+
 const template = function() {
 	const langMenu = function() {
-		const menuSwitchTo = function(locale) {
-			global.envs.locale = locale;
-			BrowserWindow.getAllWindows().forEach(function(window) {
-				window.reload();
-				// window.webContents.send('switch-language', locale);
-			});
-		};
 		return {label: 'Languages',
 			submenu: [
 				{label: 'English', locale: 'en-US'},
@@ -19,10 +17,8 @@ const template = function() {
 				return {
 					label: menu.label,
 					type: 'radio',
-					checked: global.envs.locale === menu.locale,
-					click: function() {
-						menuSwitchTo(menu.locale);
-					}
+					checked: config.is(config.SYS_LOCALE, menu.locale),
+					click: langAction(menu.locale)
 				};
 			})
 		}
@@ -33,7 +29,7 @@ const template = function() {
 			label: 'Open Working Folder...',
 			accelerator: 'CmdOrCtrl+O',
 			click (item, focusedWindow) {
-				// TODO open folder as working folder
+				workFolderAction();
 			}
 		}, {
 			type: 'separator'

@@ -5,5 +5,6 @@ module.exports = [
 	require('./position'),
 	require('./property'),
 	require('./page'),
+	require('./outline'),
 	require('./global')
 ];

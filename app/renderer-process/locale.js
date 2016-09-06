@@ -1,9 +1,10 @@
 const electron = require('electron');
-const remote = electron.remote;
+const config = require('../config');
 
-let locale = remote.getGlobal('envs').locale
+let locale = config.get(config.SYS_LOCALE, 'en-US');
+
 module.exports = {
-	locale: locale ? locale : 'en-US',
+	locale: locale,
 	load: function(relative) {
 		return require('../assets/i18n/' + relative + '-' + locale);
 	}
