@@ -6,7 +6,9 @@
   "main": "app/main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "electron . --debug"
+    "dev": "electron . --debug",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
   },
   "homepage": "https://github.com/bradwoo8621/owl#readme",
   "devDependencies": {
+    "electron-builder": "^6.4.0",
     "electron-prebuilt": "^1.2.6",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
@@ -42,5 +45,12 @@
     "mdi": "^1.7.22",
     "nest-parrot": "0.5.0",
     "source-code-pro": "0.0.0"
+  },
+  "build": {
+    "appId": "com.github.bradwoo8621.owl",
+    "category": "public.app-category.developer-tools",
+    "win": {
+      "iconUrl": "https://github.com/bradwoo8621/owl/blob/master/app/assets/app-icon/win/app.ico?raw=true"
+    }
   }
 }

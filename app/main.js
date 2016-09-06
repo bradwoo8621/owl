@@ -36,7 +36,9 @@ function initialize () {
 		};
 
 		if (process.platform === 'linux') {
-			windowOptions.icon = path.join(__dirname, './assets/app-icon/png/512.png');
+			windowOptions.icon = path.join(__dirname, './assets/app-icon/png/256.png');
+		} else if (process.platform === 'win32') {
+			windowOptions.icon = path.join(__dirname, './assets/app-icon/win/app.ico');
 		}
 
 		mainWindow = new BrowserWindow(windowOptions);
