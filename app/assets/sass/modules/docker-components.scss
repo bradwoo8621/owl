@@ -6,7 +6,7 @@
 	left: 0;
 	z-index: $docker-zindex;
 	background-color: $container-bg-color;
-	width: 250px;
+	width: $left-docker-width;
 	border-right: $border;
 	height: 100vh;
 }

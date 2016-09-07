@@ -1,7 +1,7 @@
 module.exports = [
 	{id: 'pt-lbl', label: 'Label', group: 'plain'}, 
 	{id: 'pt-tgl', label: 'Toggle', group: 'plain'},
-	{id: 'pt-txt', label: 'Text', group: 'plain'}, 
+	require('./text'), 
 	{id: 'pt-txtA', label: 'Text Area', group: 'plain'}, 
 	{id: 'pt-sel', label: 'Select', group: 'plain'}, 
 	{id: 'pt-date', label: 'Date Picker', group: 'plain'},

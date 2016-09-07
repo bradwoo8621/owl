@@ -25,7 +25,8 @@ body {
   font-family: "Source Code Pro", "Microsoft YaHei", Arial;
   font-size: 13px;
   color: #666;
-  line-height: 1.846; }
+  line-height: 1.846;
+  overflow-x: hidden; }
 
 .color-reverse {
   color: #fff; }
@@ -598,5 +599,63 @@ body {
 .main-content {
   position: absolute;
   top: 0;
-  bottom: 0;
-  width: 100%; }
+  right: 0;
+  left: 0;
+  min-height: 100%;
+  padding: 15px;
+  margin: 0 -15px; }
+  .main-content:before {
+    content: '';
+    display: table; }
+  .main-content:after {
+    content: '';
+    display: table;
+    clear: both; }
+  .main-content .cell .cell-inner-area {
+    padding: 3px 0 2px;
+    cursor: pointer; }
+    .main-content .cell .cell-inner-area:focus {
+      outline-color: #FF9800; }
+    .main-content .cell .cell-inner-area.horizontal:before {
+      content: '';
+      display: table; }
+    .main-content .cell .cell-inner-area.horizontal:after {
+      content: '';
+      display: table;
+      clear: both; }
+    .main-content .cell .cell-inner-area.horizontal .cell-label {
+      padding-left: 0;
+      line-height: 2.308em; }
+    .main-content .cell .cell-inner-area.horizontal .cell-component {
+      padding-right: 0;
+      padding-left: 0; }
+  .main-content .cell .cell-label {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis; }
+  .main-content .cell .cell-component {
+    line-height: 2.308em; }
+    .main-content .cell .cell-component:before {
+      content: '';
+      display: table; }
+      .main-content .cell .cell-component:before:empty {
+        min-height: 2.308em; }
+    .main-content .cell .cell-component:after {
+      content: '';
+      display: table;
+      clear: both; }
+
+.left-docker-expanded .main-content {
+  left: 250px;
+  width: initial;
+  right: 0; }
+
+.demo-text.n-disabled.n-text {
+  cursor: pointer; }
+  .demo-text.n-disabled.n-text .form-control[disabled] {
+    cursor: pointer; }
+  .demo-text.n-disabled.n-text hr.disabled.normal-line {
+    border-bottom: 1px solid #e0e0e0; }
+
+[class^=demo] {
+  line-height: 2.231em; }

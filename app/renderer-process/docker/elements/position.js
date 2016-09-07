@@ -40,6 +40,10 @@ const Position = React.createClass({
 	},
 	getSettingLayout: function() {
 		return {
+			defaultWidth: {
+				label: langs.defaultWidth,
+				pos: {col: 0}
+			},
 			large: {
 				label: langs.large,
 				pos: {col: 100}

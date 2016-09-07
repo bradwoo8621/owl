@@ -14,4 +14,14 @@ parrot.BUILD_PROPERTY_VISITOR = false;	// no getter/setter
 parrot.PROPERTY_SEPARATOR = '.';		// use .
 parrot.LayoutHelper.setDefaultCellWidth(4);		// 3 cell per line
 
-module.exports = parrot;
+const labelDirection = $pt.createCodeTable([
+	{id: 'horizontal', text: 'Horizontal'},
+	{id: 'vertical', text: 'Vertical'}
+]);
+
+module.exports = {
+	parrot: parrot,
+	codes: {
+		labelDirection: labelDirection
+	}
+};

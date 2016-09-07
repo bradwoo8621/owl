@@ -3,7 +3,8 @@ const locale = require('../../locale');
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const $pt = require('../../parrot');
+const parrot = require('../../parrot');
+const $pt = parrot.parrot;
 
 const langs = locale.load('docker/global');
 
@@ -43,15 +44,33 @@ const Global = React.createClass({
 		return {
 			header: {
 				label: langs.header,
-				pos: {col: 100}
+				pos: {row: 100, col: 100}
 			},
 			footer: {
 				label: langs.footer,
-				pos: {col: 200}
+				pos: {row: 100, col: 200}
 			},
 			className: {
 				label: langs.className,
-				pos: {col: 300}
+				pos: {row: 100, col: 300}
+			},
+			labelDirection: {
+				label: langs.labelDirection,
+				comp: {
+					type: $pt.ComponentConstants.Select,
+					data: parrot.codes.labelDirection,
+					allowClear: false,
+					minimumResultsForSearch: Infinity
+				},
+				pos: {row: 300, col: 100}
+			},
+			cellWidth: {
+				label: langs.cellWidth,
+				pos: {row: 300, col: 200}
+			},
+			labelWidth: {
+				label: langs.labelWidth,
+				pos: {row: 300, col: 300}
 			}
 		};
 	}

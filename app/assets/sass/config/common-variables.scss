@@ -83,6 +83,21 @@ $margin-12:							12px;
 $margin-13:							13px;
 $margin-14:							14px;
 $margin-15:							15px;
+$margin-outward-1:					-1px;
+$margin-outward-2:					-2px;
+$margin-outward-3:					-3px;
+$margin-outward-4:					-4px;
+$margin-outward-5:					-5px;
+$margin-outward-6:					-6px;
+$margin-outward-7:					-7px;
+$margin-outward-8:					-8px;
+$margin-outward-9:					-9px;
+$margin-outward-10:					-10px;
+$margin-outward-11:					-11px;
+$margin-outward-12:					-12px;
+$margin-outward-13:					-13px;
+$margin-outward-14:					-14px;
+$margin-outward-15:					-15px;
 
 // pixels
 $px-0:								0;
@@ -110,3 +125,9 @@ $container-bg-color:				#fff;
 $container-title-line-height:		2em;
 $container-title-2nd-line-height:	$container-title-line-height * 0.8;
 $body-bg-color:						$container-bg-color;
+
+// component
+$left-docker-width:					250px;
+$demo-comp-focus-border-color:		#FF9800;
+$demo-comp-line-height:				2.308em;
+$demo-comp-inner-line-height: 		2.231em;

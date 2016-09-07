@@ -1,4 +1,5 @@
 @import '../config/common-variables';
+
 #bottom-docker {
 	position: fixed;
 	left: 0;
@@ -69,6 +70,6 @@
 
 .left-docker-expanded {
 	#bottom-docker {
-		left: 250px;
+		left: $left-docker-width;
 	}
 }

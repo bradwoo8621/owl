@@ -1,0 +1,11 @@
+@import '../config/common-variables';
+
+.demo-text.n-disabled.n-text {
+    cursor: pointer;
+    .form-control[disabled] {
+    	cursor: pointer;
+    }
+    hr.disabled.normal-line {
+    	border-bottom: $border;
+    }
+}

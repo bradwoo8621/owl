@@ -1,0 +1,6 @@
+@import '../config/common-variables';
+@import 'text';
+
+[class^=demo] {
+	line-height: $demo-comp-inner-line-height;
+}

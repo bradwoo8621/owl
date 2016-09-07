@@ -29,6 +29,7 @@ body {
 	font-size: $font-size;
 	color: $font-color;
 	line-height: $line-height;
+	overflow-x: hidden;
 }
 .color-reverse {
     color: $font-color-reverse;
