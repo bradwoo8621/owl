@@ -1,4 +1,3 @@
-const jsface = require('jsface');
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -14,7 +13,6 @@ const BottomDocker = React.createClass({
 		};
 	},
 	renderDockerElement: function(dockerElement, dockerElementIndex) {
-
 		return (<div className={classnames('docker', this.getDockerElementPosition(dockerElement))}
 					 data-container-id={dockerElement.containerId}
 					 key={dockerElementIndex}>

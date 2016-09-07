@@ -34,13 +34,6 @@ html, body {
 	width: 50%;
 }
 
-@media (max-width: 1099px) {
-	.logo,
-	.work {
-		width: 100%;
-	}
-}
-
 #work-area {
 	display: flex;
 }
@@ -101,4 +94,19 @@ html, body {
 .new-project > span:hover {
 	text-decoration: underline;
 	color: #42A5F5;
+}
+
+@media (max-width: 1099px) {
+	.logo,
+	.work {
+		width: 100%;
+	}
+
+	#work-area {
+		justify-content: center;
+	}
+
+	.projects-section {
+		width: initial;
+	}
 }

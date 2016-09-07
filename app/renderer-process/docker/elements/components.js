@@ -36,7 +36,9 @@ const Components = React.createClass({
 		let component = options.component,
 			componentIndex = options.componentIndex;
 		return (<div className='component'
-							 key={componentIndex}>
+					 draggable={true}
+					 onDragStart={this.onComponentDragStarted.bind(this, component)}
+					 key={componentIndex}>
 			<span className='first-char'>{component.label.substring(0, 1)}</span>
 			<span>{component.label.substring(1)}</span>
 		</div>);
@@ -95,6 +97,9 @@ const Components = React.createClass({
 	},
 	onComponentGroupTitleClicked: function(evt) {
 		this.toggleComponentGroupExpanded($(evt.target).closest('.component-group-title'));
+	},
+	onComponentDragStarted: function(component, evt) {
+		evt.dataTransfer.setData('componentId', component.id);
 	}
 });
 

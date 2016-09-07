@@ -594,3 +594,9 @@ body {
 
 .left-docker-expanded #bottom-docker {
   left: 250px; }
+
+.main-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%; }
