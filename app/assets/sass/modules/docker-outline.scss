@@ -1,4 +1,5 @@
 @import '../config/mixins';
+@import 'frame';
 
 .docker-outline-container {
 	position: fixed;
@@ -11,6 +12,7 @@
 	height: 100vh;
 }
 .docker-outline {
+	height: 100%;
 	.docker-outline-header {
 		position: relative;
 		@include container-title-2nd();
@@ -22,5 +24,77 @@
 	}
 	.docker-outline-body {
 		@include container-row();
+		overflow-x: auto;
+		height: calc(100% - #{$docker-bottom-bar-height} - #{$docker-left-title-height});
+		.outline-navigator-root {
+			margin: $margin-0;
+		    padding: $pad-0;
+		    line-height: $outline-line-height;
+		    .folders {
+		    	margin: $margin-0;
+		    	padding: $pad-0;
+		    	padding-left: $pad-20;
+		    }
+		}
+		li {
+			list-style: none;
+			white-space: nowrap;
+			margin: $margin-0;
+			padding: $pad-0;
+			position: relative;
+			cursor: pointer;
+			// the following size and position are exactly related with icons
+			// no variables for them
+			&.node-directory:not(.node-root):before,
+			&.node-file:before {
+				content: '';
+			    border-left: 1px dotted $border-color;
+			    position: absolute;
+			    width: 0px;
+			    left: -2px;
+			    bottom: 18px;
+			    height: 100%;
+			    z-index: -1;
+   			}
+   			&:last-child.node-directory:not(.node-root):before,
+			&:last-child.node-file:before {
+				height: 30px;
+				bottom: initial;
+				top: -18px;
+   			}
+			&.node-directory:not(.node-root):after,
+			&.node-file:after {
+				content: '';
+			    position: absolute;
+			    border-top: 1px dotted $border-color;
+			    width: 13px;
+			    top: 12px;
+			    left: -2px;
+   			}
+			i {
+				margin: $margin-0 $margin-10;
+				font-size: $font-size-12;
+				display: inline-block;
+				&:hover {
+					color: $hover-link-color;
+					+ span {
+						text-decoration: underline;
+						color: $hover-link-color;
+					}
+				}
+			}
+			span {
+				margin-right: $margin-10;
+				display: inline-block;
+				position: relative;
+				// don't know why there is 1px in top
+    			top: -1px;
+    			&:hover {
+					text-decoration: underline;
+					color: $hover-link-color;
+					font-weight: $font-bold;
+    			}
+			}
+		}
 	}
 }

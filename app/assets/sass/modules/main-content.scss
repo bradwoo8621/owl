@@ -1,4 +1,5 @@
 @import '../config/common-variables';
+@import 'frame';
 
 .main-content {
 	position: absolute;
@@ -7,6 +8,7 @@
 	left: 0;
 	min-height: 100%;
 	padding: $pad-15;
+	padding-bottom: calc(#{$pad-15} + #{$docker-bottom-bar-height});
 	margin: $margin-0 $margin-outward-15;
 	&:before {
 		content: '';
@@ -20,11 +22,25 @@
 
 	.cell {
 		.cell-inner-area {
-			padding: $pad-3 $pad-0 $pad-2;
+			// padding: $pad-3 $pad-0 $pad-2;
 			// border: 1px dashed $border-color;
 			cursor: pointer;
-			&:focus {
+			&:hover {
+				outline-color: #E0E0E0;
+				outline-style: dotted;
+				outline-width: 2px;
+				.cell-operations {
+					display: block;
+				}
+			}
+			&:focus,
+			&:focus:hover {
 				outline-color: $demo-comp-focus-border-color;
+				outline-style: solid;
+				outline-width: 2px;
+				.cell-operations {
+					display: block;
+				}
 			}
 			&.horizontal {
 				&:before {
@@ -46,19 +62,33 @@
 				}
 			}
 		}
+		.cell-operations {
+			position: absolute;
+			right: 7px;
+			font-size: $font-size-15;
+			line-height: $demo-comp-op-btn-line-height;
+			top: -14px;
+			color: $demo-comp-op-btn-color;
+			display: none;
+			i {
+				background: $container-bg-color;
+    			border-radius: 100%;
+			}
+		}
 		.cell-label {
 			white-space: nowrap;
 			overflow-x: hidden;
 			text-overflow: ellipsis;
+			display: none;
 		}
 		.cell-component {
 			line-height: $demo-comp-line-height;
 			&:before {
 				content: '';
-    			display: table;
-    			&:empty {
-    				min-height: $demo-comp-line-height;
-    			}
+				display: table;
+				&:empty {
+					min-height: $demo-comp-line-height;
+				}
 			}
 			&:after {
 				content: '';
@@ -72,7 +102,7 @@
 .left-docker-expanded {
 	.main-content {
 		left: $left-docker-width;
-	    width: initial;
-	    right: 0;
-   	}
+		width: initial;
+		right: 0;
+	}
 }

@@ -1,9 +1,9 @@
 const $pt = require('../parrot').parrot;
 
 module.exports = {
-	id: 'pt-txt', 
-	label: 'Text', 
+	id: 'pt-upl', 
+	label: 'Upload', 
 	group: 'plain',
 
-	type: $pt.ComponentConstants.Text
+	type: $pt.ComponentConstants.File
 };

@@ -1,9 +1,9 @@
 const $pt = require('../parrot').parrot;
 
 module.exports = {
-	id: 'pt-txt', 
-	label: 'Text', 
+	id: 'pt-lbl', 
+	label: 'Label', 
 	group: 'plain',
 
-	type: $pt.ComponentConstants.Text
+	type: $pt.ComponentConstants.Label
 };

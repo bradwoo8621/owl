@@ -1,6 +1,21 @@
 @import '../config/common-variables';
+@import 'array-check';
+@import 'button';
+@import 'code-search';
+@import 'datepicker';
+@import 'radio';
+@import 'select-tree';
 @import 'text';
+@import 'upload';
 
-[class^=demo] {
-	line-height: $demo-comp-inner-line-height;
+[class^=demo-],
+.design-demo {
+	// line-height: $demo-comp-inner-line-height;
+	hr.disabled.normal-line {
+		border-bottom: $border;
+	}
+	hr.focus-line {
+		display: none;
+	}
 }
+

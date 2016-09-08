@@ -1,10 +1,11 @@
 @import '../config/common-variables';
+@import 'frame';
 
 #bottom-docker {
 	position: fixed;
 	left: 0;
 	right: 0;
-	bottom: calc(#{$line-height}em + 2 * #{$margin-3} + #{$px-3});
+	bottom: $docker-bottom-bar-height;
 	z-index: $docker-zindex;
 	background-color: $container-bg-color;
 	> div > div[class$='-body'] {
@@ -57,7 +58,7 @@
 				margin: $margin-3;
 				&.expanded,
 				&:hover {
-					color: darken($primary-color, 30%);
+					color: $hover-link-color;
 					text-decoration: underline;
 				}
 				span {

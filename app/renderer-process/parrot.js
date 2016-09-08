@@ -2,6 +2,7 @@ const $ = require('jquery');
 window.jQuery = $;
 const mousewheel = require('jquery-mousewheel')($);
 require('bootstrap');
+require('bootstrap-fileinput');
 const moment = require('moment');
 const React = require('react');
 const ReactDOM = require('react-dom');

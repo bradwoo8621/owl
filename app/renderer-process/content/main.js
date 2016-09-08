@@ -2,6 +2,7 @@ const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const classnames = require('classnames');
+const $pt = require('../parrot').parrot;
 
 const parrotComponents = require('../parrot-components');
 
@@ -12,13 +13,17 @@ const MainContent = React.createClass({
 		};
 	},
 	renderDemoComponent: function(component) {
-		return component.def.renderDemo.call(this);
+		return this.getComponentRenderer(component).call(this, component);
 	},
 	renderComponent: function(component, componentIndex) {
 		return (<div className={this.getComponentWidthClassName('cell', component)}
 					 key={componentIndex}>
 			<div className='cell-inner-area'
 				 tabIndex='0'>
+				<span className='cell-operations'>
+					<i className='mdi mdi-close-circle'
+					   onClick={this.onComponentRemoveClicked.bind(this, component)} />
+				</span>
 				<span className='cell-label'>label</span>
 				<div className='cell-component'>
 					{this.renderDemoComponent(component)}
@@ -57,6 +62,9 @@ const MainContent = React.createClass({
 		evt.preventDefault();
 		// console.log('drag leave');
 	},
+	onComponentRemoveClicked: function(component) {
+		this.removeComponent(component);
+	},
 	getComponents: function() {
 		return this.state.components;
 	},
@@ -67,7 +75,11 @@ const MainContent = React.createClass({
 	},
 	insertComponent: function(component) {
 		this.getComponents().push(this.adaptComponent(component));
-		// console.log(this.getComponents());
+		this.forceUpdate();
+	},
+	removeComponent: function(component) {
+		let components = this.getComponents();
+		components.splice(components.indexOf(component), 1);
 		this.forceUpdate();
 	},
 	adaptComponent: function(component) {
@@ -75,13 +87,42 @@ const MainContent = React.createClass({
 			def: component,
 			row: 0,
 			col: 0,
-			width: 3
+			width: component.defaultWidth ? component.defaultWidth : 3
 		};
 	},
 	getComponentWidthClassName: function(className, component) {
 		var widthCSS = {};
 		widthCSS['col-md-' + component.width] = true;
+
 		return classnames(className, widthCSS);
+	},
+	getComponentRenderer: function(component) {
+		if (component.def.renderer) {
+			return component.def.renderer;
+		} else {
+			return this.getStandardComponentRenderer;
+		}
+	},
+	getStandardComponentRenderer: function(component) {
+		let layoutJSON = {
+			label: component.def.label,
+			comp: {
+				type: component.def.type,
+				labelDirection: 'vertical',
+				enabled: false
+			},
+			css: {
+				comp: 'design-demo'
+			},
+			pos: {width: 0}
+		};
+		if (component.def.layoutAdapt) {
+			layoutJSON = component.def.layoutAdapt.call(this, layoutJSON);
+		}
+		let layout = $pt.createCellLayout('', layoutJSON);
+		let model = $pt.createModel({});
+		return <$pt.Components.NFormCell model={model}
+									 	 layout={layout} />;
 	}
 });
 

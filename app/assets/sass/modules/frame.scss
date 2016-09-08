@@ -1,0 +1,2 @@
+$docker-bottom-bar-height:				calc(#{$line-height}em + 2 * #{$margin-3} + #{$px-3});
+$docker-left-title-height:				calc(#{strip-unit($font-title-2nd-size)} * #{$container-title-2nd-line-height});
