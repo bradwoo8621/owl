@@ -1,9 +1,10 @@
-const $pt = require('../parrot').parrot;
+module.exports = function(parrot) {
+	let $pt = parrot.parrot;
+	return {
+		id: 'pt-date', 
+		label: 'Date Picker', 
+		group: 'plain',
 
-module.exports = {
-	id: 'pt-date', 
-	label: 'Date Picker', 
-	group: 'plain',
-
-	type: $pt.ComponentConstants.Date
+		type: $pt.ComponentConstants.Date
+	};
 };

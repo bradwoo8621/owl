@@ -1,9 +1,9 @@
 const locale = require('../../locale');
 
-const $ = require('jquery');
-const React = require('react');
-const ReactDOM = require('react-dom');
 const parrot = require('../../parrot');
+const $ = parrot.jquery;
+const React = parrot.react;
+const ReactDOM = parrot.reactDOM;
 const $pt = parrot.parrot;
 
 const langs = locale.load('docker/global');

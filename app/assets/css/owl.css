@@ -652,7 +652,7 @@ body {
 .left-docker-expanded #bottom-docker {
   left: 250px; }
 
-.main-content {
+.main-content.component-receiver {
   position: absolute;
   top: 0;
   right: 0;
@@ -660,73 +660,16 @@ body {
   min-height: 100%;
   padding: 15px;
   padding-bottom: calc(15px + calc(1.846em + 2 * 3px + 3px));
-  margin: 0 -15px; }
-  .main-content:before {
-    content: '';
-    display: table; }
-  .main-content:after {
-    content: '';
-    display: table;
-    clear: both; }
-  .main-content .cell .cell-inner-area {
-    cursor: pointer; }
-    .main-content .cell .cell-inner-area:hover {
-      outline-color: #E0E0E0;
-      outline-style: dotted;
-      outline-width: 2px; }
-      .main-content .cell .cell-inner-area:hover .cell-operations {
-        display: block; }
-    .main-content .cell .cell-inner-area:focus, .main-content .cell .cell-inner-area:focus:hover {
-      outline-color: #FF9800;
-      outline-style: solid;
-      outline-width: 2px; }
-      .main-content .cell .cell-inner-area:focus .cell-operations, .main-content .cell .cell-inner-area:focus:hover .cell-operations {
-        display: block; }
-    .main-content .cell .cell-inner-area.horizontal:before {
-      content: '';
-      display: table; }
-    .main-content .cell .cell-inner-area.horizontal:after {
-      content: '';
-      display: table;
-      clear: both; }
-    .main-content .cell .cell-inner-area.horizontal .cell-label {
-      padding-left: 0;
-      line-height: 2.308em; }
-    .main-content .cell .cell-inner-area.horizontal .cell-component {
-      padding-right: 0;
-      padding-left: 0; }
-  .main-content .cell .cell-operations {
-    position: absolute;
-    right: 7px;
-    font-size: 1.5em;
-    line-height: 1.539em;
-    top: -14px;
-    color: #90A4AE;
-    display: none; }
-    .main-content .cell .cell-operations i {
-      background: #fff;
-      border-radius: 100%; }
-  .main-content .cell .cell-label {
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-    display: none; }
-  .main-content .cell .cell-component {
-    line-height: 2.308em; }
-    .main-content .cell .cell-component:before {
-      content: '';
-      display: table; }
-      .main-content .cell .cell-component:before:empty {
-        min-height: 2.308em; }
-    .main-content .cell .cell-component:after {
-      content: '';
-      display: table;
-      clear: both; }
+  margin: 0 -15px;
+  border: 0; }
 
 .left-docker-expanded .main-content {
   left: 250px;
   width: initial;
   right: 0; }
+
+.design-demo.n-button.n-disabled {
+  cursor: pointer; }
 
 .design-demo.n-disabled.n-array-check {
   cursor: pointer; }
@@ -734,7 +677,8 @@ body {
   .design-demo.n-disabled.n-array-check div.n-checkbox.n-disabled span.check-label.disabled {
     cursor: pointer; }
 
-.design-demo.n-button.n-disabled {
+.design-demo.n-disabled.n-checkbox div.check-container,
+.design-demo.n-disabled.n-checkbox span.check-container.disabled {
   cursor: pointer; }
 
 .design-demo.n-search-text.n-disabled .form-control[disabled] {
@@ -759,10 +703,18 @@ body {
   .design-demo.n-disabled.n-select-tree .form-control {
     cursor: pointer; }
 
-.design-demo.n-disabled.n-text {
+.design-demo.n-disabled.n-text,
+.design-demo.n-disabled.n-textarea {
   cursor: pointer; }
-  .design-demo.n-disabled.n-text .form-control[disabled] {
+  .design-demo.n-disabled.n-text .form-control[disabled],
+  .design-demo.n-disabled.n-textarea .form-control[disabled] {
     cursor: pointer; }
+
+.design-demo.n-disabled.n-toggle > div.toggle-container.unchecked > span.n-toggle-false {
+  cursor: pointer; }
+
+.design-demo.n-disabled.n-toggle > div.toggle-container.unchecked > span.n-toggle-true {
+  cursor: pointer; }
 
 .design-demo.n-disabled.n-file .file-input .form-control.file-caption.kv-fileinput-caption {
   background-color: transparent; }
@@ -780,3 +732,69 @@ body {
 [class^=demo-] hr.focus-line,
 .design-demo hr.focus-line {
   display: none; }
+
+.component-receiver {
+  min-height: 30px;
+  border: 1px dashed #e0e0e0;
+  margin: 0 -15px; }
+  .component-receiver:before {
+    content: '';
+    display: table; }
+  .component-receiver:after {
+    content: '';
+    display: table;
+    clear: both; }
+  .component-receiver .cell .cell-inner-area {
+    cursor: pointer; }
+    .component-receiver .cell .cell-inner-area:hover {
+      outline-color: #E0E0E0;
+      outline-style: dotted;
+      outline-width: 2px; }
+      .component-receiver .cell .cell-inner-area:hover > .cell-operations {
+        display: block; }
+    .component-receiver .cell .cell-inner-area:focus, .component-receiver .cell .cell-inner-area:focus:hover {
+      outline-color: #FF9800;
+      outline-style: solid;
+      outline-width: 2px; }
+      .component-receiver .cell .cell-inner-area:focus > .cell-operations, .component-receiver .cell .cell-inner-area:focus:hover > .cell-operations {
+        display: block; }
+    .component-receiver .cell .cell-inner-area.horizontal:before {
+      content: '';
+      display: table; }
+    .component-receiver .cell .cell-inner-area.horizontal:after {
+      content: '';
+      display: table;
+      clear: both; }
+    .component-receiver .cell .cell-inner-area.horizontal .cell-label {
+      padding-left: 0;
+      line-height: 2.308em; }
+    .component-receiver .cell .cell-inner-area.horizontal .cell-component {
+      padding-right: 0;
+      padding-left: 0; }
+  .component-receiver .cell .cell-operations {
+    position: absolute;
+    right: 7px;
+    font-size: 1.5em;
+    line-height: 1.539em;
+    top: -14px;
+    color: #90A4AE;
+    display: none; }
+    .component-receiver .cell .cell-operations i {
+      background: #fff;
+      border-radius: 100%; }
+  .component-receiver .cell .cell-label {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    display: none; }
+  .component-receiver .cell .cell-component {
+    line-height: 2.308em; }
+    .component-receiver .cell .cell-component:before {
+      content: '';
+      display: table; }
+      .component-receiver .cell .cell-component:before:empty {
+        min-height: 2.308em; }
+    .component-receiver .cell .cell-component:after {
+      content: '';
+      display: table;
+      clear: both; }

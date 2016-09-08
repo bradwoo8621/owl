@@ -1,9 +1,10 @@
-const $pt = require('../parrot').parrot;
+module.exports = function(parrot) {
+	let $pt = parrot.parrot;
+	return {
+		id: 'pt-tgl', 
+		label: 'Toggle', 
+		group: 'plain',
 
-module.exports = {
-	id: 'pt-tgl', 
-	label: 'Toggle', 
-	group: 'plain',
-
-	type: $pt.ComponentConstants.Toggle
+		type: $pt.ComponentConstants.Toggle
+	};
 };

@@ -7,3 +7,10 @@
 	    }
     }
 }
+
+.design-demo.n-disabled.n-checkbox {
+	div.check-container,
+	span.check-container.disabled {
+		cursor: pointer;
+	}
+}

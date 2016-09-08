@@ -1,9 +1,10 @@
-const $pt = require('../parrot').parrot;
+module.exports = function(parrot) {
+	let $pt = parrot.parrot;
+	return {
+		id: 'pt-chk', 
+		label: 'CheckBox', 
+		group: 'plain',
 
-module.exports = {
-	id: 'pt-chk', 
-	label: 'CheckBox', 
-	group: 'plain',
-
-	type: $pt.ComponentConstants.Check
+		type: $pt.ComponentConstants.Check
+	};
 };

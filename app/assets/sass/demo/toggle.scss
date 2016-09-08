@@ -1,0 +1,8 @@
+.design-demo.n-disabled.n-toggle {
+	> div.toggle-container.unchecked > span.n-toggle-false {
+		cursor: pointer;
+	}
+	> div.toggle-container.unchecked > span.n-toggle-true {
+		cursor: pointer;
+	}
+}

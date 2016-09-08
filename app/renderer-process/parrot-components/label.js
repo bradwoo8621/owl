@@ -1,9 +1,10 @@
-const $pt = require('../parrot').parrot;
+module.exports = function(parrot) {
+	let $pt = parrot.parrot;
+	return {
+		id: 'pt-lbl', 
+		label: 'Label', 
+		group: 'plain',
 
-module.exports = {
-	id: 'pt-lbl', 
-	label: 'Label', 
-	group: 'plain',
-
-	type: $pt.ComponentConstants.Label
+		type: $pt.ComponentConstants.Label
+	};
 };

@@ -46,7 +46,7 @@
     "electron-config": "^0.2.1",
     "extfs": "0.0.7",
     "mdi": "^1.7.22",
-    "nest-parrot": "0.5.0",
+    "nest-parrot": "0.5.1",
     "source-code-pro": "0.0.0"
   },
   "build": {
