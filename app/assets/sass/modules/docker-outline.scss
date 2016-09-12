@@ -98,3 +98,26 @@
 		}
 	}
 }
+
+.outline-folder-name-input-container {
+	border: $outline-pop-border;
+	border-radius: $border-radius-4;
+	position: absolute;
+	z-index: $docker-pop-zindex;
+	background-color: $outline-pop-bg-color;
+	padding: $pad-5 $pad-10;
+	span.outline-folder-name-input-label {
+		display: inline-block;
+		margin-right: $margin-10;
+	}
+	input[type=text] {
+		display: inline-block;
+		outline: none;
+		line-height: $line-height;
+		width: 300px;
+	}
+	span.outline-folder-name-input-error {
+		display: block;
+		color: $error-color;
+	}
+}

@@ -91,6 +91,6 @@ module.exports = {
 	icon: 'mdi mdi-television-guide', 
 	reactClass: Page,
 	className: 'docker-page-container',
-	containerId: 'bottom-docker',
+	containerId: 'bottom-docker-section',
 	pos: 'right'
 };

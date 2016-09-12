@@ -514,7 +514,7 @@ body {
       display: block; }
   .docker-outline .docker-outline-body {
     overflow-x: auto;
-    height: calc(100% - calc(1.846em + 2 * 3px + 3px) - calc(1.6 * 1.6em)); }
+    height: calc(100% - 0px - calc(1.6 * 1.6em)); }
     .docker-outline .docker-outline-body:before {
       content: '';
       display: table; }
@@ -576,6 +576,25 @@ body {
           color: #347e77;
           font-weight: bold; }
 
+.outline-folder-name-input-container {
+  border: 1px solid #424242;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 150;
+  background-color: #CFD8DC;
+  padding: 5px 10px; }
+  .outline-folder-name-input-container span.outline-folder-name-input-label {
+    display: inline-block;
+    margin-right: 10px; }
+  .outline-folder-name-input-container input[type=text] {
+    display: inline-block;
+    outline: none;
+    line-height: 1.846;
+    width: 300px; }
+  .outline-folder-name-input-container span.outline-folder-name-input-error {
+    display: block;
+    color: #ef5350; }
+
 .docker-global .docker-global-header {
   position: relative;
   font-weight: bold;
@@ -597,7 +616,7 @@ body {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: calc(1.846em + 2 * 3px + 3px);
+  bottom: 0;
   z-index: 100;
   background-color: #fff; }
   #bottom-docker > div > div[class$='-body'] {
@@ -611,43 +630,141 @@ body {
     padding-left: 5px; }
 
 .bottom-docker-bar-container {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  bottom: 100%;
   left: 0;
   right: 0;
   z-index: 100; }
+  .bottom-docker-bar-container .bottom-docker-bar-btn {
+    font-size: 2em;
+    height: 40px;
+    width: 40px;
+    display: table-cell;
+    line-height: 1.5em;
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    text-align: center;
+    z-index: 2; }
+    .bottom-docker-bar-container .bottom-docker-bar-btn i {
+      position: absolute;
+      height: 40px;
+      width: 40px;
+      border-radius: 100%;
+      background-color: #00ACC1;
+      bottom: 0;
+      right: 0;
+      text-align: center; }
+    .bottom-docker-bar-container .bottom-docker-bar-btn.expanded ~ .bottom-docker-bar {
+      display: block; }
   .bottom-docker-bar-container .bottom-docker-bar {
-    border-top: 1px solid #e0e0e0;
-    background-color: #e0e0e0; }
-    .bottom-docker-bar-container .bottom-docker-bar:before {
-      content: '';
-      display: table; }
-    .bottom-docker-bar-container .bottom-docker-bar:after {
-      content: '';
-      clear: both;
-      display: table; }
-    .bottom-docker-bar-container .bottom-docker-bar .docker.left {
-      float: left; }
-      .bottom-docker-bar-container .bottom-docker-bar .docker.left .docker-btn {
-        border-right: 1px solid #e0e0e0;
-        border-right-color: #347e77; }
-    .bottom-docker-bar-container .bottom-docker-bar .docker.right {
-      float: right; }
-      .bottom-docker-bar-container .bottom-docker-bar .docker.right .docker-btn {
-        border-left: 1px solid #e0e0e0;
-        border-left-color: #347e77; }
-    .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn {
+    display: none; }
+    .bottom-docker-bar-container .bottom-docker-bar .docker-btn {
       font-family: "Itc Avant Garde Gothic", "Source Code Pro", "Microsoft YaHei", Arial;
-      font-weight: bold;
-      font-size: 1.1em;
-      padding: 0 10px;
       cursor: pointer;
-      margin: 3px; }
-      .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn.expanded, .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn:hover {
-        color: #347e77;
-        text-decoration: underline; }
-      .bottom-docker-bar-container .bottom-docker-bar .docker .docker-btn span {
-        margin-left: 3px; }
+      width: 40px;
+      height: 40px;
+      font-size: 2em;
+      color: #fff;
+      background-color: #00ACC1;
+      border-radius: 100%;
+      display: table-cell;
+      text-align: center;
+      line-height: 1.5em; }
+    .bottom-docker-bar-container .bottom-docker-bar.left {
+      position: absolute;
+      bottom: 25px;
+      right: 5px;
+      padding-bottom: 20px; }
+      .bottom-docker-bar-container .bottom-docker-bar.left .docker {
+        margin-bottom: 5px;
+        position: relative; }
+        .bottom-docker-bar-container .bottom-docker-bar.left .docker:hover:before {
+          content: '';
+          position: absolute;
+          border-left-width: 0;
+          border-width: 6px;
+          border-color: transparent;
+          border-left-color: #e0e0e0;
+          right: calc(100% - 6px);
+          border-style: solid;
+          top: 14px;
+          z-index: -1; }
+        .bottom-docker-bar-container .bottom-docker-bar.left .docker:hover:after {
+          content: attr(data-title);
+          position: absolute;
+          white-space: nowrap;
+          top: 5px;
+          right: calc(100% + 6px);
+          border: 1px solid #e0e0e0;
+          padding: 3px 15px;
+          border-radius: 4px;
+          height: 30px;
+          background-color: #fff;
+          z-index: -1; }
+        .bottom-docker-bar-container .bottom-docker-bar.left .docker:hover .docker-btn:after {
+          content: '';
+          position: absolute;
+          border-left-width: 0;
+          border-width: 6px;
+          border-color: transparent;
+          border-left-color: #fff;
+          right: calc(100% - 5px);
+          border-style: solid;
+          top: 14px; }
+    .bottom-docker-bar-container .bottom-docker-bar.right {
+      position: absolute;
+      bottom: 5px;
+      right: 25px;
+      height: 40px;
+      padding-right: 20px;
+      white-space: nowrap; }
+      .bottom-docker-bar-container .bottom-docker-bar.right .docker {
+        display: inline-block;
+        position: relative;
+        margin-right: 5px; }
+        .bottom-docker-bar-container .bottom-docker-bar.right .docker:hover:before {
+          content: attr(data-title);
+          position: absolute;
+          white-space: nowrap;
+          left: 50%;
+          -webkit-transform: translateX(-50%);
+                  transform: translateX(-50%);
+          bottom: calc(100% + 6px);
+          border: 1px solid #e0e0e0;
+          padding: 3px 15px;
+          border-radius: 4px;
+          height: 30px;
+          background-color: #fff;
+          z-index: -1; }
+        .bottom-docker-bar-container .bottom-docker-bar.right .docker:hover:after {
+          content: '';
+          position: absolute;
+          border-left-width: 0;
+          border-width: 6px;
+          border-color: transparent;
+          border-top-color: #e0e0e0;
+          bottom: calc(100% - 6px);
+          border-style: solid;
+          right: 14px;
+          z-index: -1; }
+        .bottom-docker-bar-container .bottom-docker-bar.right .docker:hover .docker-btn:after {
+          content: '';
+          position: absolute;
+          border-left-width: 0;
+          border-width: 6px;
+          border-color: transparent;
+          border-top-color: #fff;
+          bottom: calc(100% - 5px);
+          border-style: solid;
+          left: 14px; }
+        .bottom-docker-bar-container .bottom-docker-bar.right .docker:last-child:hover:before {
+          right: 0;
+          left: auto;
+          -webkit-transform: none;
+                  transform: none; }
 
 .left-docker-expanded #bottom-docker {
   left: 250px; }
@@ -659,7 +776,6 @@ body {
   left: 0;
   min-height: 100%;
   padding: 15px;
-  padding-bottom: calc(15px + calc(1.846em + 2 * 3px + 3px));
   margin: 0 -15px;
   border: 0; }
 

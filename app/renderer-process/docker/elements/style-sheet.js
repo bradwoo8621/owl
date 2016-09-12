@@ -57,6 +57,6 @@ module.exports = {
 	icon: 'mdi mdi-broom',
 	reactClass: StyleSheet,
 	className: 'docker-stylesheet-container',
-	containerId: 'bottom-docker',
+	containerId: 'bottom-docker-section',
 	pos: 'right'
 };

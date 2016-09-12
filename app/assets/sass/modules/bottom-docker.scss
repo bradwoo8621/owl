@@ -5,7 +5,7 @@
 	position: fixed;
 	left: 0;
 	right: 0;
-	bottom: $docker-bottom-bar-height;
+	bottom: 0;
 	z-index: $docker-zindex;
 	background-color: $container-bg-color;
 	> div > div[class$='-body'] {
@@ -25,44 +25,158 @@
 	}
 }
 .bottom-docker-bar-container {
-	position: fixed;
-	bottom: 0;
+	position: absolute;
+	bottom: 100%;
 	left: 0;
 	right: 0;
 	z-index: $docker-zindex;
+	.bottom-docker-bar-btn {
+		font-size: $docker-bottom-bar-btn-font-size;
+		height: $docker-bottom-bar-btn-height;
+		width: $docker-bottom-bar-btn-width;
+		display: table-cell;
+		line-height: $docker-bottom-bar-btn-line-height;
+		color: $font-color-reverse;
+		cursor: pointer;
+		position: absolute;
+		bottom: $docker-bottom-bar-pad;
+		right: $docker-bottom-bar-pad;
+		text-align: center;
+		z-index: 2;
+		i {
+			position: absolute;
+		    height: $docker-bottom-bar-btn-height;
+		    width: $docker-bottom-bar-btn-width;
+		    border-radius: 100%;
+		    background-color: $docker-bottom-bar-btn-bg-color;
+		    bottom: 0;
+		    right: 0;
+		    text-align: center;
+		}
+		&.expanded {
+			~ .bottom-docker-bar {
+				display: block;
+			}
+		}
+	}
 	.bottom-docker-bar {
-		border-top: $border;
-		background-color: $border-color;
-		@include container-row();
-		.docker {
-			&.left {
-				float: left;
-				.docker-btn {
-					border-right: $border;
-					border-right-color: darken($primary-color, 30%);
-				}
-			}
-			&.right {
-				float: right;
-				.docker-btn {
-					border-left: $border;
-					border-left-color: darken($primary-color, 30%);
-				}
-			}
-			.docker-btn {
-				font-family: $font-avant;
-				font-weight: $font-bold;
-				font-size: $font-size-11;
-				padding: $pad-0 $pad-10;
-				cursor: pointer;
-				margin: $margin-3;
-				&.expanded,
+		display: none;
+		.docker-btn {
+			font-family: $font-avant;
+			// position: fixed;
+			cursor: pointer;
+			width: $docker-bottom-bar-btn-width;
+			height: $docker-bottom-bar-btn-height;
+			font-size: $docker-bottom-bar-btn-font-size;
+			color: $font-color-reverse;
+			background-color: $docker-bottom-bar-btn-bg-color;
+			border-radius: 100%;
+			display: table-cell;
+			text-align: center;
+			line-height: $docker-bottom-bar-btn-line-height;
+		}
+		&.left {
+			position: absolute;
+		    bottom: $docker-bottom-bar-btn-height / 2 + $docker-bottom-bar-pad;
+		    right: $docker-bottom-bar-pad;
+		    padding-bottom: $docker-bottom-bar-btn-height / 2;
+   			.docker {
+   				margin-bottom: $margin-5;
+   				position: relative;
 				&:hover {
-					color: $hover-link-color;
-					text-decoration: underline;
+					&:before {
+						content: '';
+						position: absolute;
+						border-left-width: 0;
+						border-width: $docker-bottom-bar-tip-arrow-border-width;
+						border-color: transparent;
+						border-left-color: $border-color;
+						right: calc(100% - #{$docker-bottom-bar-tip-arrow-border-width});
+						border-style: solid;
+						top: $docker-bottom-bar-btn-height / 2 - $docker-bottom-bar-tip-arrow-border-width;
+						z-index: -1;				
+					}
+					&:after {
+						content: attr(data-title);
+						position: absolute;
+						white-space: nowrap;
+						top: $docker-bottom-bar-tip-arrow-border-width - $px-1;
+						right: calc(100% + #{$docker-bottom-bar-tip-arrow-border-width});
+						border: $border;
+						padding: $pad-3 $pad-15;
+						border-radius: $border-radius-4;
+						height: $px-30;
+						background-color: $container-bg-color;
+						z-index: -1;
+					}
+					.docker-btn:after {
+						content: '';
+						position: absolute;
+						border-left-width: 0;
+						border-width: $docker-bottom-bar-tip-arrow-border-width;
+						border-color: transparent;
+						border-left-color: $container-bg-color;
+						right: calc(100% - #{$docker-bottom-bar-tip-arrow-border-width - $px-1});
+						border-style: solid;
+						top: $docker-bottom-bar-btn-height / 2 - $docker-bottom-bar-tip-arrow-border-width;
+					}
 				}
-				span {
-					margin-left: $margin-3;
+			}
+		}
+		&.right {
+			position: absolute;
+		    bottom: $docker-bottom-bar-pad;
+		    right: $docker-bottom-bar-btn-width / 2 + $docker-bottom-bar-pad;
+		    height: $docker-bottom-bar-btn-height;
+		    padding-right: $docker-bottom-bar-btn-width / 2;
+		    white-space: nowrap;
+			.docker {
+				display: inline-block;
+				position: relative;
+				margin-right: $margin-5;
+				&:hover {
+					&:before {
+						content: attr(data-title);
+						position: absolute;
+						white-space: nowrap;
+						left: 50%;
+    					transform: translateX(-50%);
+						bottom: calc(100% + #{$docker-bottom-bar-tip-arrow-border-width});
+						border: $border;
+						padding: $pad-3 $pad-15;
+						border-radius: $border-radius-4;
+						height: $px-30;
+						background-color: $container-bg-color;
+						z-index: -1;
+					}
+					&:after {
+						content: '';
+						position: absolute;
+						border-left-width: 0;
+						border-width: $docker-bottom-bar-tip-arrow-border-width;
+						border-color: transparent;
+						border-top-color: $border-color;
+						bottom: calc(100% - #{$docker-bottom-bar-tip-arrow-border-width});
+						border-style: solid;
+						right: $docker-bottom-bar-btn-width / 2 - $docker-bottom-bar-tip-arrow-border-width;
+						z-index: -1;
+					}
+					.docker-btn:after {
+						content: '';
+						position: absolute;
+						border-left-width: 0;
+						border-width: $docker-bottom-bar-tip-arrow-border-width;
+						border-color: transparent;
+						border-top-color: $container-bg-color;
+						bottom: calc(100% - #{$docker-bottom-bar-tip-arrow-border-width - $px-1});
+						border-style: solid;
+						left: $docker-bottom-bar-btn-width / 2 - $docker-bottom-bar-tip-arrow-border-width;
+					}
+				}
+				&:last-child:hover:before {
+					right: 0;
+					left: auto;
+					transform: none;
 				}
 			}
 		}

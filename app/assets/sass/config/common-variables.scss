@@ -5,6 +5,7 @@ $bg-color:							#fff;
 $primary-color:						#80CBC4;
 $advice-color:						#ef9a9a;
 $hover-link-color:					darken($primary-color, 30%);
+$error-color:						#ef5350;
 
 // font
 $font-family:						'Source Code Pro', 'Microsoft YaHei', Arial;
@@ -122,9 +123,35 @@ $px-12:								12px;
 $px-13:								13px;
 $px-14:								14px;
 $px-15:								15px;
+$px-16:								16px;
+$px-17:								17px;
+$px-18:								18px;
+$px-19:								19px;
+$px-20:								20px;
+$px-21:								21px;
+$px-22:								22px;
+$px-23:								23px;
+$px-24:								24px;
+$px-25:								25px;
+$px-26:								26px;
+$px-27:								27px;
+$px-28:								28px;
+$px-29:								29px;
+$px-30:								30px;
+$px-31:								31px;
+$px-32:								32px;
+$px-33:								33px;
+$px-34:								34px;
+$px-35:								35px;
+$px-36:								36px;
+$px-37:								37px;
+$px-38:								38px;
+$px-39:								39px;
+$px-40:								40px;
 
 // zindex
 $docker-zindex:						100;
+$docker-pop-zindex:					150;
 
 // container
 $container-bg-color:				#fff;
@@ -143,3 +170,5 @@ $demo-comp-op-btn-line-height:		1.539em;
 $design-panel-height:				30px;
 // outline
 $outline-line-height:				2.308em;
+$outline-pop-bg-color:				#CFD8DC;
+$outline-pop-border:				1px solid #424242;

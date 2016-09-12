@@ -66,9 +66,9 @@ const Position = React.createClass({
 
 module.exports = {
 	label: langs.title, 
-	icon: 'mdi mdi-arrow-compress-all',
+	icon: 'mdi mdi-arrange-send-to-back',
 	reactClass: Position,
 	className: 'docker-position-container',
-	containerId: 'bottom-docker',
+	containerId: 'bottom-docker-section',
 	pos: 'right'
 };

@@ -12,12 +12,14 @@ const Projects = React.createClass({
 	renderRecentProject: function(projectFolder, projectIndex) {
 		return (<div className='recent-project'
 					 key={projectIndex}>
-			<i className='mdi mdi-folder-star' />
+			<i className='mdi mdi-folder-star folder-icon' />
 			<span onClick={this.onRecentProjectClicked.bind(this, projectFolder)}>{projectFolder}</span>
+			<i className='mdi mdi-close-circle remove-folder-btn'
+			   onClick={this.onFolderRemoveClicked.bind(this, projectFolder)} />
 		</div>);
 	},
 	renderNoRecent: function() {
-		return (<div className='recent-project'>
+		return (<div className='recent-project no-recent-project'>
 			<span>{langs.noRecent}</span>
 		</div>);
 	},
@@ -58,6 +60,15 @@ const Projects = React.createClass({
 	onRecentProjectClicked: function(folder) {
 		this.setCurrentProject(folder);
 	},
+	onFolderRemoveClicked: function(folder) {
+		let recentProjects = this.getRecentProjects();
+		let inRecentIndex = recentProjects.indexOf(folder);
+		if (inRecentIndex != -1) {
+			recentProjects.splice(inRecentIndex, 1);
+		}
+		config.set(config.RECENT_PROJECTS, recentProjects);
+		this.forceUpdate();
+	},
 	setCurrentProject: function(folder) {
 		// set current project
 		config.set(config.CURRENT_PROJECT, folder);
@@ -68,6 +79,9 @@ const Projects = React.createClass({
 			recentProjects.splice(inRecentIndex, 1);
 		}
 		recentProjects.push(folder);
+		if (recentProjects.length > 10) {
+			recentProjects.shift();
+		}
 		config.set(config.RECENT_PROJECTS, recentProjects);
 
 		route.relocate('/app/working-file.html');

@@ -66,15 +66,31 @@ html, body {
 	line-height: 2em;
 }
 
-.recent-project > i {
+.recent-project > i.folder-icon {
 	display: inline-block;
 	line-height: 2em;
 	margin-right: 10px;
+	cursor: pointer;
 }
 
-.recent-project:hover {
+.recent-project > .remove-folder-btn {
+	line-height: 2em;
+	margin-left: 10px;
+	display: none;
+	cursor: pointer;
+}
+
+.recent-project:not(.no-recent-project):hover {
 	color: #42A5F5;
 	text-decoration: underline;
+}
+
+.recent-project:hover .remove-folder-btn {
+	display: inline-block;
+}
+
+.recent-project.no-recent-project > span {
+	cursor: default;
 }
 
 .new-project {

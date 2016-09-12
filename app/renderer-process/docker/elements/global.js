@@ -81,5 +81,5 @@ module.exports = {
 	icon: 'mdi mdi-settings', 
 	reactClass: Global,
 	className: 'docker-global-container',
-	containerId: 'bottom-docker'
+	containerId: 'bottom-docker-section'
 };
