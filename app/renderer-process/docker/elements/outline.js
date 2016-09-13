@@ -1,11 +1,12 @@
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 const path = require('path');
-const extfs = require('extfs');
 const {remote} = require('electron');
-const {Menu, MenuItem} = remote;
+const {Menu, MenuItem, dialog} = remote;
 
 const locale = require('../../locale');
 const config = require('../../../config');
+const envs = require('../../envs/project-env');
 
 const classnames = require('classnames');
 const $ = require('jquery');
@@ -14,22 +15,24 @@ const ReactDOM = require('react-dom');
 
 const langs = locale.load('docker/outline');
 
-const FolderNameInput = React.createClass({
+const FileNameInput = React.createClass({
 	statics: {
+		DIR: 'dir',
+		FILE: 'file',
 		show: function(options) {
 			let div = $('#outline-folder-name-input-div');
 			if (div.length == 0) {
 				div = $('<div id="outline-folder-name-input-div">').appendTo($('body'));
 			}
 			let offset = $(ReactDOM.findDOMNode(options.node)).offset();
-			console.log(offset);
 			let props = {
 				parent: options.parent,
+				type: options.type,
 				top: 'calc(' + offset.top + 'px + 2em)',
 				left: 40,
 				callback: options.callback
 			};
-			ReactDOM.render(<FolderNameInput {...props} />, div[0]);
+			ReactDOM.render(<FileNameInput {...props} />, div[0]);
 		},
 		hide: function() {
 			ReactDOM.unmountComponentAtNode(document.getElementById('outline-folder-name-input-div'));
@@ -40,6 +43,10 @@ const FolderNameInput = React.createClass({
 	},
 	componentDidMount: function() {
 		$(ReactDOM.findDOMNode(this.refs.text)).focus();
+		$(document).on('click', this.onDocumentClicked);
+	},
+	componentWillUnmount: function() {
+		$(document).off('click', this.onDocumentClicked);
 	},
 	componentDidUpdate: function() {
 		$(ReactDOM.findDOMNode(this.refs.text)).focus();
@@ -63,12 +70,11 @@ const FolderNameInput = React.createClass({
 					ref='container'
 					style={this.calculatePosition()}>
 			<span className='outline-folder-name-input-label'>
-				  {langs.folderName}
+				  {this.isDirectory() ? langs.folderName : langs.pageName}
 			</span>
 			<input type='text' 
 				   ref='text'
-				   onKeyUp={this.onKeyUp}
-				   onBlur={this.onBlur} />
+				   onKeyUp={this.onKeyUp} />
 			{this.renderError()}
 		</div>;
 	},
@@ -82,22 +88,53 @@ const FolderNameInput = React.createClass({
 		}
 	},
 	onEnterKeyUp: function(evt) {
-		let newFolderName = $(ReactDOM.findDOMNode(this.refs.text)).val();
-		fs.mkdir(path.join(this.props.parent, newFolderName), this.onFolderCreated);
+		let newFileName = $(ReactDOM.findDOMNode(this.refs.text)).val();
+
+		let fileType = this.getFileType();
+		if (fileType === FileNameInput.DIR) {
+			newFileName = newFileName.replace(/\./g, '-');
+			this.state.path = path.join(this.props.parent, newFileName);
+			fsExtra.mkdirs(this.state.path, this.onFileCreated);
+		} else if (fileType === FileNameInput.FILE) {
+			let extName = path.extname(newFileName);
+			if (extName === '.js') {
+				newFileName = newFileName.substr(0, newFileName.length - 3).replace(/\./g, '-') + '.js';
+			} else {
+				newFileName = newFileName.replace(/\./g, '-') + '.js';
+			}
+			this.state.path = path.join(this.props.parent, newFileName);
+			fsExtra.mkdirs(path.dirname(this.state.path));
+			fs.open(this.state.path, 'wx', this.onFileCreated);
+		} else {
+			console.error('Unsupported file type [' + fileType + ']');
+		}
 	},
-	onFolderCreated: function() {
+	onDocumentClicked: function(evt) {
+		let container = ReactDOM.findDOMNode(this.refs.container);
+		if (container == evt.target || $.contains(container, evt.target)) {
+			return;
+		}
+		FileNameInput.hide();
+	},
+	onFileCreated: function() {
 		if (arguments.length > 0 && arguments[0]) {
 			this.setState({error: arguments[0].message});
 		} else {
-			this.getCallback().call(this);
-			FolderNameInput.hide();
+			if (this.getFileType() === FileNameInput.FILE) {
+				fs.close(arguments[1], function() {
+					this.onFileCreatedCallback();
+				}.bind(this));
+			} else {
+				this.onFileCreatedCallback();
+			}
 		}
 	},
-	onEscapeKeyUp: function(evt) {
-		FolderNameInput.hide();
+	onFileCreatedCallback: function() {
+		this.getCallback().call(this, this.state.path, this.getFileType());
+		FileNameInput.hide();
 	},
-	onBlur: function() {
-		FolderNameInput.hide();
+	onEscapeKeyUp: function(evt) {
+		FileNameInput.hide();
 	},
 	getParentFolder: function() {
 		return this.props.parent;
@@ -107,28 +144,34 @@ const FolderNameInput = React.createClass({
 	},
 	getCallback: function() {
 		return this.props.callback;
+	},
+	getFileType: function() {
+		return this.props.type;
+	},
+	isDirectory: function() {
+		return this.getFileType() === FileNameInput.DIR;
 	}
 });
 
 const ContextMenuMixin = {
 	onNodeClicked: function() {
 		let file = this.getFile();
-		let fileState = fs.statSync(file);
-		if (fileState.isDirectory()) {
+		let fileState = envs.fileState(file);
+		if (fileState.dir) {
 			this.onDirectoryClicked(fileState);
-		} else {
+		} else if (fileState.file) {
 			this.onFileClicked(fileState);
 		}
 	},
 	onDirectoryClicked: function(state) {
-		if (extfs.isEmptySync(this.getFile())) {
-			// do nothing
-		} else {
+		if (!state.empty) {
 			this.setState({expanded: !this.isExpanded()});
 		}
 	},
 	onFileClicked: function(state) {
-
+		if (state.page) {
+			this.openFile(state.file);
+		}
 	},
 	isExpanded: function() {
 		return this.state.expanded;
@@ -136,48 +179,130 @@ const ContextMenuMixin = {
 	onContextMenuClicked: function(evt) {
 		evt.preventDefault();
 		let file = this.getFile();
-		let fileState = fs.statSync(file);
-		if (fileState.isDirectory()) {
+		let fileState = envs.fileState(file);
+		if (fileState.dir) {
 			this.onDirectoryContextMenuClicked(fileState);
-		} else if (fileState.isFile()) {
+		} else if (fileState.file) {
 			this.onFileContextMenuClicked(fileState);
 		}
 	},
 	onDirectoryContextMenuClicked: function(state) {
-		this.getDirectoryContextMenu().popup(remote.getCurrentWindow());
+		if (state.pageRoot || state.pageDir) {
+			// page folder or page root
+			this.getDirectoryContextMenu(state).popup(remote.getCurrentWindow());
+		}
 	},
 	onFileContextMenuClicked: function(state) {
-
+		if (state.page) {
+			this.getFileContextMenu(state).popup(remote.getCurrentWindow());
+		}
 	},
-	getDirectoryContextMenu: function() {
+	getDirectoryContextMenu: function(state) {
 		const menu = new Menu();
 		menu.append(new MenuItem({
 			label: langs.menu.newPage, 
-			click: function() { 
-			}
+			click: this.onNewFileClicked
 		}));
-		menu.append(new MenuItem({type: 'separator'}));
 		menu.append(new MenuItem({
 			label: langs.menu.newFolder, 
 			click: this.onNewDirectoryClicked
 		}));
+		if (!state.pageRoot) {
+			menu.append(new MenuItem({type: 'separator'}));
+			menu.append(new MenuItem({
+				label: langs.menu.deleteFolder, 
+				click: this.onDeleteDirectoryClicked
+			}));
+		}
 		return menu;
 	},
 	onNewDirectoryClicked: function() {
-		FolderNameInput.show({
+		FileNameInput.show({
 			parent: this.getFile(),
 			node: this.refs.node,
+			type: FileNameInput.DIR,
 			callback: this.onSubDirectoryCreated
 		});
 	},
 	onSubDirectoryCreated: function() {
 		this.setState({expanded: true});
+	},
+	onNewFileClicked: function() {
+		FileNameInput.show({
+			parent: this.getFile(),
+			node: this.refs.node,
+			type: FileNameInput.FILE,
+			callback: this.onFileCreated
+		});
+	},
+	onFileCreated: function(path) {
+		this.setState({expanded: true}, this.openFile.bind(this, path));
+	},
+	onDeleteDirectoryClicked: function() {
+		dialog.showMessageBox(remote.getCurrentWindow(), {
+			type: 'warning',
+			buttons: [langs.ok, langs.cancel],
+			title: langs.deleteFolder,
+			message: langs.deleteFolderMsg,
+			detail: this.getFile() + '\n' + langs.deleteFolderDetail
+		}, this.onDeleteDirectoryConfirmed);
+	},
+	onDeleteDirectoryConfirmed: function(button) {
+		if (button === 0) {
+			fsExtra.remove(this.getFile(), this.onFolderDeleted);
+		}
+	},
+	onFolderDeleted: function() {
+		remote.getCurrentWebContents().send('folder-deleted', this.getFile());
+		this.props.parent.getParentNode().forceUpdate();
+	},
+	openFile: function(path) {
+		remote.getCurrentWebContents().send('file-open', path);
+	},
+	getFileContextMenu: function() {
+		const menu = new Menu();
+		menu.append(new MenuItem({
+			label: langs.menu.openPage, 
+			click: this.onOpenFileClicked
+		}));
+		menu.append(new MenuItem({type: 'separator'}));
+		menu.append(new MenuItem({
+			label: langs.menu.deletePage, 
+			click: this.onDeleteFileClicked
+		}));
+		return menu;
+	},
+	onOpenFileClicked: function() {
+		this.openFile(this.getFile());
+	},
+	onDeleteFileClicked: function() {
+		dialog.showMessageBox(remote.getCurrentWindow(), {
+			type: 'warning',
+			buttons: [langs.ok, langs.cancel],
+			title: langs.deletePage,
+			message: langs.deletePageMsg,
+			detail: this.getFile() + '\n' + langs.deletePageDetail
+		}, this.onDeleteFileConfirmed);
+	},
+	onDeleteFileConfirmed: function(button) {
+		if (button === 0) {
+			fsExtra.remove(this.getFile(), this.onFileDeleted);
+		}
+	},
+	onFileDeleted: function() {
+		remote.getCurrentWebContents().send('file-deleted', this.getFile());
+		this.props.parent.getParentNode().forceUpdate();
+	},
+	getFileBaseName: function() {
+		return path.win32.basename(this.getFile());
 	}
 };
 
 const Folders = React.createClass({
 	renderFile: function(file, folderIndex) {
-		return <Node file={file} key={folderIndex}/>;
+		return <Node file={file} 
+					 parent={this}
+					 key={folderIndex}/>;
 	},
 	render: function() {
 		let parentFolder = this.getParentFolder();
@@ -193,6 +318,9 @@ const Folders = React.createClass({
 		}
 	},
 	getParentFolder: function() {
+		return this.props.parent.getFile();
+	},
+	getParentNode: function() {
 		return this.props.parent;
 	}
 });
@@ -203,39 +331,41 @@ const Node = React.createClass({
 	},
 	renderChildren: function() {
 		if (this.state.expanded) {
-			return <Folders parent={this.getFile()} />;
+			return <Folders parent={this} />;
 		} else {
 			return null;
 		}
 	},
 	render: function() {
 		let file = this.getFile();
-		let fileState = fs.statSync(file);
-		let isDir = fileState.isDirectory();
-		let isEmpty = extfs.isEmptySync(file);
-		let isFile = fileState.isFile();
+		let fileState = envs.fileState(file);
 		let icon = {
 			'fa fa-fw': true,
-			'fa-folder-o': isDir && isEmpty,
-			'fa-folder': isDir && !isEmpty && !this.isExpanded(),
-			'fa-folder-open': isDir && !isEmpty && this.isExpanded(),
-			'fa-file-o': isFile
+			'fa-folder-o': fileState.dir && fileState.empty,
+			'fa-folder': fileState.dir && !fileState.empty && !this.isExpanded(),
+			'fa-folder-open': fileState.dir && !fileState.empty && this.isExpanded(),
+			'fa-file-o': fileState.file
 		};
 		let className = {
-			'node-directory': isDir,
-			'node-file': isFile,
-			'node-open': this.isExpanded()
+			'node-dir': fileState.dir,
+			'node-file': fileState.file,
+			'node-open': this.isExpanded(),
+			'node-page-root': fileState.pageRoot,
+			'node-page-dir': fileState.pageDir,
+			'node-page-file': fileState.page
 		};
 		return (<li className={classnames(className)}
 					ref='node'>
-			<i className={classnames(icon)} 
-			   onClick={this.onNodeClicked}
-			   onContextMenu={this.onContextMenuClicked} />
-			<span title={file}
-				  onClick={this.onNodeClicked}
-				  onContextMenu={this.onContextMenuClicked}>
-				{path.basename(file)}
-			</span>
+			<div className='node-text'>
+				<i className={classnames(icon)} 
+				   onClick={this.onNodeClicked}
+				   onContextMenu={this.onContextMenuClicked} />
+				<span title={file}
+					  onClick={this.onNodeClicked}
+					  onContextMenu={this.onContextMenuClicked}>
+					{this.getFileBaseName()}
+				</span>
+			</div>
 			{this.renderChildren()}
 		</li>);
 	},
@@ -264,7 +394,7 @@ const Outline = React.createClass({
 	},
 	renderChildren: function() {
 		if (this.state.expanded) {
-			return <Folders parent={this.getFile()} />;
+			return <Folders parent={this} />;
 		} else {
 			return null;
 		}

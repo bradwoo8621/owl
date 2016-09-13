@@ -32,7 +32,8 @@ function initialize () {
 			title: app.getName(),
 			show: false,
 			webPreferences: {
-				webSecurity: false
+				webSecurity: false,
+				experimentalFeatures: true
 			}
 		};
 

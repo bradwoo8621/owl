@@ -606,7 +606,7 @@ body {
       padding: 0;
       position: relative;
       cursor: pointer; }
-      .docker-outline .docker-outline-body li.node-directory:not(.node-root):before, .docker-outline .docker-outline-body li.node-file:before {
+      .docker-outline .docker-outline-body li.node-dir:not(.node-root):before, .docker-outline .docker-outline-body li.node-file:before {
         content: '';
         border-left: 1px dotted #e0e0e0;
         position: absolute;
@@ -615,11 +615,11 @@ body {
         bottom: 18px;
         height: 100%;
         z-index: -1; }
-      .docker-outline .docker-outline-body li:last-child.node-directory:not(.node-root):before, .docker-outline .docker-outline-body li:last-child.node-file:before {
+      .docker-outline .docker-outline-body li:last-child.node-dir:not(.node-root):before, .docker-outline .docker-outline-body li:last-child.node-file:before {
         height: 30px;
         bottom: initial;
         top: -18px; }
-      .docker-outline .docker-outline-body li.node-directory:not(.node-root):after, .docker-outline .docker-outline-body li.node-file:after {
+      .docker-outline .docker-outline-body li.node-dir:not(.node-root):after, .docker-outline .docker-outline-body li.node-file:after {
         content: '';
         position: absolute;
         border-top: 1px dotted #e0e0e0;
@@ -630,20 +630,30 @@ body {
         margin: 0 10px;
         font-size: 1.2em;
         display: inline-block; }
-        .docker-outline .docker-outline-body li i:hover {
-          color: #347e77; }
-          .docker-outline .docker-outline-body li i:hover + span {
-            text-decoration: underline;
-            color: #347e77; }
       .docker-outline .docker-outline-body li span {
         margin-right: 10px;
         display: inline-block;
         position: relative;
         top: -1px; }
-        .docker-outline .docker-outline-body li span:hover {
-          text-decoration: underline;
-          color: #347e77;
-          font-weight: bold; }
+      .docker-outline .docker-outline-body li .node-text:hover i, .docker-outline .docker-outline-body li .node-text:hover span {
+        color: #347e77;
+        font-weight: bold; }
+      .docker-outline .docker-outline-body li .node-text:hover span {
+        text-decoration: underline; }
+      .docker-outline .docker-outline-body li[class*=node-page-] .node-text span,
+      .docker-outline .docker-outline-body li[class*=node-page-] .node-text:hover span {
+        text-decoration: underline dotted; }
+
+#outline-folder-name-input-div.modal {
+  display: block;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  outline: none; }
 
 .outline-folder-name-input-container {
   border: 1px solid #424242;

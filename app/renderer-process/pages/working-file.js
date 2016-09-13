@@ -1,14 +1,15 @@
-require("babel-register")({
-	"presets": ["react"],
-	"plugins": ["transform-react-jsx"]
-});
-
 const $ = require('jquery');
-const q = require('q');
 
 $(window).load(function() {
+	require("babel-register")({
+		"presets": ["react"],
+		"plugins": ["transform-react-jsx"]
+	});
+
+	const q = require('q');
+
 	const bottomDockerRenderer = require('../docker/bottom-docker');
-	const mainContentRenderer = require('../content/main');
+	const mainContentRenderer = require('../content/file-tab');
 
 	let dockerPromise = q.defer();
 	let contentPromise = q.defer();
@@ -25,5 +26,6 @@ $(window).load(function() {
 			$('#page-loading .loader').one('transitionend', function() {
 				$('#page-loading').hide();
 			}).addClass('loaded');
+			$('[media=print]').prop('media', 'all');
 		});
 });

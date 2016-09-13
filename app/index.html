@@ -6,26 +6,22 @@
 	<link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="../node_modules/mdi/css/materialdesignicons.css">
 	<link rel="stylesheet" href="../node_modules/source-code-pro/dist/source-code-pro.css">
+	<link rel="stylesheet" href="./assets/css/owl.css">
 	<link rel="stylesheet" href="./assets/css/index.css">
 </head>
 <body>
-	<div class='main'>
+	<div id='main' class='main'>
 		<div class='wrapper'>
 			<div id='main-content'>
 				<div class='logo'>
 					<!-- <img class="about-logo" src="assets/app-icon/png/256.png"> -->
 					<canvas id='about-logo' />
 				</div>
-				<div id='work-area' class='work' />
+				<div id='work-area' class='work'></div>
 			</div>
 		</div>
 	</div>
 	<script>
-		require("babel-register")({
-			"presets": ["react"],
-			"plugins": ["transform-react-jsx"]
-		});
-
 		require('./renderer-process/pages/index.js');
 	</script>
 </body>

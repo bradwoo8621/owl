@@ -45,7 +45,7 @@
 			cursor: pointer;
 			// the following size and position are exactly related with icons
 			// no variables for them
-			&.node-directory:not(.node-root):before,
+			&.node-dir:not(.node-root):before,
 			&.node-file:before {
 				content: '';
 			    border-left: 1px dotted $border-color;
@@ -56,13 +56,13 @@
 			    height: 100%;
 			    z-index: -1;
    			}
-   			&:last-child.node-directory:not(.node-root):before,
+   			&:last-child.node-dir:not(.node-root):before,
 			&:last-child.node-file:before {
 				height: 30px;
 				bottom: initial;
 				top: -18px;
    			}
-			&.node-directory:not(.node-root):after,
+			&.node-dir:not(.node-root):after,
 			&.node-file:after {
 				content: '';
 			    position: absolute;
@@ -75,13 +75,6 @@
 				margin: $margin-0 $margin-10;
 				font-size: $font-size-12;
 				display: inline-block;
-				&:hover {
-					color: $hover-link-color;
-					+ span {
-						text-decoration: underline;
-						color: $hover-link-color;
-					}
-				}
 			}
 			span {
 				margin-right: $margin-10;
@@ -89,15 +82,37 @@
 				position: relative;
 				// don't know why there is 1px in top
     			top: -1px;
-    			&:hover {
-					text-decoration: underline;
+			}
+			.node-text:hover {
+				i, span {
 					color: $hover-link-color;
 					font-weight: $font-bold;
-    			}
+				}
+				span {
+					text-decoration: underline;
+				}
 			}
+   			&[class*=node-page-] .node-text,
+   			&[class*=node-page-] .node-text:hover {
+   				span {
+	   				text-decoration: underline dotted;
+	   			}
+   			}
 		}
 	}
 }
+
+// #outline-folder-name-input-div.modal {
+// 	display: block;
+// 	overflow: hidden;
+//     position: fixed;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     left: 0;
+//     z-index: 1050;
+//     outline: none;
+// }
 
 .outline-folder-name-input-container {
 	border: $outline-pop-border;
