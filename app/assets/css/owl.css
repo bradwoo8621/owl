@@ -644,17 +644,6 @@ body {
       .docker-outline .docker-outline-body li[class*=node-page-] .node-text:hover span {
         text-decoration: underline dotted; }
 
-#outline-folder-name-input-div.modal {
-  display: block;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1050;
-  outline: none; }
-
 .outline-folder-name-input-container {
   border: 1px solid #424242;
   border-radius: 4px;
