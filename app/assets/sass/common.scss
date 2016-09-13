@@ -31,8 +31,9 @@ body {
 	line-height: $line-height;
 	overflow-x: hidden;
 }
+
 .color-reverse {
-    color: $font-color-reverse;
+	color: $font-color-reverse;
 }
 .color-primary {
 	color: $primary-color;
@@ -41,18 +42,18 @@ body {
 	background-color: $primary-color;
 }
 @mixin colors($name, $percent, $color) {
-    .color-#{$name}-lighten-#{$percent} {
-        color: lighten($color, percentage($percent / 100));
-    }
-    .bg-color-#{$name}-lighten-#{$percent} {
-        background-color: lighten($color, percentage($percent / 100));
-    }
-    .color-#{$name}-darken-#{$percent} {
-        color: darken($color, percentage($percent / 100));
-    }
-    .bg-color-#{$name}-darken-#{$percent} {
-        background-color: darken($color, percentage($percent / 100));
-    }
+	.color-#{$name}-lighten-#{$percent} {
+		color: lighten($color, percentage($percent / 100));
+	}
+	.bg-color-#{$name}-lighten-#{$percent} {
+		background-color: lighten($color, percentage($percent / 100));
+	}
+	.color-#{$name}-darken-#{$percent} {
+		color: darken($color, percentage($percent / 100));
+	}
+	.bg-color-#{$name}-darken-#{$percent} {
+		background-color: darken($color, percentage($percent / 100));
+	}
 }
 $color-list: $primary-color $advice-color;
 $color-name-list: primary advice;

@@ -3,16 +3,27 @@ require("babel-register")({
 	"plugins": ["transform-react-jsx"]
 });
 
-// const electron = require('electron');
-// const ipcRenderer = electron.ipcRenderer;
+const $ = require('jquery');
+const q = require('q');
 
-const bottomDockerRenderer = require('../docker/bottom-docker');
-const mainContentRenderer = require('../content/main');
-// const remote = require('electron').remote;
+$(window).load(function() {
+	const bottomDockerRenderer = require('../docker/bottom-docker');
+	const mainContentRenderer = require('../content/main');
 
-let bottomDocker = bottomDockerRenderer.render('bottom-docker-bar');
-let mainContent = mainContentRenderer.render('main-content');
+	let dockerPromise = q.defer();
+	let contentPromise = q.defer();
 
-// handle render event
-// ipcRenderer.on('switch-language', function(event, message) {
-// });
+	let bottomDocker = bottomDockerRenderer.render('bottom-docker-bar', function() {
+		dockerPromise.resolve();
+	});
+	let mainContent = mainContentRenderer.render('main-content', function() {
+		contentPromise.resolve();
+	});
+
+	q.all([dockerPromise.promise, contentPromise.promise])
+		.then(function() {
+			$('#page-loading .loader').one('transitionend', function() {
+				$('#page-loading').hide();
+			}).addClass('loaded');
+		});
+});

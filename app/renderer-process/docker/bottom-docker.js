@@ -16,7 +16,10 @@ const BottomDocker = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		
+		// open docker
+		$(ReactDOM.findDOMNode(this.refs.container))
+			.find('[data-open=true]')
+			.click();
 	},
 	renderDockerElement: function(dockerElement, dockerElementIndex) {
 		return (<div className='docker'
@@ -24,13 +27,15 @@ const BottomDocker = React.createClass({
 					 data-title={dockerElement.label}
 					 key={dockerElementIndex}>
 			<div className='docker-btn'
-				 onClick={this.onDockerClicked.bind(this, dockerElement)}>
+				 onClick={this.onDockerClicked.bind(this, dockerElement)}
+				 data-open={dockerElement.open}>
 				<i className={dockerElement.icon} />
 			</div>
 		</div>);
 	},
 	render: function() {
-		return (<div className='bottom-docker-bar-container'>
+		return (<div className='bottom-docker-bar-container'
+					 ref='container'>
 			<div className='bottom-docker-bar-btn'
 				 onClick={this.onDockerButtonClicked}>
 				<i className='mdi mdi-arrow-expand-all' />

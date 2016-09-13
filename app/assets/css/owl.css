@@ -253,6 +253,75 @@ body {
 .bg-color-advice-darken-90 {
   background-color: black; }
 
+#page-loading {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  left: 0;
+  width: 100%; }
+  #page-loading .loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #3498db;
+    -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+    z-index: 1001;
+    -webkit-transition: opacity 2s ease;
+    transition: opacity 2s ease; }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    /* Firefox 16+, IE 10+, Opera */ }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    /* Firefox 16+, IE 10+, Opera */ } }
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    /* Firefox 16+, IE 10+, Opera */ }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+    /* Firefox 16+, IE 10+, Opera */ } }
+    #page-loading .loader.loaded {
+      opacity: 0; }
+    #page-loading .loader:before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #e74c3c;
+      -webkit-animation: spin 3s linear infinite;
+              animation: spin 3s linear infinite; }
+    #page-loading .loader:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #f9c922;
+      -webkit-animation: spin 1.5s linear infinite;
+              animation: spin 1.5s linear infinite; }
+
 .header-expand-btn-tail {
   overflow-y: hidden; }
   .header-expand-btn-tail:after {
@@ -774,7 +843,7 @@ body {
   top: 0;
   right: 0;
   left: 0;
-  min-height: 100%;
+  min-height: calc(100% - 2 * 15px);
   padding: 15px;
   margin: 0 -15px;
   border: 0; }
