@@ -8,8 +8,8 @@
 	bottom: 0;
 	z-index: $docker-zindex;
 	background-color: $container-bg-color;
-	> div > div[class$='-body'] {
-		max-height: 270px;
+	div#bottom-docker-section > div > div[class$='-body'] {
+		height: 200px;
 	}
 	div.horizontal-label > div.row {
 		> div:first-child {
@@ -53,11 +53,6 @@
 		    right: 0;
 		    text-align: center;
 		}
-		&.expanded {
-			~ .bottom-docker-bar {
-				display: block;
-			}
-		}
 	}
 	.bottom-docker-bar {
 		display: none;
@@ -74,6 +69,9 @@
 			display: table-cell;
 			text-align: center;
 			line-height: $docker-bottom-bar-btn-line-height;
+			&.expanded {
+				background-color: lighten($docker-bottom-bar-btn-bg-color, 20%);
+			}
 		}
 		&.left {
 			position: absolute;

@@ -45,6 +45,7 @@
     "classnames": "^2.2.5",
     "electron-config": "^0.2.1",
     "extfs": "0.0.7",
+    "fs-extra": "^0.30.0",
     "mdi": "^1.7.22",
     "nest-parrot": "0.5.1",
     "source-code-pro": "0.0.0"

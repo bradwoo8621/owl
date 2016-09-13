@@ -619,8 +619,8 @@ body {
   bottom: 0;
   z-index: 100;
   background-color: #fff; }
-  #bottom-docker > div > div[class$='-body'] {
-    max-height: 270px; }
+  #bottom-docker div#bottom-docker-section > div > div[class$='-body'] {
+    height: 200px; }
   #bottom-docker div.horizontal-label > div.row > div:first-child {
     padding-right: 5px; }
     #bottom-docker div.horizontal-label > div.row > div:first-child > span {
@@ -657,8 +657,6 @@ body {
       bottom: 0;
       right: 0;
       text-align: center; }
-    .bottom-docker-bar-container .bottom-docker-bar-btn.expanded ~ .bottom-docker-bar {
-      display: block; }
   .bottom-docker-bar-container .bottom-docker-bar {
     display: none; }
     .bottom-docker-bar-container .bottom-docker-bar .docker-btn {
@@ -673,6 +671,8 @@ body {
       display: table-cell;
       text-align: center;
       line-height: 1.5em; }
+      .bottom-docker-bar-container .bottom-docker-bar .docker-btn.expanded {
+        background-color: #28e8ff; }
     .bottom-docker-bar-container .bottom-docker-bar.left {
       position: absolute;
       bottom: 25px;

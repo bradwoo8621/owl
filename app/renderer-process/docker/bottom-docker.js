@@ -15,6 +15,9 @@ const BottomDocker = React.createClass({
 			outerContainers: {}
 		};
 	},
+	componentDidMount: function() {
+		
+	},
 	renderDockerElement: function(dockerElement, dockerElementIndex) {
 		return (<div className='docker'
 					 data-container-id={dockerElement.containerId}
@@ -111,7 +114,7 @@ const BottomDocker = React.createClass({
 		}
 
 		// remove other button's expanded class
-		let buttonBar = eventTarget.closest('.bottom-docker-bar');
+		let buttonBar = eventTarget.closest('.bottom-docker-bar-container');
 		if (dockerElement.containerId) {
 			buttonBar.find('.docker[data-container-id=' + dockerElement.containerId + '] .docker-btn')
 				.not(eventTarget)

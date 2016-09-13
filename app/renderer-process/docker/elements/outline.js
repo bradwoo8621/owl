@@ -306,6 +306,8 @@ module.exports = {
 	reactClass: Outline,
 	className: 'docker-outline-container',
 	containerId: 'left-docker',
+	open: true,
+	
 	onExpanded: function() {
 		$('body').addClass('left-docker-expanded');
 	},
