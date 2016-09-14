@@ -854,6 +854,18 @@ body {
     white-space: nowrap;
     height: calc(1.6 * 1.6em);
     border-bottom: 1px solid #5cbcb3; }
+    .main-content .main-content-tabs .main-content-tabs-nav {
+      display: inline-block;
+      position: relative;
+      line-height: calc(1.6 * 1.6em);
+      font-size: 1.6em;
+      line-height: 1.6em;
+      margin-right: 10px; }
+      .main-content .main-content-tabs .main-content-tabs-nav i {
+        cursor: pointer;
+        color: #80CBC4; }
+      .main-content .main-content-tabs .main-content-tabs-nav i:first-child {
+        margin-right: -10px; }
     .main-content .main-content-tabs .main-content-tab-title {
       display: inline-block;
       padding: 0 20px;

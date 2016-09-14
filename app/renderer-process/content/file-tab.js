@@ -117,6 +117,10 @@ const FileTab = React.createClass({
 		return (<div className='main-content'>
 			<ul className='main-content-tabs'
 				ref='tabs'>
+				<li className='main-content-tabs-nav'>
+					<i className='fa fa-fw fa-caret-left' />
+					<i className='fa fa-fw fa-caret-right' />
+				</li>
 				{files.map(this.renderSingleTabTitle)}
 			</ul>
 			<div className='component-receiver'

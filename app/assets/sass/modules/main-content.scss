@@ -19,6 +19,21 @@
 		white-space: nowrap;
 		height: calc(#{strip-unit($font-title-2nd-size)} * #{$container-title-2nd-line-height});
 		border-bottom: 1px solid darken($primary-color, 10%);
+		.main-content-tabs-nav {
+			display: inline-block;
+			position: relative;
+			line-height: calc(#{strip-unit($font-title-2nd-size)} * #{$container-title-2nd-line-height});
+			font-size: $font-title-2nd-size;
+		    line-height: $container-title-2nd-line-height;
+		    margin-right: $margin-10;
+		    i {
+		    	cursor: pointer;
+		    	color: $primary-color;
+		    }
+		    i:first-child {
+		    	margin-right: $margin-outward-10;
+		    }
+		}
 		.main-content-tab-title {
 			display: inline-block;
 			padding: $pad-0 $pad-20;
