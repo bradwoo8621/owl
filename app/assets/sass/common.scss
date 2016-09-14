@@ -55,8 +55,8 @@ body {
 		background-color: darken($color, percentage($percent / 100));
 	}
 }
-$color-list: $primary-color $advice-color;
-$color-name-list: primary advice;
+$color-list: $primary-color $advice-color $active-color;
+$color-name-list: primary advice active;
 @for $color-index from 1 through 2 {
 	@for $percent-index from 1 through 9 {
 		@include colors(nth($color-name-list, $color-index), 

@@ -401,7 +401,7 @@ body {
   z-index: 100;
   background-color: #fff;
   width: 250px;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #5cbcb3;
   height: 100vh; }
 
 .docker-components .docker-components-header {
@@ -563,7 +563,7 @@ body {
   z-index: 100;
   background-color: #fff;
   width: 250px;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #5cbcb3;
   height: 100vh; }
 
 .docker-outline {
@@ -837,15 +837,70 @@ body {
 .left-docker-expanded #bottom-docker {
   left: 250px; }
 
-.main-content.component-receiver {
+.main-content {
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
-  min-height: calc(100% - 2 * 15px);
-  padding: 15px;
+  min-height: 100%;
+  padding: 0 15px;
   margin: 0 -15px;
   border: 0; }
+  .main-content .main-content-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    height: calc(1.6 * 1.6em);
+    border-bottom: 1px solid #5cbcb3; }
+    .main-content .main-content-tabs .main-content-tab-title {
+      display: inline-block;
+      padding: 0 20px;
+      position: relative; }
+      .main-content .main-content-tabs .main-content-tab-title:not(:first-child) {
+        margin-left: -10px; }
+      .main-content .main-content-tabs .main-content-tab-title canvas.left {
+        position: absolute;
+        top: 3px;
+        left: 0; }
+      .main-content .main-content-tabs .main-content-tab-title canvas.right {
+        position: absolute;
+        top: 3px;
+        right: 0;
+        -webkit-transform: scale(-1, 1);
+                transform: scale(-1, 1); }
+      .main-content .main-content-tabs .main-content-tab-title canvas.cursor-pointer {
+        cursor: pointer; }
+      .main-content .main-content-tabs .main-content-tab-title .main-content-tab-title-content {
+        padding-top: 3px;
+        position: relative; }
+        .main-content .main-content-tabs .main-content-tab-title .main-content-tab-title-content:before {
+          content: '';
+          top: 3px;
+          position: absolute;
+          width: 100%;
+          border-top: 2px solid #26A69A; }
+        .main-content .main-content-tabs .main-content-tab-title .main-content-tab-title-content .main-content-tab-label {
+          line-height: 30px;
+          display: inline-block;
+          color: #fff;
+          padding: 0 10px;
+          background-color: #80CBC4;
+          cursor: pointer; }
+        .main-content .main-content-tabs .main-content-tab-title .main-content-tab-title-content i {
+          line-height: 30px;
+          background-color: #80CBC4;
+          color: #fff;
+          cursor: pointer; }
+      .main-content .main-content-tabs .main-content-tab-title.active {
+        z-index: 999; }
+        .main-content .main-content-tabs .main-content-tab-title.active .main-content-tab-title-content:before {
+          border-top-color: #00838F; }
+        .main-content .main-content-tabs .main-content-tab-title.active .main-content-tab-title-content .main-content-tab-label {
+          background-color: #00ACC1; }
+        .main-content .main-content-tabs .main-content-tab-title.active .main-content-tab-title-content i {
+          background-color: #00ACC1; }
 
 .left-docker-expanded .main-content {
   left: 250px;

@@ -170,6 +170,18 @@ const ContextMenuMixin = {
 	},
 	onFileClicked: function(state) {
 		if (state.page) {
+			this.activeFile(state.file);
+		}
+	},
+	onNodeDoubleClicked: function() {
+		let file = this.getFile();
+		let fileState = envs.fileState(file);
+		if (fileState.file) {
+			this.onFileDoubleClicked(fileState);
+		}
+	},
+	onFileDoubleClicked: function(state) {
+		if (state.page) {
 			this.openFile(state.file);
 		}
 	},
@@ -255,6 +267,9 @@ const ContextMenuMixin = {
 	onFolderDeleted: function() {
 		remote.getCurrentWebContents().send('folder-deleted', this.getFile());
 		this.props.parent.getParentNode().forceUpdate();
+	},
+	activeFile: function(path) {
+		remote.getCurrentWebContents().send('file-active', path);
 	},
 	openFile: function(path) {
 		remote.getCurrentWebContents().send('file-open', path);
@@ -359,9 +374,11 @@ const Node = React.createClass({
 			<div className='node-text'>
 				<i className={classnames(icon)} 
 				   onClick={this.onNodeClicked}
+				   onDoubleClick={this.onNodeDoubleClicked}
 				   onContextMenu={this.onContextMenuClicked} />
 				<span title={file}
 					  onClick={this.onNodeClicked}
+					  onDoubleClick={this.onNodeDoubleClicked}
 					  onContextMenu={this.onContextMenuClicked}>
 					{this.getFileBaseName()}
 				</span>

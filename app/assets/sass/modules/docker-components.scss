@@ -7,7 +7,7 @@
 	z-index: $docker-zindex;
 	background-color: $container-bg-color;
 	width: $left-docker-width;
-	border-right: $border;
+	border-right: 1px solid darken($primary-color, 10%);
 	height: 100vh;
 }
 .docker-components {

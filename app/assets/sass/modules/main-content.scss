@@ -1,16 +1,86 @@
 @import '../config/common-variables';
 @import 'frame';
 
-.main-content.component-receiver {
+.main-content {
 	position: absolute;
 	top: 0;
 	right: 0;
 	left: 0;
-	min-height: calc(100% - 2 * #{$pad-15});
-	padding: $pad-15;
+	min-height: 100%;
+	padding: $pad-0 $pad-15;
 	// padding-bottom: calc(#{$pad-15} + #{$docker-bottom-bar-height});
 	margin: $margin-0 $margin-outward-15;
 	border: 0;
+	.main-content-tabs {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		height: calc(#{strip-unit($font-title-2nd-size)} * #{$container-title-2nd-line-height});
+		border-bottom: 1px solid darken($primary-color, 10%);
+		.main-content-tab-title {
+			display: inline-block;
+			padding: $pad-0 $pad-20;
+			position: relative;
+			&:not(:first-child) {
+				margin-left: $margin-outward-10;
+			}
+			canvas.left {
+				position: absolute;
+				top: $px-3;
+				left: 0;
+			}
+			canvas.right {
+				position: absolute;
+				top: $px-3;
+				right: 0;
+				transform: scale(-1, 1);
+			}
+			canvas.cursor-pointer {
+				cursor: pointer;
+			}
+			.main-content-tab-title-content {
+				padding-top: $pad-3;
+				position: relative;
+				&:before {
+					content: '';
+					top: $px-3;
+					position: absolute;
+					width: 100%;
+					border-top: $px-2 solid #26A69A;
+				}
+				.main-content-tab-label {
+					line-height: $px-30;
+					display: inline-block;
+					color: $font-color-reverse;
+					padding: 0 10px;
+					background-color: $primary-color;
+					cursor: pointer;
+				}
+				i {
+					line-height: $px-30;
+					background-color: $primary-color;
+					color: $font-color-reverse;
+					cursor: pointer;
+				}
+			}
+			&.active {
+				z-index: 999;
+				.main-content-tab-title-content {
+					&:before {
+						border-top-color: #00838F;
+					}
+					.main-content-tab-label {
+						background-color: $active-color;
+					}
+					i {
+						background-color: $active-color;
+					}
+				}
+			}
+		}
+	}
 }
 
 .left-docker-expanded {

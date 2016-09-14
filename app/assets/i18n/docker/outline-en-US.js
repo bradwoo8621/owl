@@ -6,7 +6,7 @@ module.exports = {
 	
 	menu: {
 		newPage: 'New Page',
-		newFolder: 'New Folder...',
+		newFolder: 'New Folder',
 		deleteFolder: 'Delete Folder',
 
 		openPage: 'Open...',
