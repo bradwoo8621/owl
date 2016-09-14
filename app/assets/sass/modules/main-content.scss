@@ -81,6 +81,14 @@
 			}
 		}
 	}
+	> .component-receiver {
+		min-height: calc(100% - #{$px-30});
+		position: absolute;
+		width: 100%;
+		border: none;
+		margin: $margin-0;
+		padding: $pad-15 $pad-0;
+	}
 }
 
 .left-docker-expanded {

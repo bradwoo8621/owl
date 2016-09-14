@@ -26,7 +26,7 @@ body {
   font-size: 13px;
   color: #666;
   line-height: 1.846;
-  overflow-x: hidden; }
+  overflow: hidden; }
 
 .color-reverse {
   color: #fff; }
@@ -901,6 +901,13 @@ body {
           background-color: #00ACC1; }
         .main-content .main-content-tabs .main-content-tab-title.active .main-content-tab-title-content i {
           background-color: #00ACC1; }
+  .main-content > .component-receiver {
+    min-height: calc(100% - 30px);
+    position: absolute;
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 15px 0; }
 
 .left-docker-expanded .main-content {
   left: 250px;

@@ -1,4 +1,5 @@
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, remote} = require('electron');
+const {Menu, MenuItem} = remote;
 
 const path = require('path');
 const classnames = require('classnames');
@@ -8,6 +9,9 @@ const ComponentReceiverMixin = parrot.ComponentReceiverMixin;
 const $ = parrot.parrot.jquery;
 const React = parrot.parrot.react;
 const ReactDOM = parrot.parrot.reactDOM;
+
+const locale = require('../locale');
+const langs = locale.load('content/file-tab');
 
 ipcRenderer.on('file-active', function(evt, file) {
 	if (fileTab) {
@@ -81,23 +85,27 @@ const FileTab = React.createClass({
 			<canvas className={classnames('left', {active: active})}
 					height='30'
 					width='20'
-					onMouseMove={this.onTabLeftShoulderMouseMove}
-					onClick={this.onTabLeftShoulderClicked.bind(this, file)} />
+					onMouseMove={this.onTabShoulderMouseMove}
+					onClick={this.onTabTitleLabelClicked.bind(this, file)}
+					onContextMenu={this.onContextMenuClicked.bind(this, file)} />
 			<div className='main-content-tab-title-content'>
 				<span className='main-content-tab-label'
 					  title={file}
-					  onClick={this.onTabTitleLabelClicked.bind(this, file)}>
+					  onClick={this.onTabTitleLabelClicked.bind(this, file)}
+					  onContextMenu={this.onContextMenuClicked.bind(this, file)}>
 					{this.getFileBaseName(file)}
 				</span>
 				<i className='fa fa-fw fa-close'
 				   title={file}
-				   onClick={this.onTabCloseClicked.bind(this, file)}/>
+				   onClick={this.onTabCloseClicked.bind(this, file)}
+				   onContextMenu={this.onContextMenuClicked.bind(this, file)} />
 			</div>
 			<canvas className={classnames('right', {active: active})}
 					height='30' 
 					width='20' 
-					onMouseMove={this.onTabRightShoulderMouseMove} 
-					onClick={this.onTabRightShoulderClicked.bind(this, file)} />
+					onMouseMove={this.onTabShoulderMouseMove} 
+					onClick={this.onTabTitleLabelClicked.bind(this, file)}
+					onContextMenu={this.onContextMenuClicked.bind(this, file)} />
 		</li>);
 	},
 	render: function() {
@@ -111,7 +119,7 @@ const FileTab = React.createClass({
 				ref='tabs'>
 				{files.map(this.renderSingleTabTitle)}
 			</ul>
-			<div className=''
+			<div className='component-receiver'
 				 onDrop={this.onDrop}
 				 onDragOver={this.onDragOver}
 				 onDragEnter={this.onDragEnter}
@@ -120,44 +128,50 @@ const FileTab = React.createClass({
 			</div>
 		</div>);
 	},
+	onContextMenuClicked: function(file, evt) {
+		evt.preventDefault();
+		const menu = new Menu();
+		menu.append(new MenuItem({
+			label: langs.menu.close,
+			click: this.removeFile.bind(this, file)
+		}));
+		menu.append(new MenuItem({type: 'separator'}));
+		menu.append(new MenuItem({
+			label: langs.menu.closeOther,
+			click: this.removeFileButCurrent.bind(this, file)
+		}));
+		menu.append(new MenuItem({
+			label: langs.menu.closeAll,
+			click: this.removeAllFiles
+		}));
+		menu.popup(remote.getCurrentWindow());
+	},
 	onTabTitleLabelClicked: function(file, evt) {
+		let target = $(evt.target);
+		if (target[0].tagName === 'canvas') {
+			if (target.hasClass('left') && !this.isInTabLeftShoulder(pos)) {
+				return;
+			} else if (target.hasClass('right') && !this.isInTabRightShoulder(pos)) {
+				return;
+			}
+		}
 		this.activeTab(file);
 	},
 	onTabCloseClicked: function(file, evt) {
 		this.removeFile(file);
 	},
-	onTabLeftShoulderMouseMove: function(evt) {
+	onTabShoulderMouseMove: function(evt) {
 		let canvas = $(evt.target);
+		let checker = canvas.hasClass('left') ? this.isInTabLeftShoulder : this.isInTabRightShoulder;
 		let pos = this.convertToRelativePosition(evt);
-		if (this.isInTabLeftShoulder(pos)) {
+		if (checker.call(this, pos)) {
 			canvas.addClass('cursor-pointer');
 		} else {
 			canvas.removeClass('cursor-pointer');
-		}
-	},
-	onTabLeftShoulderClicked: function(file, evt) {
-		let pos = this.convertToRelativePosition(evt);
-		if (this.isInTabLeftShoulder(pos)) {
-			this.activeTab(file);
 		}
 	},
 	isInTabLeftShoulder: function(pos) {
 		return Math.atan((30 - pos.y) / pos.x) <= Math.atan(35 / 20);
-	},
-	onTabRightShoulderMouseMove: function(evt) {
-		let canvas = $(evt.target);
-		let pos = this.convertToRelativePosition(evt);
-		if (this.isInTabRightShoulder(pos)) {
-			canvas.addClass('cursor-pointer');
-		} else {
-			canvas.removeClass('cursor-pointer');
-		}
-	},
-	onTabRightShoulderClicked: function(file, evt) {
-		let pos = this.convertToRelativePosition(evt);
-		if (this.isInTabRightShoulder(pos)) {
-			this.activeTab(file);
-		}
 	},
 	isInTabRightShoulder: function(pos) {
 		return Math.atan((30 - pos.y) / (pos.x - 20)) >= Math.atan(35 / -20);
@@ -255,6 +269,12 @@ const FileTab = React.createClass({
 			// recursive
 			return this.isFileInFolder(folder, dir);
 		}
+	},
+	removeFileButCurrent: function(file) {
+		this.setFiles([file]);
+	},
+	removeAllFiles: function(file) {
+		this.setFiles(null);
 	}
 });
 
