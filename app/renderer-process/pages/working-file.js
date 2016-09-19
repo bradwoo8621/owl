@@ -2,7 +2,7 @@ const $ = require('jquery');
 
 $(window).load(function() {
 	require("babel-register")({
-		"presets": ["react"],
+		"presets": ["react", "es2015"],
 		"plugins": ["transform-react-jsx"]
 	});
 

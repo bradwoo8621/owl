@@ -1,5 +1,4 @@
-const fs = require('fs');
-const babel = require("babel-core");
+const ProgramAST = require('./program-ast');
 
 const classASTTemplate = function(className, comments, superClassName) {
 	comments = comments == null ? [] : comments;
@@ -166,87 +165,12 @@ let ast = {
 			return;
 		}
 
-		let code = fs.readFileSync(file, 'utf8');
-		let result = babel.transform(code, {
-			presets: ['react'],
-			plugins: ['transform-react-jsx']
-		});
-		this.state.ast = result.ast;
-		// console.log(result.ast);
-		// console.log(this.getControllerASTNode());
-		// console.log(babel.transformFromAst(this.astWrapNodeToAST(this.getControllerASTNode())).code);
-		// console.log(babel.transformFromAst(this.astWrapNodeToAST(this.getLayoutASTNode())).code);
-		// console.log(babel.transformFromAst(this.astWrapNodeToAST(this.getMockerASTNode())).code);
-		// console.log(babel.transformFromAst(this.astWrapNodeToAST(exportSection)).code);
+		this.state.program = new ProgramAST();
+		this.state.program.loadFromFile(file);
+		console.log(this.state.program.toAST());
 
-		// fs.writeFileSync(file, babel.transformFromAst(
-		// 	this.astWrapNodeToAST(this.getMockerASTNode(), exportSection).code));
-		return this.state.ast;
-	},
-	getFileAST: function() {
-		return this.state.ast;
-	},
-	getControllerASTNode: function() {
-		return this.astFindClass('Controller');
-	},
-	getLayoutASTNode: function() {
-		return this.astFindClass('Layout');
-	},
-	getMockerASTNode: function() {
-		return this.astFindClass('Mocker');
-	},
-	astFindClass: function(name) {
-		let variables = this.getFileAST().program.body.filter(function(node) {
-			return this.astCheckVariableByName(node, name);
-		}.bind(this));
-		return this.astBuildClassNode(
-						variables.length > 0 ? variables[0] : {}, 
-						name);
-	},
-	astCheckVariableByName: function(node, name) {
-		return node.type === 'ClassDeclaration' 
-					&& node.id.type === 'Identifier'
-					&& node.id.name === name;
-	},
-	astWrapNodeToAST: function() {
-		// console.log(Array.prototype.slice.call(arguments));
-		return {
-			type: 'Program',
-			body: Array.prototype.slice.call(arguments)
-		};
-	},
-	astBuildClassNode: function(node, name) {
-		this.astBuildNode(node, classDef[name]);
-		// this.astAppendConstructorToClass(node, classConstructors[name]);
-		return node;
-	},
-	astBuildNode: function(node, nodeProperties) {
-		return Object.keys(nodeProperties).reduce(function(node, propertyName) {
-			let type = typeof nodeProperties[propertyName];
-			if (type === 'function') {
-				node[propertyName] = nodeProperties[propertyName]();
-			} else if (type === 'object') {
-				let value = node[propertyName];
-				value = value == null ? {} : value;
-				node[propertyName] = this.astBuildNode(value, nodeProperties[propertyName]);
-			} else {
-				node[propertyName] = nodeProperties[propertyName];
-			}
-			return node;
-		}.bind(this), node);
-	},
-	astAppendConstructorToClass: function(node, constructor) {
-		let methods = node.body.body;
-		if (methods == null) {
-			methods = [];
-			node.body.body = methods;
-		}
-		let orgConstructor = methods.filter(function(method) {
-			return method.type == 'ClassMethod' && method.kind == 'constructor';
-		});
-		if (orgConstructor.length == 0) {
-			methods.push(constructor);
-		}
+		this.state.program.writeToFile(file);
+		return this.state.program;
 	}
 };
 
