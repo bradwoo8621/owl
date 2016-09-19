@@ -1,13 +1,10 @@
 const path = require('path');
 const glob = require('glob');
 const electron = require('electron');
-const {Menu} = electron;
+const {app, BrowserWindow, Menu, globalShortcut} = electron;
 const menus = require('./main-process/menus/window-menus');
 
 const config = require('./config');
-
-const BrowserWindow = electron.BrowserWindow;
-const app = electron.app;
 
 const debug = /--debug/.test(process.argv[2]);
 
@@ -59,6 +56,12 @@ function initialize () {
 
 		const menu = Menu.buildFromTemplate(menus());
 		Menu.setApplicationMenu(menu);
+		globalShortcut.register('CmdOrCtrl+Alt+Z', function() {
+			mainWindow.webContents.send('toggle-docker');
+		});
+		globalShortcut.register('CmdOrCtrl+Alt+W', function() {
+			mainWindow.webContents.send('to-index');
+		});
 
 		mainWindow.on('closed', function () {
 			mainWindow = null;
@@ -66,23 +69,26 @@ function initialize () {
 		mainWindow.once('ready-to-show', (evt) => {
 			mainWindow.show();
 		});
-	}
+	};
 
 	app.on('ready', function () {
 		createWindow();
-	})
+	});
+	app.on('will-quit', function() {
+		globalShortcut.unregisterAll();
+	});
 
 	app.on('window-all-closed', function () {
 		if (process.platform !== 'darwin') {
 			app.quit();
 		}
-	})
+	});
 
 	app.on('activate', function () {
 		if (mainWindow === null) {
 			createWindow();
 		}
-	})
+	});
 }
 
 // Make this app a single instance app.

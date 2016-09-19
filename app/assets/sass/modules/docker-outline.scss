@@ -1,15 +1,10 @@
 @import '../config/mixins';
-@import 'frame';
 
 .docker-outline-container {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: $docker-zindex;
-	background-color: $container-bg-color;
-	width: 250px;
-	border-right: 1px solid darken($primary-color, 10%);
-	height: 100vh;
+	@include left-docker();
+	&.hidden {
+		@include left-docker-hidden();
+	}
 }
 .docker-outline {
 	height: 100%;
@@ -25,7 +20,7 @@
 	.docker-outline-body {
 		@include container-row();
 		overflow-x: auto;
-		height: calc(100% - #{$docker-bottom-bar-height} - #{$docker-left-title-height});
+		height: calc(100% - #{$docker-bottom-bar-height} - #{$left-docker-title-height});
 		.outline-navigator-root {
 			margin: $margin-0;
 		    padding: $pad-0;

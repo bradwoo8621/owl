@@ -28,4 +28,9 @@ $(window).load(function() {
 			}).addClass('loaded');
 			$('[media=print]').prop('media', 'all');
 		});
+
+	const ipcRenderer = require('electron').ipcRenderer;
+	ipcRenderer.on('to-index', function() {
+		require('../../route').relocate('/app/index.html');
+	});
 });

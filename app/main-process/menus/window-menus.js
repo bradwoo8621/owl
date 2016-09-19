@@ -1,10 +1,8 @@
 const electron = require('electron');
-const BrowserWindow = electron.BrowserWindow;
 
 const config = require('../../config');
 
 const langAction = require('./language-action');
-const workFolderAction = require('./work-folder-action');
 
 const template = function() {
 	const langMenu = function() {
@@ -27,9 +25,11 @@ const template = function() {
 		label: '&File',
 		submenu: [{
 			label: 'Exit Working Folder...',
-			accelerator: 'CmdOrCtrl+X',
+			accelerator: 'CmdOrCtrl+Alt+W',
 			click (item, focusedWindow) {
-				workFolderAction.exit();
+				if (focusedWindow) {
+					focusedWindow.webContents.send('to-index');
+				}
 			}
 		}, {
 			type: 'separator'
@@ -37,7 +37,7 @@ const template = function() {
 			role: 'close'
 		}]
 	}, {
-		label: 'View',
+		label: '&View',
 		submenu: [{
 			label: 'Reload',
 			accelerator: 'CmdOrCtrl+R',
@@ -66,9 +66,17 @@ const template = function() {
 			type: 'separator'
 		}, {
 			role: 'togglefullscreen'
+		}, {
+			label: 'Toggle Docker',
+			accelerator: 'CmdOrCtrl+Alt+Z',
+			click (item, focusedWindow) {
+				if (focusedWindow) {
+					focusedWindow.webContents.send('toggle-docker');
+				}
+			}
 		}]
 	}, {
-		role: 'window',
+		label: '&Window',
 		submenu: [{
 			role: 'minimize'
 		}, langMenu()]
@@ -77,7 +85,7 @@ const template = function() {
 		submenu: [{
 			label: 'Learn More',
 			click() { 
-				require('electron').shell.openExternal('http://electron.atom.io');
+				electron.shell.openExternal('http://electron.atom.io');
 			}
 		}]
 	}];

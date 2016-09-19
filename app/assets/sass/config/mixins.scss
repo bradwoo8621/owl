@@ -37,3 +37,17 @@
 
     @return $number;
 }
+
+@mixin left-docker() {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $docker-zindex;
+    background-color: $container-bg-color;
+    width: 250px;
+    border-right: 1px solid $left-docker-border-color;
+    height: 100vh;
+}
+@mixin left-docker-hidden() {
+    width: 0;
+}

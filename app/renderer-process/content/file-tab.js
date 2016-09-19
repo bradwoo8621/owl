@@ -9,6 +9,7 @@ const ComponentReceiverMixin = parrot.ComponentReceiverMixin;
 const $ = parrot.parrot.jquery;
 const React = parrot.parrot.react;
 const ReactDOM = parrot.parrot.reactDOM;
+const {ASTMixin} = require('../ast/page-ast');
 
 const locale = require('../locale');
 const langs = locale.load('content/file-tab');
@@ -35,9 +36,15 @@ ipcRenderer.on('folder-deleted', function(evt, folder) {
 });
 
 const FileTab = React.createClass({
-	mixins: [ComponentReceiverMixin],
+	mixins: [ComponentReceiverMixin, ASTMixin],
 	componentDidMount: function() {
 		this.paintTabsTitle();
+	},
+	componentWillUpdate: function(nextProps, nextState) {
+		if (this.getActiveFile() !== nextState.activeFile) {
+			remote.getCurrentWebContents().send('file-actived', nextState.activeFile);
+			this.loadFileAST(nextState.activeFile);
+		}
 	},
 	componentDidUpdate: function() {
 		this.paintTabsTitle();
@@ -48,10 +55,10 @@ const FileTab = React.createClass({
 		let borderColor;
 		if ($(canvas).hasClass('active')) {
 			color = '#00ACC1';
-			borderColor = '#00838F';
+			borderColor = '#007F8E';
 		} else {
 			color = '#80CBC4';
-			borderColor = '#26A69A';
+			borderColor = '#5CBCB3';
 		}
 
 		ctx.fillStyle = color;
@@ -73,6 +80,22 @@ const FileTab = React.createClass({
 	paintTabsTitle: function() {
 		let tabs = $(ReactDOM.findDOMNode(this.refs.tabs));
 		tabs.find('canvas').each(this.paintTabShoulder);
+
+		// calc space width
+		let ul = $(ReactDOM.findDOMNode(this.refs.tabs));
+		let width = ul.width();
+		let activeTab = ul.find('li.active');
+		if (activeTab.length === 0) {
+			// do nothing
+		} else {
+			let activeTabLeft = activeTab.position().left;
+			let activeTabWidth = activeTab.outerWidth();
+			if (activeTabLeft + activeTabWidth > width || activeTabLeft < 0) {
+				ul.scrollLeft(activeTab.prevAll().toArray().reduce(function(totalWidth, tab) {
+					return totalWidth + $(tab).outerWidth() - 10;
+				}, 10) - 100);
+			}
+		}
 	},
 	renderSingleTabTitle: function(file, fileIndex) {
 		let active = file === this.getActiveFile();
@@ -108,6 +131,17 @@ const FileTab = React.createClass({
 					onContextMenu={this.onContextMenuClicked.bind(this, file)} />
 		</li>);
 	},
+	renderComponentReceiver: function() {
+		if (this.getActiveFile() != null) {
+			return (<div className='component-receiver'
+				 onDrop={this.onDrop}
+				 onDragOver={this.onDragOver}
+				 onDragEnter={this.onDragEnter}
+				 onDragLeave={this.onDragLeave}>
+				{this.renderComponents()}
+			</div>);
+		}
+	},
 	render: function() {
 		let files = this.getFiles();
 		if (!this.getActiveFile() && files.length > 0) {
@@ -115,22 +149,33 @@ const FileTab = React.createClass({
 		}
 
 		return (<div className='main-content'>
+			<div className='main-content-tabs-nav'> 
+				<i className='fa fa-fw fa-caret-left'
+				   onClick={this.onTabsGoLeftClicked} />
+				<i className='fa fa-fw fa-caret-right'
+				   onClick={this.onTabsGoRightClicked} />
+			</div>
 			<ul className='main-content-tabs'
 				ref='tabs'>
-				<li className='main-content-tabs-nav'>
-					<i className='fa fa-fw fa-caret-left' />
-					<i className='fa fa-fw fa-caret-right' />
-				</li>
 				{files.map(this.renderSingleTabTitle)}
 			</ul>
-			<div className='component-receiver'
-				 onDrop={this.onDrop}
-				 onDragOver={this.onDragOver}
-				 onDragEnter={this.onDragEnter}
-				 onDragLeave={this.onDragLeave}>
-				{this.renderComponents()}
+			<div className='main-content-tab-nav-more'>
+				<i className='fa fa-fw fa-caret-down'
+				   onClick={this.onTabsMoreClicked} />
 			</div>
+			{this.renderComponentReceiver()}
 		</div>);
+	},
+	onTabsGoLeftClicked: function() {
+		let ul = $(ReactDOM.findDOMNode(this.refs.tabs));
+		ul.scrollLeft(ul.scrollLeft() + ul.width() / 2);
+	},
+	onTabsGoRightClicked: function() {
+		let ul = $(ReactDOM.findDOMNode(this.refs.tabs));
+		ul.scrollLeft(ul.scrollLeft() - ul.width() / 2);
+	},
+	onTabsMoreClicked: function() {
+		// TODO 
 	},
 	onContextMenuClicked: function(file, evt) {
 		evt.preventDefault();
@@ -196,16 +241,23 @@ const FileTab = React.createClass({
 	},
 	setActiveFile: function(file, forceUpdate) {
 		if (forceUpdate) {
-			this.setState({activeFile: file});
+			this.setState({
+				activeFile: file,
+				files: this.getFiles()
+			});
 		} else {
-			this.state.activeFile = file;	
+			this.state.activeFile = file;
 		}
 	},
 	getFiles: function() {
 		return this.state.files ? this.state.files : [];
 	},
 	setFiles: function(files) {
-		this.setState({files: files});
+		files = files ? files : [];
+		this.setState({
+			activeFile: files.indexOf(this.getActiveFile()) === -1 ? files[0] : this.getActiveFile(),
+			files: files
+		});
 	},
 	openFile: function(file) {
 		let files = this.getFiles();
@@ -251,7 +303,10 @@ const FileTab = React.createClass({
 					});
 				}
 			} else {
-				this.setFiles(files);
+				this.setState({
+					activeFile: this.getActiveFile(),
+					files: files
+				});
 			}
 		}
 	},
@@ -259,7 +314,10 @@ const FileTab = React.createClass({
 		let files = this.getFiles().filter(function(file) {
 			return !this.isFileInFolder(folder, file);
 		}.bind(this));
-		this.setFiles(files);
+		this.setState({
+			files: files,
+			activeFile: files.length === 0 ? null : (files.indexOf(this.getActiveFile()) === -1 ? files[0] : this.getActiveFile())
+		});
 	},
 	isFileInFolder: function(folder, file) {
 		let dir = path.dirname(file);
@@ -275,10 +333,16 @@ const FileTab = React.createClass({
 		}
 	},
 	removeFileButCurrent: function(file) {
-		this.setFiles([file]);
+		this.setState({
+			files: [file],
+			activeFile: file
+		});
 	},
 	removeAllFiles: function(file) {
-		this.setFiles(null);
+		this.setState({
+			files: null,
+			activeFile: null
+		});
 	}
 });
 

@@ -344,8 +344,8 @@ const Node = React.createClass({
 	getInitialState: function() {
 		return {};
 	},
-	renderChildren: function() {
-		if (this.state.expanded) {
+	renderChildren: function(fileState) {
+		if (fileState.dir && this.state.expanded) {
 			return <Folders parent={this} />;
 		} else {
 			return null;
@@ -383,7 +383,7 @@ const Node = React.createClass({
 					{this.getFileBaseName()}
 				</span>
 			</div>
-			{this.renderChildren()}
+			{this.renderChildren(fileState)}
 		</li>);
 	},
 	getFile: function() {

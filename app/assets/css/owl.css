@@ -403,6 +403,8 @@ body {
   width: 250px;
   border-right: 1px solid #5cbcb3;
   height: 100vh; }
+  .docker-components-container.hidden {
+    width: 0; }
 
 .docker-components .docker-components-header {
   position: relative;
@@ -565,6 +567,8 @@ body {
   width: 250px;
   border-right: 1px solid #5cbcb3;
   height: 100vh; }
+  .docker-outline-container.hidden {
+    width: 0; }
 
 .docker-outline {
   height: 100%; }
@@ -739,8 +743,6 @@ body {
       display: table-cell;
       text-align: center;
       line-height: 1.5em; }
-      .bottom-docker-bar-container .bottom-docker-bar .docker-btn.expanded {
-        background-color: #28e8ff; }
     .bottom-docker-bar-container .bottom-docker-bar.left {
       position: absolute;
       bottom: 25px;
@@ -846,29 +848,41 @@ body {
   padding: 0 15px;
   margin: 0 -15px;
   border: 0; }
+  .main-content .main-content-tabs-nav {
+    position: relative;
+    float: left;
+    height: calc(1.6 * 1.6em);
+    border-bottom: 1px solid #007f8e; }
+    .main-content .main-content-tabs-nav i {
+      cursor: pointer;
+      color: #80CBC4;
+      font-size: 1.6em;
+      line-height: 1.6em; }
+    .main-content .main-content-tabs-nav i:first-child {
+      margin-right: -10px; }
+  .main-content .main-content-tab-nav-more {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    height: calc(1.6 * 1.6em);
+    border-bottom: 1px solid #007f8e; }
+    .main-content .main-content-tab-nav-more i {
+      cursor: pointer;
+      color: #80CBC4;
+      font-size: 1.6em;
+      line-height: 1.6em; }
   .main-content .main-content-tabs {
+    position: relative;
     list-style: none;
-    margin: 0;
+    margin: 0 27px 0 0;
     padding: 0;
     overflow: hidden;
     white-space: nowrap;
     height: calc(1.6 * 1.6em);
-    border-bottom: 1px solid #5cbcb3; }
-    .main-content .main-content-tabs .main-content-tabs-nav {
-      display: inline-block;
-      position: relative;
-      line-height: calc(1.6 * 1.6em);
-      font-size: 1.6em;
-      line-height: 1.6em;
-      margin-right: 10px; }
-      .main-content .main-content-tabs .main-content-tabs-nav i {
-        cursor: pointer;
-        color: #80CBC4; }
-      .main-content .main-content-tabs .main-content-tabs-nav i:first-child {
-        margin-right: -10px; }
+    border-bottom: 1px solid #007f8e; }
     .main-content .main-content-tabs .main-content-tab-title {
       display: inline-block;
-      padding: 0 20px;
+      padding: 0 18px;
       position: relative; }
       .main-content .main-content-tabs .main-content-tab-title:not(:first-child) {
         margin-left: -10px; }
@@ -892,7 +906,7 @@ body {
           top: 3px;
           position: absolute;
           width: 100%;
-          border-top: 2px solid #26A69A; }
+          border-top: 2px solid #5cbcb3; }
         .main-content .main-content-tabs .main-content-tab-title .main-content-tab-title-content .main-content-tab-label {
           line-height: 30px;
           display: inline-block;
@@ -908,7 +922,7 @@ body {
       .main-content .main-content-tabs .main-content-tab-title.active {
         z-index: 999; }
         .main-content .main-content-tabs .main-content-tab-title.active .main-content-tab-title-content:before {
-          border-top-color: #00838F; }
+          border-top-color: #007f8e; }
         .main-content .main-content-tabs .main-content-tab-title.active .main-content-tab-title-content .main-content-tab-label {
           background-color: #00ACC1; }
         .main-content .main-content-tabs .main-content-tab-title.active .main-content-tab-title-content i {

@@ -1,5 +1,4 @@
 @import '../config/common-variables';
-@import 'frame';
 
 #bottom-docker {
 	position: fixed;
@@ -69,9 +68,6 @@
 			display: table-cell;
 			text-align: center;
 			line-height: $docker-bottom-bar-btn-line-height;
-			&.expanded {
-				background-color: lighten($docker-bottom-bar-btn-bg-color, 20%);
-			}
 		}
 		&.left {
 			position: absolute;

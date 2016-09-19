@@ -162,6 +162,8 @@ $body-bg-color:						$container-bg-color;
 
 // component
 $left-docker-width:					250px;
+$left-docker-border-color:			darken($primary-color, 10%);
+$left-docker-title-height:			calc(#{strip-unit($font-title-2nd-size)} * #{$container-title-2nd-line-height});
 // design area
 $demo-comp-focus-border-color:		#FF9800;
 $demo-comp-line-height:				2.308em;
@@ -169,7 +171,21 @@ $demo-comp-inner-line-height: 		2.231em;
 $demo-comp-op-btn-color:			#90A4AE;
 $demo-comp-op-btn-line-height:		1.539em;
 $design-panel-height:				30px;
+$design-tab-bg-color:				$primary-color;
+$design-tab-border-color:			darken($primary-color, 10%);
+$design-tab-active-bg-color:		$active-color;
+$design-tab-active-border-color:	darken($active-color, 10%);
+$design-tab-font-color:				$font-color-reverse;
 // outline
 $outline-line-height:				2.308em;
 $outline-pop-bg-color:				#CFD8DC;
 $outline-pop-border:				1px solid #424242;
+// bottom docker 
+$docker-bottom-bar-height:				#{$px-0}px;
+$docker-bottom-bar-btn-bg-color:		#00ACC1;
+$docker-bottom-bar-btn-height:			$px-40;
+$docker-bottom-bar-btn-width:			$px-40;
+$docker-bottom-bar-btn-font-size:		2em;
+$docker-bottom-bar-btn-line-height:		1.5em;
+$docker-bottom-bar-tip-arrow-border-width:		$px-6;
+$docker-bottom-bar-pad:					$px-5;

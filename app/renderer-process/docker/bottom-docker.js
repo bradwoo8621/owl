@@ -1,3 +1,5 @@
+const {ipcRenderer} = require('electron');
+
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -8,10 +10,24 @@ const elements = require('./elements').map(function(element) {
 	return element;
 });
 
+ipcRenderer.on('toggle-docker', function() {
+	let elements = docker.getAllCurrentDockerElements();
+	if (elements.length > 0) {
+		closedDockerElements = [];
+		elements.forEach(function(element) {
+			docker.hideDocker(element);
+			closedDockerElements.push(element);
+		});
+	} else {
+		closedDockerElements.forEach(function(element) {
+			docker.showDocker(element);
+		})
+	}
+});
+
 const BottomDocker = React.createClass({
 	getInitialState: function() {
 		return {
-			currentDockerElement: null,
 			outerContainers: {}
 		};
 	},
@@ -60,18 +76,19 @@ const BottomDocker = React.createClass({
 		return dockerElement.pos ? dockerElement.pos : 'left';
 	},
 	getCurrentDockerElement: function(containerId) {
-		if (containerId) {
-			return this.state.outerContainers[containerId];
-		} else {
-			return this.state.currentDockerElement;
-		}
+		return this.state.outerContainers[containerId];
 	},
 	setCurrentDockerElement: function(dockerElement, containerId) {
-		if (containerId) {
-			this.state.outerContainers[containerId] = dockerElement;
+		if (dockerElement == null) {
+			delete this.state.outerContainers[containerId];
 		} else {
-			this.state.currentDockerElement = dockerElement;
+			this.state.outerContainers[containerId] = dockerElement;
 		}
+	},
+	getAllCurrentDockerElements: function() {
+		return Object.keys(this.state.outerContainers).map(function(key) {
+			return this.state.outerContainers[key];
+		}.bind(this));
 	},
 	onDockerButtonClicked: function(evt) {
 		let btn = $(evt.target).closest('.bottom-docker-bar-btn');
@@ -81,61 +98,63 @@ const BottomDocker = React.createClass({
 		right.animate({width: 'toggle'}, 500, 'linear', function() {
 			btn.toggleClass('expanded');
 			btn.children('i').toggleClass('mdi-arrow-expand-all mdi-arrow-compress-all');
-		});
+		}.bind(this));
 	},
-	onDockerClicked: function(dockerElement, evt) {
-		let eventTarget = $(evt.target).closest('.docker-btn');
-
+	getDockerContainer: function(dockerElement) {
 		// get docker container
 		let dockerContainer = this.refs.body;
 		if (dockerElement.containerId) {
 			dockerContainer = document.getElementById(dockerElement.containerId);
 		}
+		return dockerContainer;
+	},
+	onDockerClicked: function(dockerElement, evt) {
+		// get docker container
+		let dockerContainer = this.getDockerContainer(dockerElement);
 		// get current docker element from given container
 		let currentDockerElement = this.getCurrentDockerElement(dockerElement.containerId);
 		if (currentDockerElement) {
-			// unmount current docker element
-			$(dockerContainer).removeClass(currentDockerElement.className);
-			ReactDOM.unmountComponentAtNode(dockerContainer);
-			if (dockerElement.onCollapsed) {
-				dockerElement.onCollapsed.call(this);
-			}
+			this.hideDocker(currentDockerElement);
 		}
 		if (dockerElement != currentDockerElement) {
-			// switch to another
-			this.setCurrentDockerElement(dockerElement, dockerElement.containerId);
-			let element = React.createElement(dockerElement.reactClass);
-			ReactDOM.render(element, dockerContainer, function() {
-				$(dockerContainer).addClass(dockerElement.className);
-				eventTarget.addClass('expanded').removeClass('collapsed');
-				if (dockerElement.onExpanded) {
-					dockerElement.onExpanded.call(this);
-				}
-			});
-		} else {
-			// no another, set state only
-			this.setCurrentDockerElement(null, dockerElement.containerId);
-			eventTarget.removeClass('expanded').addClass('collapsed');
+			this.showDocker(dockerElement);
 		}
+	},
+	hideDocker: function(dockerElement) {
+		let dockerContainer = this.getDockerContainer(dockerElement);
+		// unmount current docker element
+		$(dockerContainer).removeClass(dockerElement.className);
+		ReactDOM.unmountComponentAtNode(dockerContainer);
+		if (dockerElement.onCollapsed) {
+			dockerElement.onCollapsed.call(this);
+		}
+		this.setCurrentDockerElement(null, dockerElement.containerId);
+	},
+	showDocker: function(dockerElement) {
+		let dockerContainer = this.getDockerContainer(dockerElement);
 
-		// remove other button's expanded class
-		let buttonBar = eventTarget.closest('.bottom-docker-bar-container');
-		if (dockerElement.containerId) {
-			buttonBar.find('.docker[data-container-id=' + dockerElement.containerId + '] .docker-btn')
-				.not(eventTarget)
-				.removeClass('expanded');
-		} else {
-			buttonBar.find('.docker:not([data-container-id]) .docker-btn')
-				.not(eventTarget)
-				.removeClass('expanded');
-		}
+		this.setCurrentDockerElement(dockerElement, dockerElement.containerId);
+		let element = React.createElement(dockerElement.reactClass);
+		ReactDOM.render(element, dockerContainer, function() {
+			$(dockerContainer).addClass(dockerElement.className);
+			let buttonBar = $(ReactDOM.findDOMNode(this.refs.container));
+			if (dockerElement.onExpanded) {
+				dockerElement.onExpanded.call(this);
+			}
+
+			closedDockerElements = this.getAllCurrentDockerElements();
+		}.bind(this));
 	}
 });
 
+let docker;
+let closedDockerElements = [];
+
 module.exports = {
 	render: function(dockerId, callback) {
-		return ReactDOM.render(<BottomDocker />, 
+		docker = ReactDOM.render(<BottomDocker />, 
 				window.document.getElementById(dockerId),
 				callback);
+		return docker;
 	}
 }
