@@ -1,14 +1,24 @@
+require("babel-register")({
+	"presets": [
+		"react", 
+		"es2015"
+	],
+	"plugins": [
+		"transform-react-jsx",
+		"transform-class-properties"
+	]
+});
+
 const path = require('path');
-const glob = require('glob');
 const electron = require('electron');
 const {app, BrowserWindow, Menu, globalShortcut} = electron;
-const menus = require('./main-process/menus/window-menus');
+const {Menus} = require('./main-process/window-menus');
 
-const config = require('./config');
+// const config = require('./config');
 
 const debug = /--debug/.test(process.argv[2]);
 
-app.setName('Owl - Designer for Parrot');
+app.setName('Owl - Designer for Parrot2');
 
 let mainWindow = null;
 
@@ -18,14 +28,10 @@ function initialize () {
 		return app.quit();
 	}
 
-	// loadDemos();
-
 	function createWindow () {
 		let windowOptions = {
-			// width: 1080,
 			minWidth: 1024,
 			minHeight: 700,
-			// height: 840,
 			title: app.getName(),
 			show: false,
 			webPreferences: {
@@ -34,9 +40,9 @@ function initialize () {
 			}
 		};
 
-		if (!config.has(config.SYS_LOCALE)) {
-			config.set(config.SYS_LOCALE, app.getLocale());
-		}
+		// if (!config.has(config.SYS_LOCALE)) {
+		// 	config.set(config.SYS_LOCALE, app.getLocale());
+		// }
 
 		if (process.platform === 'linux') {
 			windowOptions.icon = path.join(__dirname, './assets/app-icon/png/256.png');
@@ -45,7 +51,7 @@ function initialize () {
 		}
 
 		mainWindow = new BrowserWindow(windowOptions);
-		mainWindow.loadURL(path.join('file://', __dirname, './index.html'));
+		mainWindow.loadURL(path.join('file://', __dirname, './renderer-process/home.html'));
 
 		// Launch fullscreen with DevTools open, usage: npm run debug
 		if (debug) {
@@ -54,14 +60,14 @@ function initialize () {
 		// always maximize window
 		mainWindow.maximize();
 
-		const menu = Menu.buildFromTemplate(menus());
+		const menu = Menu.buildFromTemplate(new Menus().getMenuTemplate());
 		Menu.setApplicationMenu(menu);
-		globalShortcut.register('CmdOrCtrl+Alt+Z', function() {
-			mainWindow.webContents.send('toggle-docker');
-		});
-		globalShortcut.register('CmdOrCtrl+Alt+W', function() {
-			mainWindow.webContents.send('to-index');
-		});
+		// globalShortcut.register('CmdOrCtrl+Alt+Z', function() {
+		// 	mainWindow.webContents.send('toggle-docker');
+		// });
+		// globalShortcut.register('CmdOrCtrl+Alt+W', function() {
+		// 	mainWindow.webContents.send('to-index');
+		// });
 
 		mainWindow.on('closed', function () {
 			mainWindow = null;
@@ -112,14 +118,6 @@ function makeSingleInstance () {
 		}
 	})
 }
-
-// Require each JS file in the main-process dir
-// function loadDemos () {
-// 	let files = glob.sync(path.join(__dirname, 'main-process/**/*.js'))
-// 	files.forEach(function (file) {
-// 		require(file)
-// 	})
-// }
 
 // Handle Squirrel on Windows startup events
 switch (process.argv[1]) {
