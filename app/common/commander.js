@@ -1,26 +1,48 @@
-import electron from 'electron'
+const electron = require('electron');
 
 class Commander {
-	static HOME = 'cmd-home'
 	sendToWindow(window, command) {
 		if (window) {
 			window.webContents.send(command);
 		}
+		return this;
 	}
 	reload(window) {
 		if (window) {
 			window.reload();
 		}
+		return this;
 	}
 	toggleDevTools(window) {
 		if (window) {
 			window.toggleDevTools();
 		}
+		return this;
+	}
+	toggleFullScreen(window) {
+		if (window) {
+			window.setFullScreen(!window.isFullScreen());
+		}
+		return this;
+	}
+	toggleMenuBar(window) {
+		if (window) {
+			window.setMenuBarVisibility(!window.isMenuBarVisible());
+		}
+		return this;
 	}
 	openExternalURL(url) {
 		electron.shell.openExternal(url);
+		return this;
 	}
 }
 
-export {Commander}
+const Commands = {
+	Home: 'cmd-home'
+};
+
+module.exports = {
+	Commander,
+	Commands
+};
 

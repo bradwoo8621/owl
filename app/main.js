@@ -1,24 +1,16 @@
-require("babel-register")({
-	"presets": [
-		"react", 
-		"es2015"
-	],
-	"plugins": [
-		"transform-react-jsx",
-		"transform-class-properties"
-	]
-});
-
 const path = require('path');
 const electron = require('electron');
 const {app, BrowserWindow, Menu, globalShortcut} = electron;
 const {Menus} = require('./main-process/window-menus');
 
-// const config = require('./config');
-
 const debug = /--debug/.test(process.argv[2]);
+const trailer = /--trailer/.test(process.argv[2]);
 
-app.setName('Owl - Designer for Parrot2');
+if (trailer) {
+	app.setName('Trailer');
+} else {
+	app.setName('Owl - Designer for Parrot2');
+}
 
 let mainWindow = null;
 
@@ -40,10 +32,6 @@ function initialize () {
 			}
 		};
 
-		// if (!config.has(config.SYS_LOCALE)) {
-		// 	config.set(config.SYS_LOCALE, app.getLocale());
-		// }
-
 		if (process.platform === 'linux') {
 			windowOptions.icon = path.join(__dirname, './assets/app-icon/png/256.png');
 		} else if (process.platform === 'win32') {
@@ -51,23 +39,23 @@ function initialize () {
 		}
 
 		mainWindow = new BrowserWindow(windowOptions);
-		mainWindow.loadURL(path.join('file://', __dirname, './renderer-process/home.html'));
+		if (trailer) {
+			mainWindow.loadURL(path.join('file://', __dirname, './renderer-process/trailer.html'));
+		} else {
+			mainWindow.loadURL(path.join('file://', __dirname, './renderer-process/home.html'));
+		}
 
 		// Launch fullscreen with DevTools open, usage: npm run debug
 		if (debug) {
 			mainWindow.webContents.openDevTools();
 		}
-		// always maximize window
-		mainWindow.maximize();
 
-		const menu = Menu.buildFromTemplate(new Menus().getMenuTemplate());
-		Menu.setApplicationMenu(menu);
-		// globalShortcut.register('CmdOrCtrl+Alt+Z', function() {
-		// 	mainWindow.webContents.send('toggle-docker');
-		// });
-		// globalShortcut.register('CmdOrCtrl+Alt+W', function() {
-		// 	mainWindow.webContents.send('to-index');
-		// });
+		if (!trailer) {
+			// always maximize window
+			mainWindow.maximize();
+			const menu = Menu.buildFromTemplate(new Menus().getMenuTemplate());
+			Menu.setApplicationMenu(menu);
+		}
 
 		mainWindow.on('closed', function () {
 			mainWindow = null;

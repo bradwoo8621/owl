@@ -1,0 +1,203 @@
+body.no-mouse * {
+	cursor: none;
+}
+#main {
+	display: none;
+	position: fixed;
+	background-color: #333;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+#main.show {
+	display: block;
+}
+#canvas {
+	width: 100%;
+	height: 100%;
+	opacity: 0.2;
+}
+.introduce {
+	opacity: 1;
+	transition: opacity 1s ease-out;
+}
+.introduce.fadeout {
+	opacity: 0;
+}
+.introduce.hide {
+	display: none;
+}
+.introduce-btn {
+	display: block;
+    position: fixed;
+    font-size: 0.4rem;
+    font-weight: bold;
+    width: 6rem;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    text-align: center;
+    margin: auto;
+    top: calc(50% - 0.2rem);
+    left: 0;
+    right: 0;
+    cursor: pointer;
+}
+.first-episode {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: transparent;
+	z-index: 10;
+}
+.first-episode.show {
+	display: block;
+	transition: opacity 3s ease-out;
+}
+.first-episode.hide {
+	display: none;
+}
+.first-episode .watch {
+	display: none;
+	position: absolute;
+	font-size: 0.6rem;
+	font-weight: bold;
+	color: #fff;
+	width: 2rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	left: calc(50% - 1rem);
+	top: calc(50% - 0.8rem);
+	text-align: center;
+}
+.first-episode .watch.show {
+	display: block;
+	opacity: 1;
+}
+.first-episode.fadeout .watch.show {
+	opacity: 0;
+	transition: opacity 3s ease-out;
+}
+.first-episode .part {
+	display: block;
+	position: absolute;
+	font-size: 0.6rem;
+	font-weight: bold;
+	color: #fff;
+	width: 7rem;
+	height: 0.8rem;
+	line-height: 0.8rem;
+	left: calc(50% - 3.5rem);
+	top: 50%;
+	opacity: 0;
+	transition: opacity 2s ease-out;
+	text-align: center;
+}
+.first-episode .part.show {
+	opacity: 1
+}
+.first-episode.fadeout .part.show {
+	opacity: 0;
+	transition: opacity 3s ease-out;
+}
+.second-episode {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: transparent;
+	z-index: 20;
+}
+.second-episode.show {
+	display: block;
+}
+.second-episode .brand {
+	position: absolute;
+    width: 5rem;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.6); 
+    text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.1), 9px 8px 0px rgba(0, 0, 0, 0.15);
+    left: calc(50% - 2.5rem);
+    top: calc(50% - 1.5rem);
+    text-align: center;
+    font-weight: bold;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.second-episode .for {
+	font-size: 0.4rem;
+    color: rgba(255, 255, 255, 0.6);
+    height: 0.4rem;
+    line-height: 0.4rem;
+    position: fixed;
+    display: block;
+    top: calc(50% + 0.5rem);
+    margin: auto;
+    text-align: center;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 2s ease-out;
+}
+.second-episode .for.fadein {
+	opacity: 1;
+}
+.second-episode .thanks {
+	font-size: 0.14rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.6);
+    position: fixed;
+    display: block;
+    top: calc(50% + 2rem);
+    bottom: calc(50% - 3rem);
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    overflow: hidden;
+}
+.second-episode .thanks-prologue,
+.second-episode .thanks-final {
+	display: block;
+	height: 1rem;
+}
+.second-episode [class*=title] {
+	font-size: 0.2rem;
+}
+.second-episode .producer {
+	color: #ddd;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.third-episode {
+	display: none;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: transparent;
+	z-index: 30;
+}
+.third-episode.show {
+	display: block;
+}
+.third-episode .time {
+	// font-size: 0.2rem;
+    height: 0.2rem;
+    line-height: 0.2rem;
+    position: fixed;
+    display: block;
+    top: calc(50% + 2rem);
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+}

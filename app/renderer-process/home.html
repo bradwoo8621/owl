@@ -6,12 +6,20 @@
 	<link rel="stylesheet" href="../../node_modules/font-awesome/css/font-awesome.css">
 	<link rel="stylesheet" href="../../node_modules/mdi/css/materialdesignicons.css">
 	<link rel="stylesheet" href="../../node_modules/source-code-pro/dist/source-code-pro.css">
+	<link rel="stylesheet" href="./pages/common.css">
+	<link rel="stylesheet" href="./pages/home/home.css">
 </head>
 <body>
 	<div id='main' class='main'>
+		<canvas id='canvas'></canvas>
+		<div class='brand'>OWL</div>
+		<div class='producer'>by bradwoo8621 @ Github</div>
+	</div>
+	<div id='content'>
+		<a href='./working.html'>Working HTML</a>
 	</div>
 	<script>
-		require('./pages/home.js');
+		let home = require('./pages/home/home.js');
 	</script>
 </body>
 </html>

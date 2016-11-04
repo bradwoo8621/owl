@@ -1,5 +1,5 @@
-import electron from 'electron'
-import {Commander} from '../common/commander'
+const electron = require('electron');
+const {Commander, Commands} = require('../common/commander');
 
 let commander = new Commander();
 
@@ -28,7 +28,7 @@ class Menus {
 			label: 'Exit Working Folder...',
 			accelerator: 'CmdOrCtrl+Alt+W',
 			click(item, focusedWindow) {
-				commander.sendToWindow(focusedWindow, Commander.HOME);
+				commander.sendToWindow(focusedWindow, Commands.Home);
 			}
 		};
 	}
@@ -96,12 +96,21 @@ class Menus {
 		return {
 			label: '&Help',
 			submenu: [
-				this.getLearnMoreAbountParrot2Menu(),
+				this.getLearnMoreAboutOwlMenu(),
+				this.getLearnMoreAboutParrot2Menu(),
 				this.getLearnMoreAboutElectronMenu()
 			]
 		};
 	}
-	getLearnMoreAbountParrot2Menu() {
+	getLearnMoreAboutOwlMenu() {
+		return {
+			label: 'OWL @ Github',
+			click() {
+				commander.openExternalURL('https://github.com/bradwoo8621/owl');
+			}
+		};
+	}
+	getLearnMoreAboutParrot2Menu() {
 		return {
 			label: 'Nest-Parrot2 @ Github',
 			click() {
@@ -122,4 +131,4 @@ class Menus {
 	}
 }
 
-export {Menus}
+module.exports = {Menus}
