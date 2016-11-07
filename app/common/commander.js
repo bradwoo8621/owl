@@ -38,7 +38,9 @@ class Commander {
 }
 
 const Commands = {
-	Home: 'cmd-home'
+	Home: 'cmd-home',
+
+	TOGGLE_SIDE_BAR: 'cmd-toggle-left-side'
 };
 
 module.exports = {

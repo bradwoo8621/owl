@@ -1,7 +1,7 @@
 const electron = require('electron');
 const {Commander, Commands} = require('../common/commander');
 
-let commander = new Commander();
+const commander = new Commander();
 
 class Menus {
 	getMenuTemplate() {
@@ -40,6 +40,8 @@ class Menus {
 		return {
 			label: '&View',
 			submenu: [
+				this.getSideBarMenu(),
+				this.getSeparatorLine(),
 				this.getReloadMenu(),
 				this.getDeveloperToolsMenu(),
 				this.getSeparatorLine(),
@@ -50,6 +52,15 @@ class Menus {
 				this.getToggleFullScreenMenu()
 			]
 		};
+	}
+	getSideBarMenu() {
+		return {
+			label: 'Toggle Side Bar',
+			accelerator: 'CmdOrCtrl+Shift+B',
+			click (item, focusedWindow) {
+				commander.sendToWindow(focusedWindow, Commands.TOGGLE_SIDE_BAR);
+			}
+		}
 	}
 	getReloadMenu() {
 		return {
