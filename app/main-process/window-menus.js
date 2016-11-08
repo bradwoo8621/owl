@@ -41,6 +41,7 @@ class Menus {
 			label: '&View',
 			submenu: [
 				this.getSideBarMenu(),
+				this.getBottomBarMenu(),
 				this.getSeparatorLine(),
 				this.getReloadMenu(),
 				this.getDeveloperToolsMenu(),
@@ -60,7 +61,16 @@ class Menus {
 			click (item, focusedWindow) {
 				commander.sendToWindow(focusedWindow, Commands.TOGGLE_SIDE_BAR);
 			}
-		}
+		};
+	}
+	getBottomBarMenu() {
+		return {
+			label: 'Toggle Bottom Bar',
+			accelerator: 'CmdOrCtrl+Shift+P',
+			click (item, focusedWindow) {
+				commander.sendToWindow(focusedWindow, Commands.TOGGLE_BOTTOM_BAR);
+			}
+		};
 	}
 	getReloadMenu() {
 		return {

@@ -4,12 +4,51 @@ const codes = new CodeTable({
 	items: [{id: 1, text: 'Item 1'}, {id: 2, text: 'Item 2'}]
 });
 
+const CellWidth = 12;
+const LabelPosition = 'left';
+const LabelWidth = 3;
+
+class CommonAttributesLayout {
+	styles(hasLine) {
+		let attrs = [
+			{id: 'styles.cell', label: 'Cell Class Name'},
+			{id: 'styles.comp', label: 'Component Class Name'},
+			{id: 'styles.view', label: 'View Mode Class Name'}
+		];
+		if (hasLine) {
+			attrs = attrs.concat([
+				{id: 'styles.normal-line', label: 'Normal Underline Class Name'},
+				{id: 'styles.focus-line', label: 'Focused Underline Class Name'}
+			]);
+		}
+		return attrs.sort((a, b) => {
+			return a.label.localeCompare(b.label);
+		}).map((attr, attrIndex) => {
+			attr.col = (attrIndex + 1) * 100;
+			return attr;
+		}).reduce((layout, attr) => {
+			layout[attr.id] = {
+				label: attr.label,
+				comp: {
+					type: Envs.COMPONENT_TYPES.TEXT,
+					labelPosition: LabelPosition,
+					labelWidth: LabelWidth
+				},
+				pos: {width: CellWidth, row: attr.row, col: attr.col}
+			};
+			return layout;
+		}, {});
+	}
+};
+const commonAttrLayout = new CommonAttributesLayout();
+
 class Component {
 	constructor(options) {
 		this.label = options.label;
 		this.type = options.type;
 		this.width = options.width;
 		this.layoutOptions = options.layoutOptions;
+		this.attrsLayout = options.attrsLayout;
 	}
 	getLabel() {
 		return this.label;
@@ -26,37 +65,61 @@ class Component {
 	getLayoutOptions() {
 		return this.layoutOptions;
 	}
+	getAttributeLayout() {
+		return this.attrsLayout;
+	}
 }
 const Label = new Component({
 	label: 'Label',
 	type: Envs.COMPONENT_TYPES.LABEL,
 	layoutOptions: {
 		textFromModel: false
+	},
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
 	}
 });
 const Text = new Component({
 	label: 'Text',
-	type: Envs.COMPONENT_TYPES.TEXT
+	type: Envs.COMPONENT_TYPES.TEXT,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(true)
+	}
 });
 const TextArea = new Component({
 	label: 'Text Area',
-	type: Envs.COMPONENT_TYPES.TEXTAREA
+	type: Envs.COMPONENT_TYPES.TEXTAREA,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(true)
+	}
 });
 const Check = new Component({
 	label: 'Check Box',
-	type: Envs.COMPONENT_TYPES.CHECK
+	type: Envs.COMPONENT_TYPES.CHECK,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const Toggle = new Component({
 	label: 'Toggle',
-	type: Envs.COMPONENT_TYPES.TOGGLE
+	type: Envs.COMPONENT_TYPES.TOGGLE,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const DateTime = new Component({
 	label: 'Date Time',
-	type: Envs.COMPONENT_TYPES.DATE_PICKER
+	type: Envs.COMPONENT_TYPES.DATE_PICKER,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(true)
+	}
 });
 const Button = new Component({
 	label: 'Button',
-	type: Envs.COMPONENT_TYPES.BUTTON
+	type: Envs.COMPONENT_TYPES.BUTTON,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 
 const Radio = new Component({
@@ -64,6 +127,9 @@ const Radio = new Component({
 	type: Envs.COMPONENT_TYPES.RADIO,
 	layoutOptions: {
 		codes: codes
+	},
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
 	}
 });
 const RadioButton = new Component({
@@ -71,6 +137,9 @@ const RadioButton = new Component({
 	type: Envs.COMPONENT_TYPES.RADIO_BUTTON,
 	layoutOptions: {
 		codes: codes
+	},
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
 	}
 });
 const Select = new Component({
@@ -78,6 +147,9 @@ const Select = new Component({
 	type: Envs.COMPONENT_TYPES.SELECT,
 	layoutOptions: {
 		codes: codes
+	},
+	attrsLayout: {
+		styles: commonAttrLayout.styles(true)
 	}
 });
 const List = new Component({
@@ -85,6 +157,9 @@ const List = new Component({
 	type: Envs.COMPONENT_TYPES.LIST,
 	layoutOptions: {
 		codes: codes
+	},
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
 	}
 });
 const Tree = new Component({
@@ -92,6 +167,9 @@ const Tree = new Component({
 	type: Envs.COMPONENT_TYPES.TREE,
 	layoutOptions: {
 		codes: codes
+	},
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
 	}
 });
 const ArrayCheck = new Component({
@@ -99,43 +177,67 @@ const ArrayCheck = new Component({
 	type: Envs.COMPONENT_TYPES.ARRAY_CHECK,
 	layoutOptions: {
 		codes: codes
+	},
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
 	}
 });
 
 const Table = new Component({
 	label: 'Table',
 	type: Envs.COMPONENT_TYPES.TABLE,
-	width: 12
+	width: 12,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const ArrayPanel = new Component({
 	label: 'Array Panel',
 	type: Envs.COMPONENT_TYPES.ARRAY_PANEL,
-	width: 12
+	width: 12,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const ArrayTab = new Component({
 	label: 'Array Tab',
 	type: Envs.COMPONENT_TYPES.ARRAY_TAB,
-	width: 12
+	width: 12,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const Panel = new Component({
 	label: 'Panel',
 	type: Envs.COMPONENT_TYPES.PANEL,
-	width: 12
+	width: 12,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const Tab = new Component({
 	label: 'Tab',
 	type: Envs.COMPONENT_TYPES.TAB,
-	width: 12
+	width: 12,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const ButtonBar = new Component({
 	label: 'Button Bar',
 	type: Envs.COMPONENT_TYPES.BUTTON_BAR,
-	width: 12
+	width: 12,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 const Form = new Component({
 	label: 'Form',
 	type: Envs.COMPONENT_TYPES.FORM,
-	width: 12
+	width: 12,
+	attrsLayout: {
+		styles: commonAttrLayout.styles(false)
+	}
 });
 
 class Category {

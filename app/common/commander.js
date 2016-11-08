@@ -40,7 +40,8 @@ class Commander {
 const Commands = {
 	Home: 'cmd-home',
 
-	TOGGLE_SIDE_BAR: 'cmd-toggle-left-side'
+	TOGGLE_SIDE_BAR: 'cmd-toggle-side-bar',
+	TOGGLE_BOTTOM_BAR: 'cmd-toggle-bottom-bar'
 };
 
 module.exports = {

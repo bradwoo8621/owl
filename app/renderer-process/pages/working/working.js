@@ -2,7 +2,7 @@
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const {Model, Layout, Envs, NForm, NComponent, NPanel} = require('../../../../node_modules/nest-parrot2/dist/nest-parrot2');
+const {Model, Layout, Envs, NForm, NComponent, NPanel, NTab} = require('../../../../node_modules/nest-parrot2/dist/nest-parrot2');
 
 // electron related
 const electron = require('electron');
@@ -20,6 +20,9 @@ class ComponentCategories extends NComponent {
 	constructor(props) {
 		super(props);
 		this.onCategoryExpanded = this.onCategoryExpanded.bind(this);
+	}
+	postDidMount() {
+		this.refs[StandardComponents.Categories[0].getId()].expand();
 	}
 	renderCategory(category, categoryIndex) {
 		return <NPanel model={this.getModel()}
@@ -98,6 +101,55 @@ Envs.setRenderer(Envs.COMPONENT_TYPES.OWL_COMPONENT_DEF.type, function (options)
 	return <ComponentDef {...options} />;
 });
 
+class SideBar extends React.Component {
+	render() {
+		return <NTab model={this.getModel()}
+					  layout={this.getLayout()} />;
+	}
+	getModel() {
+		if (this.model == null) {
+			this.model = new Model({});
+		}
+		return this.model;
+	}
+	getLayout() {
+		if (this.layout == null) {
+			this.layout = this.createLayout();
+		}
+		return this.layout;
+	}
+	createLayout() {
+		return new Layout('sidebar', {
+			comp: {
+				style: 'primary',
+				tabs: [{
+					label: 'Components',
+					children: {
+						categories: {
+							comp: {
+								type: Envs.COMPONENT_TYPES.OWL_COMPONENT_CATEGORIES
+							},
+							pos: {width: 12, row: 100}
+						}
+					}
+				}, {
+					label: 'Folders',
+					children: {
+						name: {}
+					}
+				}]
+			},
+			pos: {width: 12},
+			styles: {
+				cell: 'side-bar-tab'
+			}
+		});
+	}
+	toggleShown() {
+		$('#side-bar').toggleClass('hide');
+	}
+}
+
 // work area, drag and drop component here
 class Content extends React.Component {
 	constructor(props) {
@@ -159,7 +211,9 @@ class Content extends React.Component {
 			label: component.getLabel(),
 			comp: Envs.deepMergeTo({}, {
 				type: component.getType(),
-				enabled: false
+				enabled: false,
+				// definition
+				define: component
 			}, component.getLayoutOptions()),
 			styles: {
 				cell: 'owl-component'
@@ -168,11 +222,13 @@ class Content extends React.Component {
 				width: component.getWidth(),
 				row: maxRow,
 				col: maxCol
+			},
+			evt: {
+				'jq.click': this.onComponentClicked
 			}
 		};
 		children[`pseduo-${this.newComponentIndex++}`] = cell;
 		// repaint
-		console.log(children);
 		this.forceUpdate();
 	}
 	onDropped(evt) {
@@ -194,72 +250,136 @@ class Content extends React.Component {
 		evt.preventDefault();
 		evt.stopPropagation()
 	}
+
+	onComponentClicked(evt) {
+		bottombar.setEditComponent(this);
+	}
+}
+
+class BottomBar extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
+	render() {
+		return <NTab model={this.getModel()}
+					 layout={this.getLayout()} />;
+	}
+	getModel() {
+		if (this.state.model == null) {
+			this.state.model = new Model({});
+		}
+		return this.state.model;
+	}
+	getLayout() {
+		if (this.state.layout == null) {
+			this.state.layout = this.createLayout();
+		}
+		return this.state.layout;
+	}
+	createLayout() {
+		return new Layout('bottombar', {
+			comp: {
+				style: 'primary',
+				tabs: [{
+					label: 'Property',
+					children: this.getComponentAttributeLayout('property')
+				}, {
+					label: 'Position',
+					children: this.getComponentAttributeLayout('position')
+				}, {
+					label: 'Styles',
+					children: this.getComponentAttributeLayout('styles')
+				}, {
+					label: 'Event',
+					children: this.getComponentAttributeLayout('event')
+				}]
+			},
+			pos: {width: 12},
+			styles: {
+				cell: 'bottom-bar-tab'
+			}
+		});
+	}
+	getNoAvailableAttributeLayout()  {
+		return {
+			nothing: {
+				label: 'No Available Attribute Designated.',
+				comp: {
+					type: Envs.COMPONENT_TYPES.LABEL,
+					textFromModel: false
+				},
+				pos: {width: 12, row: 100, col: 100}
+			}
+		};
+	}
+	getNoComponentLayout() {
+		return {
+			nothing: {
+				label: 'No Component Selected...',
+				comp: {
+					type: Envs.COMPONENT_TYPES.LABEL,
+					textFromModel: false
+				},
+				pos: {width: 12, row: 100, col: 100}
+			}
+		};
+	}
+	getPositionLayout() {
+		return {
+			'pos.width': {}
+		};
+	}
+	toggleShown() {
+		$('#bottom-bar').toggleClass('hide');
+	}
+	setEditComponent(component) {
+		this.setState({
+			layout: null,
+			component: component
+		}, () => {
+			if (component) {
+				$('#bottom-bar').removeClass('hide');
+			}
+		});
+	}
+	getEditComponent() {
+		return this.state.component;
+	}
+	getComponentAttributeLayout(key) {
+		let component = this.getEditComponent();
+		if (component) {
+			let layout = component.getLayoutOptionValue('define').getAttributeLayout()[key];
+			return layout ? layout : this.getNoAvailableAttributeLayout();
+		} else {
+			return this.getNoComponentLayout();
+		}
+	}
 }
 
 class Working {
 	renderSideBar() {
-		return ReactDOM.render(<NForm model={this.getToolBarModel()}
-							   layout={this.getToolBarLayout()} />, 
+		return ReactDOM.render(<SideBar />, 
 				document.getElementById('side-bar'));
 	}
-	getToolBarModel() {
-		if (this.toolbarModel == null) {
-			this.toolbarModel = new Model({});
-		}
-		return this.toolbarModel;
-	}
-	getToolBarLayout() {
-		if (this.toolbarLayout == null) {
-			this.toolbarLayout = new Layout('form', {
-				comp: {
-					children: {
-						tabs: {
-							comp: {
-								type: Envs.COMPONENT_TYPES.TAB,
-								style: 'primary',
-								tabs: [{
-									label: 'Components',
-									children: {
-										categories: {
-											comp: {
-												type: Envs.COMPONENT_TYPES.OWL_COMPONENT_CATEGORIES
-											},
-											pos: {width: 12, row: 100}
-										}
-									}
-								}, {
-									label: 'Folders',
-									children: {
-										name: {}
-									}
-								}]
-							},
-							pos: {width: 12},
-							styles: {
-								cell: 'working-tabs'
-							}
-						}
-					}
-				}
-			});
-		}
-		return this.toolbarLayout;
-	}
-	onSideBarToggle() {
-		$('#side-bar').toggleClass('hide');
-	}
-
 	renderContent() {
 		return ReactDOM.render(<Content />, 
 				document.getElementById('content'));
+	}
+	renderBottomBar() {
+		return ReactDOM.render(<BottomBar />,
+				document.getElementById('bottom-bar'));
 	}
 }
 
 let working = new Working();
 let sidebar = working.renderSideBar();
 let content = working.renderContent();
+let bottombar = working.renderBottomBar();
 
 ipcRenderer.on(Commands.TOGGLE_SIDE_BAR, (evt, arg) => {
-	working.onSideBarToggle();
+	sidebar.toggleShown();
+}).on(Commands.TOGGLE_BOTTOM_BAR, (evt, arg) => {
+	bottombar.toggleShown();
 });
 module.exports = working;
