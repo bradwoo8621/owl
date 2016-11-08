@@ -40,19 +40,20 @@
 	padding-left: 0;
 	padding-right: 0;
 }
-.component-category .n-panel-body {
+.owl-component-category .n-panel-body {
 	border-bottom: 0.01rem solid #e0e0e0;
 }
-.component-category .n-panel-body > .n-row > [class*=n-col-]:nth-child(odd) {
+.owl-component-category .n-panel-body > .n-row > [class*=n-col-]:nth-child(odd) {
 	padding-left: 0.05rem;
 	padding-right: 0;
 }
-.component-category .n-panel-body > .n-row > [class*=n-col-]:nth-child(even) {
+.owl-component-category .n-panel-body > .n-row > [class*=n-col-]:nth-child(even) {
 	padding-left: 0;
 	padding-right: 0.05rem;
 }
 
-.component {
+.owl-component-def {
+	font-size: 0.12rem;
 	cursor: pointer;
 	border-radius: 0.04rem;
 	padding: 0 0.1rem;
@@ -61,7 +62,7 @@
     text-overflow: ellipsis;
     border: 0.01rem solid transparent;
 }
-.component:hover {
+.owl-component-def:hover {
 	border-color: rgba(81, 167, 232, 0.5);
 	box-shadow: inset 0 0.01rem 0.02rem rgba(0, 0, 0, 0.075), 0 0 0.05rem rgba(81, 167, 232, 0.5);
 }
@@ -79,4 +80,14 @@
 .page {
 	position: relative;
     min-height: 100vh;
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
+}
+
+.page .owl-component {
+	border-radius: 0.04rem;
+	cursor: pointer;
+}
+.page .owl-component:hover {
+	box-shadow: inset 0 0.01rem 0.02rem rgba(0, 0, 0, 0.075), 0 0 0.05rem rgba(81, 167, 232, 0.5);
 }
