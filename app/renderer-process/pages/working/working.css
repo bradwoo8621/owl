@@ -133,11 +133,23 @@
 }
 #bottom-bar .bottom-bar-tab > .n-tab > .n-tab-body .n-comp-label {
 	white-space: nowrap;
+	overflow-x: hidden;
+    text-overflow: ellipsis;
 	border-bottom: 1px solid #e0e0e0;
     background-color: #f5f5f5;
 }
 #bottom-bar .bottom-bar-tab > .n-tab > .n-tab-body .n-comp {
 	border-bottom: 1px solid #e0e0e0;
 	border-left: 1px solid #e0e0e0;
-	height: 0.31rem;
+	padding-right: 0;
+}
+#bottom-bar .bottom-bar-tab > .n-tab > .n-tab-body .n-comp .owl-attr-value-editor {
+	display: block;
+	position: relative;
+}
+#bottom-bar .bottom-bar-tab > .n-tab > .n-tab-body .n-comp .owl-attr-value-editor .n-input-addon .n-icon {
+	height: 0.3rem;
+    line-height: 0.3rem;
+    width: 0.33rem;
+    border-left: 0.01rem solid #e0e0e0;
 }

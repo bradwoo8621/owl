@@ -1,4 +1,12 @@
-const {Envs, CodeTable} = require('../../../node_modules/nest-parrot2/dist/nest-parrot2');
+const $ = require('jquery');
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Parrot = require('../../../node_modules/nest-parrot2/dist/nest-parrot2');
+const {Envs, CodeTable, NComponent} = Parrot;
+
+const {StandardStyles, UnderlineStyles} = require('./standard-components-styles');
+
+const router = require('../common/router');
 
 const codes = new CodeTable({
 	items: [{id: 1, text: 'Item 1'}, {id: 2, text: 'Item 2'}]
@@ -8,36 +16,81 @@ const CellWidth = 12;
 const LabelPosition = 'left';
 const LabelWidth = 3;
 
+class AttributeValueEditor extends NComponent {
+	constructor(props) {
+		super(props);
+		this.onHelpClicked = this.onHelpClicked.bind(this);
+	}
+	renderText() {
+		let layout = {
+			comp: {
+				type: Envs.COMPONENT_TYPES.TEXT,
+				tail: [{
+					comp: {
+						type: Envs.COMPONENT_TYPES.ICON,
+						fontAwesome: false,
+						icon: '!mdi !mdi-code-braces'
+					},
+					evt: {
+						click: function() {}
+					}
+				}, {
+					comp: {
+						type: Envs.COMPONENT_TYPES.ICON,
+						icon: 'question-circle-o',
+					},
+					evt: {
+						click: this.onHelpClicked
+					}
+				}]
+			}
+		}
+		return this.renderInternalComponent(layout);
+	}
+	renderInNormal() {
+		return (<div className='owl-attr-value-editor'>
+			{this.renderText()}
+		</div>);
+	}
+	getDefinition() {
+		return this.getLayoutOptionValue('define');
+	}
+	onHelpClicked() {
+		router.openParrtoHelp(this.getDefinition().a);
+	}
+}
+Envs.COMPONENT_TYPES.OWL_ATTR_VALUE_EDITOR = {type: 'owl-attr-value-editor', label: true, error: true};
+Envs.setRenderer(Envs.COMPONENT_TYPES.OWL_ATTR_VALUE_EDITOR.type, function (options) {
+	return <AttributeValueEditor {...options} />;
+});
+
 class CommonAttributesLayout {
 	styles(hasLine) {
-		let attrs = [
-			{id: 'styles.cell', label: 'Cell Class Name'},
-			{id: 'styles.comp', label: 'Component Class Name'},
-			{id: 'styles.view', label: 'View Mode Class Name'}
-		];
+		let attrs = StandardStyles.slice(0);
 		if (hasLine) {
-			attrs = attrs.concat([
-				{id: 'styles.normal-line', label: 'Normal Underline Class Name'},
-				{id: 'styles.focus-line', label: 'Focused Underline Class Name'}
-			]);
+			attrs = attrs.concat(UnderlineStyles);
 		}
 		return attrs.sort((a, b) => {
 			return a.label.localeCompare(b.label);
 		}).map((attr, attrIndex) => {
-			attr.col = (attrIndex + 1) * 100;
+			attr.row = attr.col = (attrIndex + 1) * 100;
 			return attr;
 		}).reduce((layout, attr) => {
 			layout[attr.id] = {
 				label: attr.label,
 				comp: {
-					type: Envs.COMPONENT_TYPES.TEXT,
+					type: Envs.COMPONENT_TYPES.OWL_ATTR_VALUE_EDITOR,
 					labelPosition: LabelPosition,
-					labelWidth: LabelWidth
+					labelWidth: LabelWidth,
+					define: attr
 				},
 				pos: {width: CellWidth, row: attr.row, col: attr.col}
 			};
 			return layout;
 		}, {});
+	}
+	position() {
+
 	}
 };
 const commonAttrLayout = new CommonAttributesLayout();

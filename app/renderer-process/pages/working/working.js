@@ -2,7 +2,8 @@
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const {Model, Layout, Envs, NForm, NComponent, NPanel, NTab} = require('../../../../node_modules/nest-parrot2/dist/nest-parrot2');
+const Parrot = require('../../../../node_modules/nest-parrot2/dist/nest-parrot2');
+const {Model, Layout, Envs, NForm, NComponent, NPanel, NTab} = Parrot;
 
 // electron related
 const electron = require('electron');
@@ -323,11 +324,6 @@ class BottomBar extends React.Component {
 				},
 				pos: {width: 12, row: 100, col: 100}
 			}
-		};
-	}
-	getPositionLayout() {
-		return {
-			'pos.width': {}
 		};
 	}
 	toggleShown() {

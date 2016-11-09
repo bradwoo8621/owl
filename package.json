@@ -9,7 +9,8 @@
     "dev": "electron . --debug",
     "now": "electron . --trailer",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build",
+    "update-parrot": "npm install nest-parrot2 --save"
   },
   "repository": {
     "type": "git",
@@ -35,8 +36,7 @@
     "gulp-clean-css": "^2.0.12",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "nest-parrot2": "^2.0.2"
+    "gulp-sourcemaps": "^1.6.0"
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.18.0",
@@ -50,9 +50,10 @@
     "extfs": "0.0.7",
     "font-awesome": "^4.7.0",
     "fs-extra": "^0.30.0",
+    "highlightjs": "^9.8.0",
     "jquery": "^3.1.1",
     "mdi": "^1.7.22",
-    "nest-parrot2": "^2.0.3",
+    "nest-parrot2": "^2.0.5",
     "source-code-pro": "0.0.0"
   },
   "build": {
