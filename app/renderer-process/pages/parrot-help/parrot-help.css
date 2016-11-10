@@ -131,11 +131,92 @@ body {
 #guide {
 	display: block;
 	position: fixed;
-	top: 0.4rem;
+	top: 0.8rem;
 	right: 0;
 	width: 25%;
 }
-
+@media (max-width: 767px) {
+	#guide {
+		display: none;
+	}
+}
+#guide .guide {
+	display: block;
+	position: relative;
+}
+#guide .guide ul {
+	margin: 0;
+	padding-left: 0;
+	display: block;
+	position: relative;
+}
+#guide .guide > ul {
+	padding-left: 0.1rem;
+	padding-right: 0.1rem;
+}
+#guide .guide li {
+	margin: 0;
+	list-style: none;
+	display: block;
+	position: relative;
+}
+#guide .guide li a {
+	font-size: 0.12rem;
+	color: #666;
+	line-height: 0.24rem;
+	display: block;
+	border-left: 1px solid transparent;
+	border-right: 1px solid transparent;
+	padding-left: 0.1rem;
+}
+#guide .guide li a:link,
+#guide .guide li a:focus,
+#guide .guide li a:hover,
+#guide .guide li a:active,
+#guide .guide li a:visited {
+	text-decoration: none;
+}
+#guide .guide li > a:hover:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 0.24rem;
+	border-left: 1px solid #26A69A;
+}
+#guide .guide li.guide-0 a {
+}
+#guide .guide li.guide-1 a {
+	padding-left: 0.2rem;
+}
+#guide .guide li.guide-2 a {
+	padding-left: 0.3rem;
+}
+#guide .guide li.guide-3 a {
+	padding-left: 0.4rem;
+}
+#guide .guide li > ul {
+	display: none;
+}
+#guide .guide li.active > ul {
+	display: block;
+}
+#guide .guide li.active > a:before,
+#guide .guide li.active > a:link:before,
+#guide .guide li.active > a:focus:before,
+#guide .guide li.active > a:hover:before,
+#guide .guide li.active > a:active:before,
+#guide .guide li.active > a:visited:before {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 0.24rem;
+	border-left: 1px solid #26A69A;
+	border-right: 1px solid #26A69A;
+}
 #footer {
 	display: block;
 	width: 100%;
