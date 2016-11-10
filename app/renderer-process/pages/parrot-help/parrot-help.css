@@ -45,7 +45,6 @@ body {
 	position: relative;
 	float: left;
 	width: 75%;
-	color: #999;
 }
 #content .section {
 	display: block;
@@ -87,7 +86,36 @@ body {
 #content .section.section-lvl-3 .section-header {
 	font-size: 0.14rem;
 }
+#content .section-body {
+	display: block;
+	position: relative;
+	line-height: 0.24rem;
+}
+#content .section-body .section-body-fragment,
+#content .section-body .section-body-fragment > div {
+	display: block;
+	position: relative;
+}
 
+#content .example {
+	margin-top: 0.15rem;
+	font-weight: bold;
+}
+#content .third-party {
+	color: #1565C0;
+	font-style: italic;
+}
+#content .keyword {
+	color: #1565C0;
+	font-style: italic;
+}
+#content code.inline {
+	background-color: #CFD8DC;
+	border-radius: 4px;
+	padding-left: 0.1rem;
+	padding-right: 0.1rem;
+	font-family: 'Source Code Pro';
+}
 #content pre {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -106,4 +134,20 @@ body {
 	top: 0.4rem;
 	right: 0;
 	width: 25%;
+}
+
+#footer {
+	display: block;
+	width: 100%;
+	height: 0.4rem;
+	background-color: #e0e0e0;
+	margin-top: 0.2rem;
+}
+#footer .copyright {
+	font-size: 0.12rem;
+	line-height: 0.4rem;
+	height: 0.4rem;
+	width: calc(100% - 0.3rem);
+	margin: auto;
+	text-align: right;
 }

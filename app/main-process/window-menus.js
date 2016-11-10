@@ -28,7 +28,7 @@ class Menus {
 			label: 'Exit Working Folder...',
 			accelerator: 'CmdOrCtrl+Alt+W',
 			click(item, focusedWindow) {
-				commander.sendToWindow(focusedWindow, Commands.Home);
+				commander.sendToWindow(focusedWindow, Commands.HOME);
 			}
 		};
 	}

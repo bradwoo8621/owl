@@ -25,7 +25,7 @@ class Router {
 		return path.join('file://', this.getApp().getAppPath(), 'app', file);
 	}
 	initialize() {
-		ipcRenderer.on(Commands.Home, () => {
+		ipcRenderer.on(Commands.HOME, () => {
 			this.relocate('/app/renderer-process/home.html');
 		});
 		return this;

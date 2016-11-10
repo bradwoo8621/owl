@@ -1,7 +1,14 @@
 const path = require('path');
 const electron = require('electron');
-const {app, BrowserWindow, Menu, globalShortcut} = electron;
+const {
+	app, 
+	BrowserWindow, 
+	Menu, 
+	globalShortcut, 
+	ipcMain,
+	clipboard} = electron;
 const {Menus} = require('./main-process/window-menus');
+const {Commands} = require('./common/commander');
 
 const debug = /--debug/.test(process.argv[2]);
 const trailer = /--trailer/.test(process.argv[2]);
@@ -65,7 +72,16 @@ function initialize () {
 		});
 	};
 
+	function registerGlobalShortcut() {
+		globalShortcut.register('CmdOrCtrl+Shift+L', () => {
+			BrowserWindow.getFocusedWindow().webContents.capturePage((image) => {
+				clipboard.writeImage(image, 'png');
+			});
+		});
+	}
+
 	app.on('ready', function () {
+		registerGlobalShortcut();
 		createWindow();
 	});
 	app.on('will-quit', function() {
