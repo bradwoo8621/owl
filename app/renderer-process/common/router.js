@@ -49,7 +49,7 @@ class Router {
 		let html = this.pathRelativeToApp('./renderer-process/parrot-help.html');
 		if (!this.parrotHelpWindow) {
 			this.parrotHelpWindow = this.createBrowserWindow(windowOptions);
-			this.parrotHelpWindow.setMenu(null);
+			// this.parrotHelpWindow.setMenu(null);
 			this.parrotHelpWindow.loadURL(html);
 			this.parrotHelpWindow.on('closed', () => {
 				this.parrotHelpWindow = null;

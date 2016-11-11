@@ -5,6 +5,7 @@ const Parrot = require('../../../node_modules/nest-parrot2/dist/nest-parrot2');
 const {Envs, CodeTable, NComponent} = Parrot;
 
 const {StandardStyles, UnderlineStyles} = require('./standard-components-styles');
+const {StandardPosition} = require('./standard-components-position');
 
 const router = require('../common/router');
 
@@ -70,27 +71,34 @@ class CommonAttributesLayout {
 		if (hasLine) {
 			attrs = attrs.concat(UnderlineStyles);
 		}
-		return attrs.sort((a, b) => {
-			return a.label.localeCompare(b.label);
-		}).map((attr, attrIndex) => {
-			attr.row = attr.col = (attrIndex + 1) * 100;
-			return attr;
-		}).reduce((layout, attr) => {
-			layout[attr.id] = {
-				label: attr.label,
-				comp: {
-					type: Envs.COMPONENT_TYPES.OWL_ATTR_VALUE_EDITOR,
-					labelPosition: LabelPosition,
-					labelWidth: LabelWidth,
-					define: attr
-				},
-				pos: {width: CellWidth, row: attr.row, col: attr.col}
-			};
-			return layout;
-		}, {});
+		return this.convertAttributeDefintionToLayout(attrs);
 	}
 	position() {
-
+		return this.convertAttributeDefintionToLayout(StandardPosition.slice(0));
+	}
+	convertAttributeDefintionToLayout(attrs) {
+		return attrs.sort(this.sort)
+			.map(this.attachAttributePosition)
+			.reduce((layout, attr) => {
+				layout[attr.id] = {
+					label: attr.label,
+					comp: {
+						type: Envs.COMPONENT_TYPES.OWL_ATTR_VALUE_EDITOR,
+						labelPosition: LabelPosition,
+						labelWidth: LabelWidth,
+						define: attr
+					},
+					pos: {width: CellWidth, row: attr.row, col: attr.col}
+				};
+				return layout;
+			}, {});
+	}
+	sort(a, b) {
+		return a.label.localeCompare(b.label);
+	}
+	attachAttributePosition(attr, attrIndex) {
+		attr.row = attr.col = (attrIndex + 1) * 100;
+		return attr;
 	}
 };
 const commonAttrLayout = new CommonAttributesLayout();
@@ -102,6 +110,12 @@ class Component {
 		this.width = options.width;
 		this.layoutOptions = options.layoutOptions;
 		this.attrsLayout = options.attrsLayout;
+		if (!this.attrsLayout) {
+			this.attrsLayout = {};
+		}
+		if (!this.attrsLayout.position) {
+			this.attrsLayout.position = commonAttrLayout.position();
+		}
 	}
 	getLabel() {
 		return this.label;

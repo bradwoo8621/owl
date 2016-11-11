@@ -109,6 +109,15 @@ body {
 	color: #1565C0;
 	font-style: italic;
 }
+#content .warning {
+	color: #b71c1c;
+	background-color: #CFD8DC;
+	border-radius: 4px;
+	padding-left: 0.1rem;
+	padding-right: 0.1rem;
+	font-style: italic;
+	font-weight: bold;
+}
 #content code.inline {
 	background-color: #CFD8DC;
 	border-radius: 4px;
@@ -168,6 +177,7 @@ body {
 	border-left: 1px solid transparent;
 	border-right: 1px solid transparent;
 	padding-left: 0.1rem;
+	outline: none;
 }
 #guide .guide li a:link,
 #guide .guide li a:focus,
