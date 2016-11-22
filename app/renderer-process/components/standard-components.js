@@ -1,7 +1,7 @@
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const Parrot = require('../../../node_modules/nest-parrot2/dist/nest-parrot2');
+const {Parrot} = require('../../../node_modules/nest-parrot2/dist/nest-parrot2');
 const {Envs, CodeTable, NComponent} = Parrot;
 
 const {StandardStyles, UnderlineStyles} = require('./standard-components-styles');

@@ -2,7 +2,7 @@
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const Parrot = require('../../../../node_modules/nest-parrot2/dist/nest-parrot2');
+const {Parrot} = require('../../../../node_modules/nest-parrot2/dist/nest-parrot2');
 const {Model, Layout, Envs, NForm, NComponent, NPanel, NTab} = Parrot;
 
 // electron related
